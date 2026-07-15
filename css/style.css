@@ -30,7 +30,11 @@ header {
     top: auto;
     left: auto;
     z-index: 1000;
-    padding: 25px 40px;
+    padding: 24px 48px;
+display:flex;
+justify-content:space-between;
+align-items:flex-start;
+flex-wrap:wrap;
 }
 
 nav {
@@ -75,7 +79,7 @@ nav {
 nav a {
     color: white;
     font-weight: 700;
-    font-size: 0.95rem;
+    font-size: 1.05rem;
     text-decoration: none;
     transition: all .30s ease;
     position: relative;
@@ -99,16 +103,17 @@ nav a:hover::after {
 }
 
 .hero {
-    min-height: 100vh;
+    min-height: calc(100vh - 90px);
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
     align-items: center;
     text-align: center;
-    padding: 160px 20px 80px;
+    padding: 80px 60px 80px;
 }
 
 .overlay {
-    max-width: 900px;
+    max-width: 760px;
+margin-left:auto;
     margin: 0 auto;
     padding: 20px;
 }
@@ -131,7 +136,8 @@ nav a:hover::after {
 .hero h2 {
     font-size: 2rem;
     color: #D4A52C;
-    max-width: 900px;
+    max-width: 760px;
+margin-left:auto;
     margin: 0 auto 35px;
     font-weight: 700;
 }
@@ -570,7 +576,7 @@ footer a:visited{
 .book-grid {
     display: flex;
     gap: 60px;
-    justify-content: center;
+    justify-content: flex-end;
     flex-wrap: wrap;
 }
 
@@ -639,7 +645,7 @@ footer a:visited{
 
 .book-grid {
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
     align-items: stretch;
     gap: 40px;
     flex-wrap: wrap;
