@@ -13,7 +13,7 @@ body {
     font-family: 'Lato', sans-serif;
     background: #24364D;
     color: #F7F3ED;
-    line-height: 1.7;
+    line-height:1.8;
 }
 
 a{
@@ -108,7 +108,7 @@ nav a:hover::after {
     justify-content: flex-end;
     align-items: center;
     text-align: center;
-    padding: 80px 60px 80px;
+    padding:32px 48px 32px;
 }
 
 .overlay {
@@ -604,7 +604,7 @@ footer a:visited{
 }
 
 .book-content p {
-    line-height: 1.7;
+    line-height:1.8;
     color: #333;
 }
 
