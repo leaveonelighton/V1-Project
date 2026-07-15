@@ -500,7 +500,7 @@ margin-left:auto;
 
 .footer h3,
 .footer h4{
-    color:ffffff;
+    color:#ffffff;
     margin-bottom:15px;
     font-family:Georgia, serif;
 }
@@ -743,3 +743,6 @@ footer a:visited{
     align-items:center;
   }
 }
+
+.footer-brand{max-width:420px;}
+.footer .container{align-items:flex-start;}
