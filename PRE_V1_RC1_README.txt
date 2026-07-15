@@ -1,0 +1,1 @@
+Upload this package to Hostinger as a temporary live site, then iterate toward RC1.
