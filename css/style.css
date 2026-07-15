@@ -113,7 +113,7 @@ nav a:hover::after {
 
 .overlay {
     max-width: 820px;
-    margin-left:auto;
+    margin:0 auto;
 margin-right:8%;
     margin-right: 8%;
     padding: 20px;
@@ -138,7 +138,7 @@ margin-right:8%;
     font-size: 1.8rem;
     color: #D4A52C;
     max-width:900px;
-margin-left:auto;
+margin:0 auto;
 margin-right:8%;
     margin: 0 auto 35px;
     font-weight: 700;
@@ -715,7 +715,7 @@ footer a:visited{
 
 .overlay{
     max-width:700px;
-    margin-left:auto;
+    margin:0 auto;
 margin-right:8%;
     margin-right:8%;
 }
