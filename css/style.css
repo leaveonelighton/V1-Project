@@ -749,3 +749,26 @@ margin-right:8%;
 
 .footer-brand{max-width:420px;}
 .footer .container{align-items:flex-start;}
+
+
+/* ChatGPT layout iteration */
+.hero,.hero-section{
+  min-height:42vh !important;
+  padding-top:24px !important;
+  padding-bottom:24px !important;
+}
+.hero-content,.hero-text{
+  max-width:760px !important;
+  margin:0 auto !important;
+  text-align:left !important;
+}
+.hero h1{
+  font-size:clamp(2.8rem,4vw,4.2rem)!important;
+}
+.hero p{
+  font-size:1.08rem!important;
+  line-height:1.75!important;
+}
+header nav a{
+  padding:0 .5rem!important;
+}
