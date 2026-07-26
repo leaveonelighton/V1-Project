@@ -7,7 +7,7 @@
     ["books.html", "Books"],
     ["walk-with-us.html", "Walk With Us"],
     ["looking-for-hope.html", "Looking for Hope"],
-    ["support.html", "Keep the Light On"],
+    ["support.html", "Support the Story"],
     ["contact.html", "Contact"]
   ];
 
@@ -40,7 +40,7 @@
       <div class="footer-grid">
         <div><h2>LEAVE ONE LIGHT ON</h2><p>A movement of hope, hospitality, and everyday compassion.</p></div>
         <div><h3>Explore</h3><a href="story.html">Our Story</a><a href="house.html">The House</a><a href="gormans.html">The Gorman Legacy</a><a href="books.html">Books</a></div>
-        <div><h3>Take a Step</h3><a href="walk-with-us.html">Walk With Us</a><a href="looking-for-hope.html">Looking for Hope</a><a href="support.html">Keep the Light On</a><a href="contact.html">Contact</a></div>
+        <div><h3>Take a Step</h3><a href="walk-with-us.html">Walk With Us</a><a href="looking-for-hope.html">Looking for Hope</a><a href="support.html">Support the Story</a><a href="contact.html">Contact</a></div>
       </div>
       <div class="footer-bottom"><span>© 2026 Leave One Light On</span><span>Steward Well. Leave One Light On.</span></div>`;
   }
