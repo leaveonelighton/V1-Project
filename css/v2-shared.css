@@ -131,3 +131,68 @@
   .v2-shared-footer .footer-grid { grid-template-columns: 1fr; gap: 1.5rem; }
   .v2-shared-footer .footer-bottom { flex-direction: column; }
 }
+
+.support-page {
+  min-height: calc(100vh - 180px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 76px 6% 110px;
+  position: relative;
+  overflow: hidden;
+}
+.support-page--story {
+  background: radial-gradient(circle at 76% 38%, rgba(212,165,44,.19), transparent 28rem), linear-gradient(145deg, #1b2b3f 0%, #24364d 52%, #1d3047 100%);
+}
+.support-glow {
+  position: absolute;
+  width: 360px;
+  height: 360px;
+  right: 10%;
+  top: 18%;
+  border-radius: 50%;
+  background: rgba(212,165,44,.13);
+  filter: blur(70px);
+  pointer-events: none;
+}
+.support-story {
+  width: min(1160px, 100%);
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(360px, .95fr);
+  gap: clamp(34px, 6vw, 80px);
+  align-items: center;
+  position: relative;
+  z-index: 2;
+}
+.support-message { color: #f7f3ed; }
+.support-message .section-tag { color: #d4a52c; letter-spacing: .2em; margin-bottom: 18px; }
+.support-message h1 { font-family: "Playfair Display", serif; font-size: clamp(3.25rem, 7vw, 5.6rem); line-height: 1; margin: 0 0 28px; color: #f7f3ed; }
+.support-quote { max-width: 670px; font-family: "Playfair Display", serif; font-size: clamp(1.35rem, 2.5vw, 1.85rem); line-height: 1.55; color: #f3e8ce; margin: 0 0 12px; }
+.support-signature { color: #d4a52c; font-size: 1rem; font-weight: 700; letter-spacing: .04em; margin: 0 0 42px; }
+.support-purpose { border-top: 1px solid rgba(247,243,237,.2); padding-top: 26px; }
+.support-purpose h2 { font-family: "Playfair Display", serif; font-size: 1.35rem; color: #f7f3ed; margin: 0 0 16px; }
+.support-purpose ul { display: grid; gap: 11px; margin: 0; padding: 0; list-style: none; }
+.support-purpose li { color: #e9e4dc; font-size: 1.03rem; line-height: 1.55; }
+.support-purpose li span { color: #d4a52c; margin-right: 10px; }
+.support-card { width: 100%; background: linear-gradient(180deg, #fffdf8 0%, #f7f3ed 100%); color: #24364d; text-align: center; padding: clamp(38px, 5vw, 58px); border: 1px solid rgba(212,165,44,.6); border-radius: 24px; box-shadow: 0 30px 80px rgba(0,0,0,.32); position: relative; z-index: 2; }
+.support-window { width: 74px; height: 88px; margin: -2px auto 22px; padding: 7px; border: 4px solid #24364d; border-radius: 38px 38px 7px 7px; box-shadow: 0 0 30px rgba(212,165,44,.28); }
+.support-window span { display: block; width: 100%; height: 100%; border-radius: 30px 30px 3px 3px; background: linear-gradient(90deg, transparent 47%, rgba(36,54,77,.5) 48% 52%, transparent 53%), linear-gradient(transparent 47%, rgba(36,54,77,.5) 48% 52%, transparent 53%), radial-gradient(circle at 50% 42%, #ffe9a6 0%, #e8b945 48%, #c28a1e 100%); }
+.support-card-kicker { color: #a97918; font-size: .78rem; font-weight: 700; letter-spacing: .2em; margin: 0 0 12px; }
+.support-card h2 { font-family: "Playfair Display", serif; font-size: clamp(2.1rem, 4vw, 3rem); line-height: 1.1; color: #24364d; margin: 0 0 20px; }
+.support-lead { color: #46576a; font-size: 1.08rem; line-height: 1.75; margin: 0 auto 26px; max-width: 520px; }
+.support-button { display: block; width: 100%; margin: 4px auto 16px; padding: 17px 22px; text-align: center; box-shadow: 0 12px 28px rgba(212,165,44,.25); }
+.support-secure { color: #566273; font-size: .9rem; margin-bottom: 26px; }
+.support-secure span { color: #4f8a58; font-size: .65rem; margin-right: 5px; }
+.support-purchase-note { border-radius: 10px; background: rgba(212,165,44,.1); color: #49596b; font-size: .88rem; line-height: 1.6; margin: 0 0 20px; padding: 13px 15px; }
+.support-disclosure { border-top: 1px solid rgba(36,54,77,.18); color: #687382; font-size: .84rem; line-height: 1.65; margin-top: 8px; padding-top: 22px; }
+@media (max-width: 900px) {
+  .support-story { grid-template-columns: 1fr; }
+  .support-message { text-align: center; }
+  .support-quote { margin-left: auto; margin-right: auto; }
+  .support-purpose { text-align: left; max-width: 620px; margin: 0 auto; }
+  .support-card { max-width: 620px; margin: 0 auto; }
+}
+@media (max-width: 600px) {
+  .support-page { padding: 48px 18px 72px; }
+  .support-card { padding: 38px 24px; }
+}
