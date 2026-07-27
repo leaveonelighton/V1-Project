@@ -9,11 +9,11 @@
 .v2-shared-header {
   background: var(--v2-deep);
   color: var(--v2-white);
-  padding: 1rem 4vw;
+  padding: 1.2rem 3vw;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 1.5rem;
+  gap: 1.75rem;
   position: relative;
   z-index: 100;
 }
@@ -30,12 +30,12 @@
   font-family: "Playfair Display", serif;
   font-weight: 700;
   letter-spacing: .08em;
-  font-size: 1.25rem;
+  font-size: 1.5rem;
 }
 
 .v2-shared-header .brand-tagline {
   color: var(--v2-gold);
-  font-size: .78rem;
+  font-size: .92rem;
   margin-top: .25rem;
 }
 
@@ -43,12 +43,12 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: .45rem 1rem;
+  gap: .5rem 1.05rem;
 }
 
 .v2-shared-header nav a {
   color: var(--v2-white);
-  font-size: .88rem;
+  font-size: 1rem;
   font-weight: 700;
   text-decoration: none;
   padding: .4rem 0;
@@ -126,8 +126,8 @@
 
 @media (max-width: 700px) {
   .v2-shared-header { padding: .9rem 1rem; }
-  .v2-shared-header .brand-name { font-size: 1rem; }
-  .v2-shared-header .brand-tagline { font-size: .68rem; }
+  .v2-shared-header .brand-name { font-size: 1.2rem; }
+  .v2-shared-header .brand-tagline { font-size: .8rem; }
   .v2-shared-footer .footer-grid { grid-template-columns: 1fr; gap: 1.5rem; }
   .v2-shared-footer .footer-bottom { flex-direction: column; }
 }
