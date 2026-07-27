@@ -624,6 +624,17 @@ footer a:visited{
 .book-card .button {
     margin-top: 20px;
 }
+/* Keep outlined purchase links readable on the white book cards. */
+.book-card .button.secondary {
+    color: #24364D;
+}
+
+.book-card .button.secondary:hover,
+.book-card .button.secondary:focus-visible {
+    background: #D4A52C;
+    color: #24364D;
+}
+
 /* ==========================
    BOOKS PAGE FINAL CLEANUP
 ========================== */
