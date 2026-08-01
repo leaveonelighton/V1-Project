@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "platform": "Gumroad",
+  "profile_url": "https://leaveonelighton.gumroad.com",
+  "product_urls": {
+    "the_light_in_the_window": "https://leaveonelighton.gumroad.com/l/krzwtv",
+    "owners_manual_human_body": "https://leaveonelighton.gumroad.com/l/bpuna"
+  },
+  "enabled": true,
+  "activation_rule": "Enabled with verified public profile and approved public product URLs.",
+  "updated": "2026-08-01"
+}

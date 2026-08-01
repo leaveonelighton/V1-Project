@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "updated": "2026-08-01",
+  "programs": {
+    "amazon": {
+      "enabled": true,
+      "associate_id": "mybookwebs03c-20",
+      "query_parameter": "tag",
+      "required_statement": "As an Amazon Associate I earn from qualifying purchases.",
+      "note": "Public tracking identifier; update this file only. Never place it in page content."
+    },
+    "inkfluence": {
+      "enabled": false,
+      "associate_id": "",
+      "query_parameter": "",
+      "note": "Clean publisher links remain active. Enable only after Ted’s exact associate link format is verified."
+    }
+  }
+}

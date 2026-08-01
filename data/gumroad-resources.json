@@ -1,0 +1,140 @@
+{
+  "version": 1,
+  "purpose": "Movement resources only. Amazon remains the book-purchase destination; InkFluence remains the publishing destination.",
+  "reviewed": "2026-08-01",
+  "next_review": "2027-08-01",
+  "products": [
+    {
+      "id": "book-club-welcome-kit",
+      "category": "Book Clubs",
+      "title": "Book Club Welcome Kit",
+      "summary": "A calm starting point for groups reading The Light in the Window together.",
+      "includes": [
+        "Host welcome note",
+        "Four-meeting reading plan",
+        "Conversation agreements",
+        "Closing invitation"
+      ],
+      "access": "Free",
+      "price_mode": "free",
+      "gumroad_url": "",
+      "status": "ready_for_gumroad_setup"
+    },
+    {
+      "id": "book-discussion-guide",
+      "category": "Discussion Guides",
+      "title": "The Light in the Window Discussion Guide",
+      "summary": "Questions that help readers explore belonging, family, grief, welcome, and practical compassion without forcing agreement.",
+      "includes": [
+        "Chapter prompts",
+        "Reflection questions",
+        "Trauma-aware facilitation notes",
+        "One meaningful next step"
+      ],
+      "access": "Free",
+      "price_mode": "free",
+      "gumroad_url": "",
+      "status": "ready_for_gumroad_setup"
+    },
+    {
+      "id": "foster-care-awareness-primer",
+      "category": "Foster Care Awareness",
+      "title": "Foster Care Awareness Primer",
+      "summary": "A plain-language introduction to foster care, common myths, trustworthy sources, and responsible ways to learn more.",
+      "includes": [
+        "Foster Care 101",
+        "Language guide",
+        "Myth and fact pages",
+        "National and state starting points"
+      ],
+      "access": "Free",
+      "price_mode": "free",
+      "gumroad_url": "",
+      "status": "ready_for_gumroad_setup"
+    },
+    {
+      "id": "story-preservation-workbook",
+      "category": "Story Preservation",
+      "title": "Leave the Light On: A Story Preservation Workbook",
+      "summary": "A guided workbook for recording the people, places, memories, and ordinary acts of care that shaped a life.",
+      "includes": [
+        "Interview prompts",
+        "Memory timeline",
+        "Photo and document log",
+        "Permission and privacy checklist"
+      ],
+      "access": "Pay What You Want",
+      "price_mode": "pay_what_you_want",
+      "suggested_price_usd": 7,
+      "gumroad_url": "",
+      "status": "ready_for_gumroad_setup"
+    },
+    {
+      "id": "workplace-conversation-guide",
+      "category": "Workplace Engagement",
+      "title": "One Light at Work Conversation Guide",
+      "summary": "A practical guide for respectful workplace conversations about mentoring, service, foster-family support, and community involvement.",
+      "includes": [
+        "30-minute conversation plan",
+        "Nonpartisan facilitator notes",
+        "Team invitation menu",
+        "Follow-up worksheet"
+      ],
+      "access": "Pay What You Want",
+      "price_mode": "pay_what_you_want",
+      "suggested_price_usd": 9,
+      "gumroad_url": "",
+      "status": "ready_for_gumroad_setup"
+    },
+    {
+      "id": "community-light-starter-kit",
+      "category": "Community Engagement",
+      "title": "Community Light Starter Kit",
+      "summary": "A small-group toolkit for turning concern into one realistic local act of compassion.",
+      "includes": [
+        "Listening-session guide",
+        "Community asset map",
+        "Invitation planner",
+        "After-action reflection"
+      ],
+      "access": "Pay What You Want",
+      "price_mode": "pay_what_you_want",
+      "suggested_price_usd": 9,
+      "gumroad_url": "",
+      "status": "ready_for_gumroad_setup"
+    },
+    {
+      "id": "printable-invitation-cards",
+      "category": "Printable Resources",
+      "title": "One Meaningful Step Printable Cards",
+      "summary": "Simple printable cards that invite reflection, service, gratitude, mentoring, blood donation, and neighborly care.",
+      "includes": [
+        "Eight printable invitations",
+        "Letter-size and card formats",
+        "Black-and-white version",
+        "Accessibility notes"
+      ],
+      "access": "Free",
+      "price_mode": "free",
+      "gumroad_url": "",
+      "status": "ready_for_gumroad_setup"
+    },
+    {
+      "id": "facilitator-learning-bundle",
+      "category": "Educational Materials",
+      "title": "Movement Facilitator Learning Bundle",
+      "summary": "A deeper collection for book clubs, workplaces, churches, schools, and community groups facilitating structured learning.",
+      "includes": [
+        "Book-club leader guide",
+        "Workplace toolkit",
+        "Community session plan",
+        "Printable participant materials"
+      ],
+      "access": "Fixed Price",
+      "price_mode": "fixed",
+      "price_usd": 19,
+      "gumroad_url": "",
+      "status": "ready_for_gumroad_setup"
+    }
+  ]
+}
