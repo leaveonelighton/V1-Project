@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "updated_at": null,
+  "total_documented_next_steps": 0,
+  "cycle_goal": 100,
+  "cycle_total": 0,
+  "categories": {
+    "foster_resource_opened": 0,
+    "state_foster_contact_opened": 0,
+    "adoption_resource_opened": 0,
+    "mentoring_resource_opened": 0,
+    "foster_family_support_opened": 0,
+    "newsletter_opt_in": 0,
+    "workplace_inquiry_completed": 0,
+    "church_inquiry_completed": 0,
+    "volunteer_interest_completed": 0,
+    "financial_support_completed": 0,
+    "self_reported_action_confirmed": 0
+  }
+}

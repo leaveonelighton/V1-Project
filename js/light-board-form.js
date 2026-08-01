@@ -1,0 +1,1 @@
+document.addEventListener('DOMContentLoaded',()=>{const t=document.querySelector('#act');const n=document.querySelector('[data-character-count]');if(t&&n){const run=()=>n.textContent=t.value.length;t.addEventListener('input',run);run();}});

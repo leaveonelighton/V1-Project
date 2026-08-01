@@ -1,0 +1,248 @@
+{
+  "version": 1,
+  "review_policy": "Annual review and immediate review after a material concern or broken-link report.",
+  "organizations": [
+    {
+      "category": "Children & Families",
+      "name": "Boys & Girls Clubs of America",
+      "mission": "Supports local clubs that provide young people with safe places, caring adults, and development opportunities.",
+      "alignment": "Its emphasis on belonging, dependable relationships, and practical community presence reflects the movement’s welcome-first posture.",
+      "benefits": "Young people, families, prospective volunteers, and local communities.",
+      "url": "https://www.bgca.org/",
+      "reviewed": "2026-08-01",
+      "next_review": "2027-08-01",
+      "owner": "Resources Steward"
+    },
+    {
+      "category": "Children & Families",
+      "name": "Save the Children US",
+      "mission": "Works to improve children’s health, education, protection, and emergency support in the United States and around the world.",
+      "alignment": "It connects practical service with the dignity and well-being of children and families.",
+      "benefits": "Children and families affected by poverty, crisis, or limited access to essential support.",
+      "url": "https://www.savethechildren.org/us/",
+      "reviewed": "2026-08-01",
+      "next_review": "2027-08-01",
+      "owner": "Resources Steward"
+    },
+    {
+      "category": "Foster Care & Adoption",
+      "name": "AdoptUSKids",
+      "mission": "A federally funded national project that educates families about foster care and adoption and connects them with responsible state, territorial, and tribal systems.",
+      "alignment": "It offers a credible first step without implying that Leave One Light On licenses homes or places children.",
+      "benefits": "People exploring foster parenting or adoption from foster care, and child-welfare professionals.",
+      "url": "https://www.adoptuskids.org/",
+      "reviewed": "2026-08-01",
+      "next_review": "2027-08-01",
+      "owner": "Resources Steward"
+    },
+    {
+      "category": "Foster Care & Adoption",
+      "name": "National Foster Parent Association",
+      "mission": "Provides education, advocacy resources, and support for foster, kinship, and adoptive families.",
+      "alignment": "It recognizes that families need preparation, connection, and continuing support—not only recruitment.",
+      "benefits": "Foster, kinship, and adoptive parents and the professionals who support them.",
+      "url": "https://nfpaonline.org/",
+      "reviewed": "2026-08-01",
+      "next_review": "2027-08-01",
+      "owner": "Resources Steward"
+    },
+    {
+      "category": "Foster Care & Adoption",
+      "name": "Dave Thomas Foundation for Adoption",
+      "mission": "Works to increase adoptions from North America’s foster-care systems, including through its Wendy’s Wonderful Kids program.",
+      "alignment": "Its focus on permanency for children waiting in foster care aligns with the movement’s concern for belonging and committed adults.",
+      "benefits": "Children waiting in foster care, prospective adoptive families, and child-welfare systems.",
+      "url": "https://www.davethomasfoundation.org/",
+      "reviewed": "2026-08-01",
+      "next_review": "2027-08-01",
+      "owner": "Resources Steward"
+    },
+    {
+      "category": "Mentoring",
+      "name": "MENTOR — Mentoring Connector",
+      "mission": "Maintains a national database that helps people find youth-mentoring programs by location, youth served, and program type.",
+      "alignment": "It helps visitors move from interest to a screened local program rather than attempting informal, unsupported contact.",
+      "benefits": "Prospective mentors, families seeking programs, and mentoring organizations.",
+      "url": "https://mentoring.org/what-we-do/mentoring-connector/",
+      "reviewed": "2026-08-01",
+      "next_review": "2027-08-01",
+      "owner": "Resources Steward"
+    },
+    {
+      "category": "Mentoring",
+      "name": "Big Brothers Big Sisters of America",
+      "mission": "Creates and supports one-to-one mentoring relationships between caring adults and young people through local agencies.",
+      "alignment": "Its focus on consistent, supported relationships reflects the movement’s belief in showing up over time.",
+      "benefits": "Young people, parents or guardians, and adults considering a structured mentoring commitment.",
+      "url": "https://www.bbbs.org/",
+      "reviewed": "2026-08-01",
+      "next_review": "2027-08-01",
+      "owner": "Resources Steward"
+    },
+    {
+      "category": "Veterans & First Responders",
+      "name": "Gary Sinise Foundation",
+      "mission": "Serves veterans, first responders, their families, and those who have sacrificed through housing, wellness, outreach, and community programs.",
+      "alignment": "It demonstrates gratitude through tangible service and long-term care for people who serve others.",
+      "benefits": "Veterans, service members, first responders, and their families.",
+      "url": "https://www.garysinisefoundation.org/",
+      "reviewed": "2026-08-01",
+      "next_review": "2027-08-01",
+      "owner": "Resources Steward"
+    },
+    {
+      "category": "Veterans & First Responders",
+      "name": "The Mission Continues",
+      "mission": "Engages veterans in community-service projects and leadership opportunities after military service.",
+      "alignment": "It connects continued purpose with practical service in local communities.",
+      "benefits": "Veterans seeking service and connection, and communities seeking volunteer leadership.",
+      "url": "https://www.missioncontinues.org/",
+      "reviewed": "2026-08-01",
+      "next_review": "2027-08-01",
+      "owner": "Resources Steward"
+    },
+    {
+      "category": "Health & Blood Donation",
+      "name": "American Red Cross Blood Services",
+      "mission": "Collects blood, platelets, and plasma and helps eligible donors find appointments and understand donation requirements.",
+      "alignment": "Blood donation is a direct, often anonymous act of practical compassion.",
+      "benefits": "Eligible blood donors, blood-drive hosts, volunteers, and patients who rely on blood products.",
+      "url": "https://www.redcrossblood.org/",
+      "reviewed": "2026-08-01",
+      "next_review": "2027-08-01",
+      "owner": "Resources Steward"
+    },
+    {
+      "category": "Health & Blood Donation",
+      "name": "America’s Blood Centers",
+      "mission": "Represents independent community blood centers and helps people locate blood-donation organizations.",
+      "alignment": "It broadens the path beyond any single collection organization and supports locally supplied blood care.",
+      "benefits": "Eligible donors, community blood centers, hospitals, and patients.",
+      "url": "https://americasblood.org/",
+      "reviewed": "2026-08-01",
+      "next_review": "2027-08-01",
+      "owner": "Resources Steward"
+    },
+    {
+      "category": "Health & Blood Donation",
+      "name": "NMDP",
+      "mission": "Connects patients with blood stem-cell donors and supports cellular therapy, research, and patient services.",
+      "alignment": "It offers another deeply personal way eligible people may help someone they may never meet.",
+      "benefits": "Patients needing blood stem-cell therapy, potential registry members, donors, and families.",
+      "url": "https://www.nmdp.org/",
+      "reviewed": "2026-08-01",
+      "next_review": "2027-08-01",
+      "owner": "Resources Steward"
+    },
+    {
+      "category": "Community Service",
+      "name": "Points of Light",
+      "mission": "Connects people and organizations with volunteer opportunities, civic-service resources, and local networks.",
+      "alignment": "It helps visitors find practical ways to serve according to their time, abilities, and community.",
+      "benefits": "Individuals, families, companies, nonprofits, and community volunteer leaders.",
+      "url": "https://www.pointsoflight.org/for-volunteers/",
+      "reviewed": "2026-08-01",
+      "next_review": "2027-08-01",
+      "owner": "Resources Steward"
+    },
+    {
+      "category": "Community Service",
+      "name": "AmeriCorps",
+      "mission": "A federal agency supporting national service and volunteer programs addressing community needs across the United States.",
+      "alignment": "It offers structured service pathways for people ready for a deeper time commitment.",
+      "benefits": "People considering national service, community organizations, and volunteers seeking structured opportunities.",
+      "url": "https://www.americorps.gov/",
+      "reviewed": "2026-08-01",
+      "next_review": "2027-08-01",
+      "owner": "Resources Steward"
+    },
+    {
+      "category": "Hunger Relief",
+      "name": "Feeding America",
+      "mission": "Supports a nationwide network of food banks and helps visitors find food assistance or local volunteer opportunities.",
+      "alignment": "It connects immediate human need with concrete local action and respect for neighbors.",
+      "benefits": "People seeking food assistance, volunteers, food banks, and community partners.",
+      "url": "https://www.feedingamerica.org/",
+      "reviewed": "2026-08-01",
+      "next_review": "2027-08-01",
+      "owner": "Resources Steward"
+    },
+    {
+      "category": "Hunger Relief",
+      "name": "Meals on Wheels America",
+      "mission": "Supports local programs delivering meals, connection, and safety checks to older adults.",
+      "alignment": "A meal and a human visit are practical expressions of care, dignity, and dependable presence.",
+      "benefits": "Older adults, caregivers, local volunteers, and community meal programs.",
+      "url": "https://www.mealsonwheelsamerica.org/",
+      "reviewed": "2026-08-01",
+      "next_review": "2027-08-01",
+      "owner": "Resources Steward"
+    },
+    {
+      "category": "Disaster Relief",
+      "name": "Direct Relief",
+      "mission": "Provides medical aid and emergency health support in response to disasters, poverty, and other urgent needs.",
+      "alignment": "It emphasizes practical, professionally coordinated assistance where health systems and communities are under strain.",
+      "benefits": "Health facilities, communities affected by disasters, and people seeking responsible ways to support relief.",
+      "url": "https://www.directrelief.org/",
+      "reviewed": "2026-08-01",
+      "next_review": "2027-08-01",
+      "owner": "Resources Steward"
+    },
+    {
+      "category": "Disaster Relief",
+      "name": "Team Rubicon",
+      "mission": "Mobilizes veteran-led volunteer teams to help communities prepare for, respond to, and recover from disasters.",
+      "alignment": "It combines continued service, practical skill, and disciplined disaster response.",
+      "benefits": "Disaster-affected communities, veterans, first responders, and qualified volunteers.",
+      "url": "https://teamrubiconusa.org/",
+      "reviewed": "2026-08-01",
+      "next_review": "2027-08-01",
+      "owner": "Resources Steward"
+    },
+    {
+      "category": "Housing",
+      "name": "Habitat for Humanity",
+      "mission": "Works with local communities and families to build, repair, and improve homes and offers local volunteer opportunities.",
+      "alignment": "Safe, stable housing and neighbors working beside one another reflect practical hospitality.",
+      "benefits": "Families seeking housing pathways, homeowners needing repairs, and local volunteers.",
+      "url": "https://www.habitat.org/volunteer/near-you",
+      "reviewed": "2026-08-01",
+      "next_review": "2027-08-01",
+      "owner": "Resources Steward"
+    },
+    {
+      "category": "Housing",
+      "name": "National Alliance to End Homelessness",
+      "mission": "Uses research, education, and policy analysis to support effective responses to homelessness.",
+      "alignment": "It helps visitors understand housing instability through evidence rather than stereotypes or outrage.",
+      "benefits": "Service providers, researchers, community leaders, and people learning about homelessness solutions.",
+      "url": "https://endhomelessness.org/",
+      "reviewed": "2026-08-01",
+      "next_review": "2027-08-01",
+      "owner": "Resources Steward"
+    },
+    {
+      "category": "Local Opportunities",
+      "name": "211",
+      "mission": "Connects people with local health and human-service information through regional 211 networks.",
+      "alignment": "It gives visitors a practical place to begin when a need is local and the appropriate provider is unclear.",
+      "benefits": "People seeking local assistance, caregivers, families, and community members.",
+      "url": "https://www.211.org/",
+      "reviewed": "2026-08-01",
+      "next_review": "2027-08-01",
+      "owner": "Resources Steward"
+    },
+    {
+      "category": "Local Opportunities",
+      "name": "VolunteerMatch",
+      "mission": "Helps people search for volunteer opportunities offered by participating organizations.",
+      "alignment": "It allows guests to choose service that fits their location, interests, skills, and availability.",
+      "benefits": "Prospective volunteers and organizations recruiting volunteers.",
+      "url": "https://www.volunteermatch.org/",
+      "reviewed": "2026-08-01",
+      "next_review": "2027-08-01",
+      "owner": "Resources Steward"
+    }
+  ]
+}
