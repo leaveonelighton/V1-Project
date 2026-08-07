@@ -1,0 +1,593 @@
+/* Leave One Light On — V3 global refinement layer */
+
+/* Brand */
+.brand-name{
+  font-size:1.35rem;
+  line-height:1.1;
+}
+
+.brand-tagline{
+  display:block;
+  margin-top:.35rem;
+  font-size:1.05rem;
+  line-height:1.3;
+  font-weight:700;
+  color:#ffd24a;
+}
+
+/* Meaningful secondary hero line */
+.hero-line,
+.hero-gold-line{
+  margin:.65rem 0 0;
+  color:#ffd24a;
+  font-family:"Playfair Display",serif;
+  font-size:clamp(1.6rem,2.3vw,2.2rem);
+  font-weight:600;
+  line-height:1.2;
+}
+
+/* Comfortable global reading */
+main p{
+  line-height:1.65;
+}
+
+/* Mobile */
+@media (max-width:780px){
+  .brand-name{
+    font-size:1.2rem;
+  }
+
+  .brand-tagline{
+    font-size:.95rem;
+  }
+}
+
+/* V3 INTERACTION + RHYTHM */
+
+/* Consistent section breathing room */
+.section-light,
+.section-navy,
+.closing {
+  padding-top: clamp(3.75rem, 6vw, 5.5rem);
+  padding-bottom: clamp(3.75rem, 6vw, 5.5rem);
+}
+
+/* Compact heroes stay substantial without feeling oversized */
+.page-hero.compact {
+  padding-top: clamp(3.5rem, 6vw, 5rem);
+  padding-bottom: clamp(3.5rem, 6vw, 5rem);
+}
+
+/* Buttons: consistent, obvious, comfortable */
+.button {
+  min-height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: .55rem;
+  line-height: 1.2;
+}
+
+/* Navigation and controls: usable tap targets */
+.site-header nav a,
+.mobile-menu summary {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+}
+
+/* Cards: one shared interaction language */
+.path-card,
+.feature-card,
+.side-card {
+  transition:
+    transform .16s ease,
+    box-shadow .16s ease,
+    border-color .16s ease;
+}
+
+.path-card:hover,
+.feature-card:hover,
+.side-card:hover {
+  border-color: rgba(212,165,44,.55);
+  box-shadow: 0 16px 38px rgba(23,37,56,.14);
+}
+
+/* Text links should look intentional */
+.text-link {
+  text-underline-offset: .2em;
+  text-decoration-thickness: .08em;
+}
+
+.text-link:hover,
+.text-link:focus-visible {
+  color: var(--gold-dark);
+}
+
+/* Mobile refinement */
+@media (max-width:760px) {
+  .section-light,
+  .section-navy,
+  .closing {
+    padding-top: 3.25rem;
+    padding-bottom: 3.25rem;
+  }
+
+  .page-hero.compact {
+    padding-top: 3.25rem;
+    padding-bottom: 3.25rem;
+  }
+
+  .button {
+    min-height: 50px;
+  }
+}
+
+/* Respect reduced-motion preference */
+@media (prefers-reduced-motion:reduce) {
+  .path-card,
+  .feature-card,
+  .side-card {
+    transition: none;
+  }
+}
+
+/* =========================================================
+   V3 MASTER VISUAL SYSTEM
+   Homepage / Research pattern applied site-wide
+   ========================================================= */
+
+/* HEADER */
+.site-header{
+  background:var(--deep) !important;
+  color:var(--white) !important;
+  padding:1.15rem 2vw 1rem !important;
+}
+
+.brand-name{
+  font-family:"Playfair Display",Georgia,serif !important;
+  font-size:1.45rem !important;
+  line-height:1.05 !important;
+  font-weight:700 !important;
+  letter-spacing:.06em !important;
+}
+
+.brand-tagline{
+  display:block !important;
+  margin-top:.4rem !important;
+  color:#ffd24a !important;
+  font-size:.95rem !important;
+  line-height:1.2 !important;
+  font-weight:700 !important;
+}
+
+.site-header nav a{
+  font-size:.88rem !important;
+}
+
+/* HERO — THIS IS THE V3 LOOK */
+.page-hero,
+.home-hero,
+.golden-hero{
+  background:
+    radial-gradient(circle at 78% 25%,rgba(212,165,44,.14),transparent 26%),
+    linear-gradient(135deg,var(--deep),var(--navy)) !important;
+  color:var(--white) !important;
+  padding:5.5rem 5vw !important;
+}
+
+.page-hero .narrow,
+.home-hero .narrow,
+.golden-hero .narrow{
+  width:min(800px,100%) !important;
+  margin:0 auto !important;
+}
+
+/* GOLD CONTEXT LINE */
+.page-hero .eyebrow,
+.home-hero .eyebrow,
+.golden-hero .eyebrow,
+.hero-line,
+.hero-gold-line{
+  color:#ffd24a !important;
+  font-family:"Playfair Display",Georgia,serif;
+}
+
+.page-hero .eyebrow,
+.home-hero .eyebrow,
+.golden-hero .eyebrow{
+  font-family:Lato,Arial,sans-serif !important;
+  font-size:.95rem !important;
+  font-weight:700 !important;
+  letter-spacing:.17em !important;
+  text-transform:uppercase !important;
+  margin:0 0 1.25rem !important;
+}
+
+/* PRIMARY STATEMENT */
+.page-hero h1,
+.home-hero h1,
+.golden-hero h1{
+  color:var(--white) !important;
+  font-family:"Playfair Display",Georgia,serif !important;
+  font-size:clamp(3.6rem,6vw,6rem) !important;
+  line-height:1.02 !important;
+  font-weight:600 !important;
+  margin:0 0 1rem !important;
+  max-width:900px !important;
+}
+
+/* GOLD SECONDARY THOUGHT */
+.hero-line,
+.hero-gold-line{
+  font-size:clamp(1.8rem,3vw,2.7rem) !important;
+  font-weight:600 !important;
+  line-height:1.15 !important;
+  margin:.4rem 0 1rem !important;
+}
+
+/* SUPPORT COPY */
+.page-hero .narrow > p:not(.eyebrow):not(.hero-line):not(.hero-gold-line),
+.home-hero .narrow > p:not(.eyebrow):not(.hero-line):not(.hero-gold-line),
+.golden-hero .narrow > p:not(.eyebrow):not(.hero-line):not(.hero-gold-line){
+  color:var(--white) !important;
+  font-family:Lato,Arial,sans-serif !important;
+  font-size:1.08rem !important;
+  line-height:1.6 !important;
+  max-width:720px !important;
+  margin-top:1rem !important;
+}
+
+/* PRIMARY ACTION */
+.button{
+  min-height:48px !important;
+  display:inline-flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  background:var(--gold) !important;
+  color:var(--deep) !important;
+  border-color:var(--gold) !important;
+  border-radius:.5rem !important;
+  font-weight:700 !important;
+}
+
+/* SECONDARY ACTION */
+.button-outline,
+.button-outline-light{
+  background:transparent !important;
+  border-color:var(--gold) !important;
+  color:inherit !important;
+}
+
+/* CONTENT RHYTHM */
+.section-light,
+.section-navy,
+.closing{
+  padding-top:4.5rem !important;
+  padding-bottom:4.5rem !important;
+}
+
+/* MOBILE */
+@media(max-width:760px){
+  .site-header{
+    padding:1rem 5vw !important;
+  }
+
+  .brand-name{
+    font-size:1.2rem !important;
+  }
+
+  .brand-tagline{
+    font-size:.9rem !important;
+  }
+
+  .page-hero,
+  .home-hero,
+  .golden-hero{
+    padding:4rem 6vw !important;
+  }
+
+  .page-hero h1,
+  .home-hero h1,
+  .golden-hero h1{
+    font-size:clamp(2.8rem,12vw,4.3rem) !important;
+  }
+
+  .hero-line,
+  .hero-gold-line{
+    font-size:clamp(1.5rem,7vw,2.1rem) !important;
+  }
+}
+
+/* =========================================================
+   V3 TITLE + SUBTITLE PATTERN
+   ========================================================= */
+
+.page-hero .hero-subtitle,
+.home-hero .hero-subtitle,
+.golden-hero .hero-subtitle {
+  margin: .35rem 0 1.15rem !important;
+  color: #ffd24a !important;
+  font-family: "Playfair Display", Georgia, serif !important;
+  font-size: clamp(1.8rem, 3vw, 2.7rem) !important;
+  font-weight: 600 !important;
+  line-height: 1.12 !important;
+  letter-spacing: 0 !important;
+  text-transform: none !important;
+}
+
+/* Supporting copy follows subtitle quietly */
+.page-hero .hero-subtitle + p {
+  margin-top: 0 !important;
+  max-width: 720px !important;
+  color: var(--white) !important;
+  font-family: Lato, Arial, sans-serif !important;
+  font-size: 1.08rem !important;
+  line-height: 1.6 !important;
+}
+
+@media(max-width:760px){
+  .page-hero .hero-subtitle,
+  .home-hero .hero-subtitle,
+  .golden-hero .hero-subtitle {
+    font-size: clamp(1.5rem, 7vw, 2.1rem) !important;
+  }
+}
+
+/* =========================================================
+   V3 CARD SYSTEM
+   Clear title -> short explanation -> obvious action
+   ========================================================= */
+
+.path-card,
+.feature-card,
+.release-panel,
+.side-card,
+.intent-card,
+.readiness-level {
+  background: var(--white);
+  border: 1px solid rgba(36,54,77,.14);
+  border-top: 3px solid var(--gold);
+  border-radius: .65rem;
+  box-shadow: 0 12px 30px rgba(23,37,56,.08);
+}
+
+/* Main cards */
+.path-card,
+.feature-card,
+.release-panel,
+.side-card {
+  padding: 1.6rem;
+}
+
+/* Card titles */
+.path-card h2,
+.feature-card h2,
+.release-panel h2,
+.side-card h2 {
+  margin: 0 0 .65rem;
+  color: var(--deep);
+  font-family: "Playfair Display", Georgia, serif;
+  line-height: 1.15;
+}
+
+/* Card copy */
+.path-card p,
+.feature-card p,
+.release-panel p,
+.side-card p {
+  margin: .45rem 0 1rem;
+  line-height: 1.55;
+}
+
+/* Small taxonomy stays secondary */
+.card-label,
+.section-label {
+  margin: 0 0 .55rem;
+  color: var(--gold-dark);
+  font-size: .76rem;
+  font-weight: 700;
+  letter-spacing: .13em;
+  text-transform: uppercase;
+}
+
+/* Entire linked cards feel interactive */
+a.feature-card,
+a.intent-card {
+  transition:
+    transform .15s ease,
+    box-shadow .15s ease,
+    border-color .15s ease;
+}
+
+a.feature-card:hover,
+a.feature-card:focus-visible,
+a.intent-card:hover,
+a.intent-card:focus-visible {
+  transform: translateY(-3px);
+  border-color: var(--gold);
+  box-shadow: 0 18px 38px rgba(23,37,56,.13);
+}
+
+/* Action links */
+.path-card .text-link,
+.feature-card .text-link,
+.release-panel .text-link,
+.side-card .text-link {
+  display: inline-block;
+  margin-top: .35rem;
+  color: var(--deep);
+  font-weight: 700;
+  text-decoration-color: var(--gold);
+  text-decoration-thickness: 2px;
+  text-underline-offset: .2em;
+}
+
+/* Grids maintain comfortable rhythm */
+.card-grid,
+.path-card-grid,
+.release-three {
+  gap: 1.35rem;
+}
+
+/* Mobile */
+@media(max-width:760px) {
+  .path-card,
+  .feature-card,
+  .release-panel,
+  .side-card {
+    padding: 1.35rem;
+  }
+}
+
+/* =========================================================
+   V3 NAVIGATION + MOBILE SYSTEM
+   ========================================================= */
+
+/* Desktop header structure */
+.site-header{
+  display:grid !important;
+  grid-template-columns:auto 1fr !important;
+  grid-template-areas:
+    "brand main"
+    "brand utility" !important;
+  column-gap:2rem !important;
+  row-gap:.45rem !important;
+  align-items:start !important;
+}
+
+.site-header .brand{
+  grid-area:brand !important;
+}
+
+.desktop-nav{
+  grid-area:main !important;
+  justify-self:end !important;
+  display:flex !important;
+  flex-wrap:wrap !important;
+  gap:1rem !important;
+}
+
+.utility-nav{
+  grid-area:utility !important;
+  justify-self:end !important;
+  display:flex !important;
+  flex-wrap:wrap !important;
+  gap:.85rem !important;
+}
+
+.site-header nav a{
+  white-space:nowrap !important;
+}
+
+.utility-nav a{
+  font-size:.78rem !important;
+  opacity:.96;
+}
+
+/* Keep the visual hierarchy clear */
+.desktop-nav a:hover,
+.desktop-nav a:focus-visible,
+.utility-nav a:hover,
+.utility-nav a:focus-visible{
+  color:#ffd24a !important;
+}
+
+/* Mobile menu becomes the single navigation source */
+@media(max-width:1080px){
+  .site-header{
+    display:flex !important;
+    align-items:center !important;
+    justify-content:space-between !important;
+    gap:1rem !important;
+  }
+
+  .desktop-nav,
+  .utility-nav{
+    display:none !important;
+  }
+
+  .mobile-menu{
+    display:block !important;
+  }
+
+  .mobile-menu summary{
+    min-width:88px;
+    justify-content:center;
+    border:1px solid var(--gold) !important;
+    border-radius:.5rem !important;
+    color:var(--white) !important;
+  }
+
+  .mobile-menu[open] nav{
+    display:grid !important;
+    grid-template-columns:1fr 1fr !important;
+    gap:.25rem 1rem !important;
+    padding:1.25rem 5vw 1.5rem !important;
+    box-shadow:0 20px 35px rgba(0,0,0,.18);
+  }
+
+  .mobile-menu nav a{
+    min-height:44px !important;
+    padding:.6rem 0 !important;
+  }
+}
+
+@media(max-width:560px){
+  .mobile-menu[open] nav{
+    grid-template-columns:1fr !important;
+  }
+}
+
+/* =========================================================
+   V3 NEXT-STEP / CLOSING SYSTEM
+   ========================================================= */
+
+/* Existing next-step blocks become unmistakable */
+.next-step{
+  background:
+    linear-gradient(135deg,var(--deep),var(--navy)) !important;
+  color:var(--white) !important;
+  border-left:5px solid var(--gold) !important;
+  border-radius:.7rem !important;
+  padding:2rem !important;
+  margin-top:2.5rem !important;
+}
+
+.next-step h2,
+.next-step h3{
+  color:var(--white) !important;
+}
+
+.next-step .section-label,
+.next-step .card-label{
+  color:#ffd24a !important;
+}
+
+/* Strong page endings */
+.closing{
+  text-align:center !important;
+}
+
+.closing .narrow,
+.closing .wide{
+  max-width:800px !important;
+  margin-inline:auto !important;
+}
+
+.closing h2{
+  margin-bottom:.7rem !important;
+}
+
+.closing .button-row{
+  margin-top:1.5rem !important;
+}
+
+/* Tertiary links stay quiet */
+.hero-help,
+.closing .text-link{
+  display:inline-block;
+  margin-top:1rem;
+  font-weight:700;
+  text-underline-offset:.2em;
+}
