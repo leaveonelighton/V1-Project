@@ -287,3 +287,78 @@
     font-size:1.05rem
   }
 }
+
+/* Release 002.2 — explicit shared dark-shell color rules */
+.site-header,
+.golden-hero,
+.page-hero,
+.section-navy,
+.site-footer {
+  background: var(--navy);
+  color: var(--white);
+}
+
+.site-header,
+.site-header a,
+.desktop-nav a,
+.utility-nav a,
+.mobile-menu summary,
+.mobile-menu nav a {
+  color: var(--white);
+}
+
+.golden-hero h1,
+.page-hero h1,
+.section-navy h1,
+.section-navy h2,
+.section-navy h3,
+.site-footer h2,
+.site-footer h3 {
+  color: var(--white);
+}
+
+.golden-hero p,
+.page-hero p,
+.section-navy p,
+.section-navy li,
+.site-footer p,
+.site-footer a,
+.site-footer span {
+  color: var(--white);
+}
+
+.golden-hero .hero-line,
+.golden-hero .eyebrow,
+.brand-tagline,
+.section-navy .section-label {
+  color: #ffd24a;
+}
+
+.site-header .brand-name {
+  color: var(--white);
+}
+
+.site-header .brand-tagline {
+  color: #ffd24a;
+}
+
+.golden-hero .button-outline-light {
+  color: var(--white);
+  border-color: #ffd24a;
+}
+
+.golden-hero .button-outline-light:hover,
+.golden-hero .button-outline-light:focus-visible {
+  background: #ffd24a;
+  color: var(--navy);
+}
+
+.golden-hero .hero-help,
+.golden-hero .hero-help:visited {
+  color: var(--white);
+}
+
+.golden-hero .hero-help:hover,
+.golden-hero .hero-help:focus-visible {
+  color: #ffd24a;
+}
