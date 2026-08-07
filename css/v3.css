@@ -1,0 +1,43 @@
+/* Leave One Light On — V3 global refinement layer */
+
+/* Brand */
+.brand-name{
+  font-size:1.35rem;
+  line-height:1.1;
+}
+
+.brand-tagline{
+  display:block;
+  margin-top:.35rem;
+  font-size:1.05rem;
+  line-height:1.3;
+  font-weight:700;
+  color:#ffd24a;
+}
+
+/* Meaningful secondary hero line */
+.hero-line,
+.hero-gold-line{
+  margin:.65rem 0 0;
+  color:#ffd24a;
+  font-family:"Playfair Display",serif;
+  font-size:clamp(1.6rem,2.3vw,2.2rem);
+  font-weight:600;
+  line-height:1.2;
+}
+
+/* Comfortable global reading */
+main p{
+  line-height:1.65;
+}
+
+/* Mobile */
+@media (max-width:780px){
+  .brand-name{
+    font-size:1.2rem;
+  }
+
+  .brand-tagline{
+    font-size:.95rem;
+  }
+}
