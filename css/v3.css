@@ -333,3 +333,261 @@ main p{
     font-size: clamp(1.5rem, 7vw, 2.1rem) !important;
   }
 }
+
+/* =========================================================
+   V3 CARD SYSTEM
+   Clear title -> short explanation -> obvious action
+   ========================================================= */
+
+.path-card,
+.feature-card,
+.release-panel,
+.side-card,
+.intent-card,
+.readiness-level {
+  background: var(--white);
+  border: 1px solid rgba(36,54,77,.14);
+  border-top: 3px solid var(--gold);
+  border-radius: .65rem;
+  box-shadow: 0 12px 30px rgba(23,37,56,.08);
+}
+
+/* Main cards */
+.path-card,
+.feature-card,
+.release-panel,
+.side-card {
+  padding: 1.6rem;
+}
+
+/* Card titles */
+.path-card h2,
+.feature-card h2,
+.release-panel h2,
+.side-card h2 {
+  margin: 0 0 .65rem;
+  color: var(--deep);
+  font-family: "Playfair Display", Georgia, serif;
+  line-height: 1.15;
+}
+
+/* Card copy */
+.path-card p,
+.feature-card p,
+.release-panel p,
+.side-card p {
+  margin: .45rem 0 1rem;
+  line-height: 1.55;
+}
+
+/* Small taxonomy stays secondary */
+.card-label,
+.section-label {
+  margin: 0 0 .55rem;
+  color: var(--gold-dark);
+  font-size: .76rem;
+  font-weight: 700;
+  letter-spacing: .13em;
+  text-transform: uppercase;
+}
+
+/* Entire linked cards feel interactive */
+a.feature-card,
+a.intent-card {
+  transition:
+    transform .15s ease,
+    box-shadow .15s ease,
+    border-color .15s ease;
+}
+
+a.feature-card:hover,
+a.feature-card:focus-visible,
+a.intent-card:hover,
+a.intent-card:focus-visible {
+  transform: translateY(-3px);
+  border-color: var(--gold);
+  box-shadow: 0 18px 38px rgba(23,37,56,.13);
+}
+
+/* Action links */
+.path-card .text-link,
+.feature-card .text-link,
+.release-panel .text-link,
+.side-card .text-link {
+  display: inline-block;
+  margin-top: .35rem;
+  color: var(--deep);
+  font-weight: 700;
+  text-decoration-color: var(--gold);
+  text-decoration-thickness: 2px;
+  text-underline-offset: .2em;
+}
+
+/* Grids maintain comfortable rhythm */
+.card-grid,
+.path-card-grid,
+.release-three {
+  gap: 1.35rem;
+}
+
+/* Mobile */
+@media(max-width:760px) {
+  .path-card,
+  .feature-card,
+  .release-panel,
+  .side-card {
+    padding: 1.35rem;
+  }
+}
+
+/* =========================================================
+   V3 NAVIGATION + MOBILE SYSTEM
+   ========================================================= */
+
+/* Desktop header structure */
+.site-header{
+  display:grid !important;
+  grid-template-columns:auto 1fr !important;
+  grid-template-areas:
+    "brand main"
+    "brand utility" !important;
+  column-gap:2rem !important;
+  row-gap:.45rem !important;
+  align-items:start !important;
+}
+
+.site-header .brand{
+  grid-area:brand !important;
+}
+
+.desktop-nav{
+  grid-area:main !important;
+  justify-self:end !important;
+  display:flex !important;
+  flex-wrap:wrap !important;
+  gap:1rem !important;
+}
+
+.utility-nav{
+  grid-area:utility !important;
+  justify-self:end !important;
+  display:flex !important;
+  flex-wrap:wrap !important;
+  gap:.85rem !important;
+}
+
+.site-header nav a{
+  white-space:nowrap !important;
+}
+
+.utility-nav a{
+  font-size:.78rem !important;
+  opacity:.96;
+}
+
+/* Keep the visual hierarchy clear */
+.desktop-nav a:hover,
+.desktop-nav a:focus-visible,
+.utility-nav a:hover,
+.utility-nav a:focus-visible{
+  color:#ffd24a !important;
+}
+
+/* Mobile menu becomes the single navigation source */
+@media(max-width:1080px){
+  .site-header{
+    display:flex !important;
+    align-items:center !important;
+    justify-content:space-between !important;
+    gap:1rem !important;
+  }
+
+  .desktop-nav,
+  .utility-nav{
+    display:none !important;
+  }
+
+  .mobile-menu{
+    display:block !important;
+  }
+
+  .mobile-menu summary{
+    min-width:88px;
+    justify-content:center;
+    border:1px solid var(--gold) !important;
+    border-radius:.5rem !important;
+    color:var(--white) !important;
+  }
+
+  .mobile-menu[open] nav{
+    display:grid !important;
+    grid-template-columns:1fr 1fr !important;
+    gap:.25rem 1rem !important;
+    padding:1.25rem 5vw 1.5rem !important;
+    box-shadow:0 20px 35px rgba(0,0,0,.18);
+  }
+
+  .mobile-menu nav a{
+    min-height:44px !important;
+    padding:.6rem 0 !important;
+  }
+}
+
+@media(max-width:560px){
+  .mobile-menu[open] nav{
+    grid-template-columns:1fr !important;
+  }
+}
+
+/* =========================================================
+   V3 NEXT-STEP / CLOSING SYSTEM
+   ========================================================= */
+
+/* Existing next-step blocks become unmistakable */
+.next-step{
+  background:
+    linear-gradient(135deg,var(--deep),var(--navy)) !important;
+  color:var(--white) !important;
+  border-left:5px solid var(--gold) !important;
+  border-radius:.7rem !important;
+  padding:2rem !important;
+  margin-top:2.5rem !important;
+}
+
+.next-step h2,
+.next-step h3{
+  color:var(--white) !important;
+}
+
+.next-step .section-label,
+.next-step .card-label{
+  color:#ffd24a !important;
+}
+
+/* Strong page endings */
+.closing{
+  text-align:center !important;
+}
+
+.closing .narrow,
+.closing .wide{
+  max-width:800px !important;
+  margin-inline:auto !important;
+}
+
+.closing h2{
+  margin-bottom:.7rem !important;
+}
+
+.closing .button-row{
+  margin-top:1.5rem !important;
+}
+
+/* Tertiary links stay quiet */
+.hero-help,
+.closing .text-link{
+  display:inline-block;
+  margin-top:1rem;
+  font-weight:700;
+  text-underline-offset:.2em;
+}
