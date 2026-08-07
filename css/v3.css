@@ -41,3 +41,260 @@ main p{
     font-size:.95rem;
   }
 }
+
+/* V3 INTERACTION + RHYTHM */
+
+/* Consistent section breathing room */
+.section-light,
+.section-navy,
+.closing {
+  padding-top: clamp(3.75rem, 6vw, 5.5rem);
+  padding-bottom: clamp(3.75rem, 6vw, 5.5rem);
+}
+
+/* Compact heroes stay substantial without feeling oversized */
+.page-hero.compact {
+  padding-top: clamp(3.5rem, 6vw, 5rem);
+  padding-bottom: clamp(3.5rem, 6vw, 5rem);
+}
+
+/* Buttons: consistent, obvious, comfortable */
+.button {
+  min-height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: .55rem;
+  line-height: 1.2;
+}
+
+/* Navigation and controls: usable tap targets */
+.site-header nav a,
+.mobile-menu summary {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+}
+
+/* Cards: one shared interaction language */
+.path-card,
+.feature-card,
+.side-card {
+  transition:
+    transform .16s ease,
+    box-shadow .16s ease,
+    border-color .16s ease;
+}
+
+.path-card:hover,
+.feature-card:hover,
+.side-card:hover {
+  border-color: rgba(212,165,44,.55);
+  box-shadow: 0 16px 38px rgba(23,37,56,.14);
+}
+
+/* Text links should look intentional */
+.text-link {
+  text-underline-offset: .2em;
+  text-decoration-thickness: .08em;
+}
+
+.text-link:hover,
+.text-link:focus-visible {
+  color: var(--gold-dark);
+}
+
+/* Mobile refinement */
+@media (max-width:760px) {
+  .section-light,
+  .section-navy,
+  .closing {
+    padding-top: 3.25rem;
+    padding-bottom: 3.25rem;
+  }
+
+  .page-hero.compact {
+    padding-top: 3.25rem;
+    padding-bottom: 3.25rem;
+  }
+
+  .button {
+    min-height: 50px;
+  }
+}
+
+/* Respect reduced-motion preference */
+@media (prefers-reduced-motion:reduce) {
+  .path-card,
+  .feature-card,
+  .side-card {
+    transition: none;
+  }
+}
+
+/* =========================================================
+   V3 MASTER VISUAL SYSTEM
+   Homepage / Research pattern applied site-wide
+   ========================================================= */
+
+/* HEADER */
+.site-header{
+  background:var(--deep) !important;
+  color:var(--white) !important;
+  padding:1.15rem 2vw 1rem !important;
+}
+
+.brand-name{
+  font-family:"Playfair Display",Georgia,serif !important;
+  font-size:1.45rem !important;
+  line-height:1.05 !important;
+  font-weight:700 !important;
+  letter-spacing:.06em !important;
+}
+
+.brand-tagline{
+  display:block !important;
+  margin-top:.4rem !important;
+  color:#ffd24a !important;
+  font-size:.95rem !important;
+  line-height:1.2 !important;
+  font-weight:700 !important;
+}
+
+.site-header nav a{
+  font-size:.88rem !important;
+}
+
+/* HERO — THIS IS THE V3 LOOK */
+.page-hero,
+.home-hero,
+.golden-hero{
+  background:
+    radial-gradient(circle at 78% 25%,rgba(212,165,44,.14),transparent 26%),
+    linear-gradient(135deg,var(--deep),var(--navy)) !important;
+  color:var(--white) !important;
+  padding:5.5rem 5vw !important;
+}
+
+.page-hero .narrow,
+.home-hero .narrow,
+.golden-hero .narrow{
+  width:min(800px,100%) !important;
+  margin:0 auto !important;
+}
+
+/* GOLD CONTEXT LINE */
+.page-hero .eyebrow,
+.home-hero .eyebrow,
+.golden-hero .eyebrow,
+.hero-line,
+.hero-gold-line{
+  color:#ffd24a !important;
+  font-family:"Playfair Display",Georgia,serif;
+}
+
+.page-hero .eyebrow,
+.home-hero .eyebrow,
+.golden-hero .eyebrow{
+  font-family:Lato,Arial,sans-serif !important;
+  font-size:.95rem !important;
+  font-weight:700 !important;
+  letter-spacing:.17em !important;
+  text-transform:uppercase !important;
+  margin:0 0 1.25rem !important;
+}
+
+/* PRIMARY STATEMENT */
+.page-hero h1,
+.home-hero h1,
+.golden-hero h1{
+  color:var(--white) !important;
+  font-family:"Playfair Display",Georgia,serif !important;
+  font-size:clamp(3.6rem,6vw,6rem) !important;
+  line-height:1.02 !important;
+  font-weight:600 !important;
+  margin:0 0 1rem !important;
+  max-width:900px !important;
+}
+
+/* GOLD SECONDARY THOUGHT */
+.hero-line,
+.hero-gold-line{
+  font-size:clamp(1.8rem,3vw,2.7rem) !important;
+  font-weight:600 !important;
+  line-height:1.15 !important;
+  margin:.4rem 0 1rem !important;
+}
+
+/* SUPPORT COPY */
+.page-hero .narrow > p:not(.eyebrow):not(.hero-line):not(.hero-gold-line),
+.home-hero .narrow > p:not(.eyebrow):not(.hero-line):not(.hero-gold-line),
+.golden-hero .narrow > p:not(.eyebrow):not(.hero-line):not(.hero-gold-line){
+  color:var(--white) !important;
+  font-family:Lato,Arial,sans-serif !important;
+  font-size:1.08rem !important;
+  line-height:1.6 !important;
+  max-width:720px !important;
+  margin-top:1rem !important;
+}
+
+/* PRIMARY ACTION */
+.button{
+  min-height:48px !important;
+  display:inline-flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  background:var(--gold) !important;
+  color:var(--deep) !important;
+  border-color:var(--gold) !important;
+  border-radius:.5rem !important;
+  font-weight:700 !important;
+}
+
+/* SECONDARY ACTION */
+.button-outline,
+.button-outline-light{
+  background:transparent !important;
+  border-color:var(--gold) !important;
+  color:inherit !important;
+}
+
+/* CONTENT RHYTHM */
+.section-light,
+.section-navy,
+.closing{
+  padding-top:4.5rem !important;
+  padding-bottom:4.5rem !important;
+}
+
+/* MOBILE */
+@media(max-width:760px){
+  .site-header{
+    padding:1rem 5vw !important;
+  }
+
+  .brand-name{
+    font-size:1.2rem !important;
+  }
+
+  .brand-tagline{
+    font-size:.9rem !important;
+  }
+
+  .page-hero,
+  .home-hero,
+  .golden-hero{
+    padding:4rem 6vw !important;
+  }
+
+  .page-hero h1,
+  .home-hero h1,
+  .golden-hero h1{
+    font-size:clamp(2.8rem,12vw,4.3rem) !important;
+  }
+
+  .hero-line,
+  .hero-gold-line{
+    font-size:clamp(1.5rem,7vw,2.1rem) !important;
+  }
+}
