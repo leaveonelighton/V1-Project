@@ -298,3 +298,38 @@ main p{
     font-size:clamp(1.5rem,7vw,2.1rem) !important;
   }
 }
+
+/* =========================================================
+   V3 TITLE + SUBTITLE PATTERN
+   ========================================================= */
+
+.page-hero .hero-subtitle,
+.home-hero .hero-subtitle,
+.golden-hero .hero-subtitle {
+  margin: .35rem 0 1.15rem !important;
+  color: #ffd24a !important;
+  font-family: "Playfair Display", Georgia, serif !important;
+  font-size: clamp(1.8rem, 3vw, 2.7rem) !important;
+  font-weight: 600 !important;
+  line-height: 1.12 !important;
+  letter-spacing: 0 !important;
+  text-transform: none !important;
+}
+
+/* Supporting copy follows subtitle quietly */
+.page-hero .hero-subtitle + p {
+  margin-top: 0 !important;
+  max-width: 720px !important;
+  color: var(--white) !important;
+  font-family: Lato, Arial, sans-serif !important;
+  font-size: 1.08rem !important;
+  line-height: 1.6 !important;
+}
+
+@media(max-width:760px){
+  .page-hero .hero-subtitle,
+  .home-hero .hero-subtitle,
+  .golden-hero .hero-subtitle {
+    font-size: clamp(1.5rem, 7vw, 2.1rem) !important;
+  }
+}
