@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+(()=>{if(!document.querySelector('link[data-reading-friendly]')){const link=document.createElement('link');link.rel='stylesheet';link.href='/css/reading-friendly.css';link.dataset.readingFriendly='true';document.head.appendChild(link);}})();document.addEventListener('DOMContentLoaded', () => {
   const input = document.querySelector('[data-org-search]');
   const cards = [...document.querySelectorAll('[data-org-card]')];
   const status = document.querySelector('[data-org-status]');
