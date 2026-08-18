@@ -1,0 +1,5 @@
+/* Reading-friendly typography override: keep the site visually consistent with plain sans-serif accessibility rules. */
+html,body,button,input,select,textarea{font-family:Lato,Arial,sans-serif!important}
+h1,h2,h3,.brand-name,.hero-line,.hero-gold-line,.hero-subtitle,blockquote,.closing-line,.invitation-grid a,.level-number,.book-cover-placeholder,.promise-grid strong,.meter-value,.library-hero h1,.light-board-hero h1{font-family:Lato,Arial,sans-serif!important}
+h1,h2,h3{line-height:1.2!important}
+.hero-line,.hero-gold-line,.hero-subtitle{line-height:1.3!important}
