@@ -127,7 +127,7 @@ try {
     if (isset($pdo) && $pdo instanceof PDO && $pdo->inTransaction()) {
         $pdo->rollBack();
     }
-    $message = $e instanceof RuntimeException
+    $message = ($e instanceof RuntimeException && !($e instanceof PDOException))
         ? $e->getMessage()
         : 'We could not submit the message right now. Please try again later.';
 
