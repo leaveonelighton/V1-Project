@@ -19,7 +19,7 @@ try {
     }
 
     $find = $pdo->prepare(
-        'SELECT id, public_reference, topic, status, created_at, last_activity_at, closed_at
+        'SELECT id, public_reference, topic, response_method, status, created_at, last_activity_at, closed_at
          FROM conversations WHERE secret_hash = ? LIMIT 1'
     );
     $find->execute([lol_code_hash($code)]);
@@ -64,12 +64,24 @@ try {
             . '<p>' . nl2br(lol_html_escape((string)$message['message_body'])) . '</p></article>';
     }
 
+    $followUpHtml = '';
+    if ($conversation['status'] === 'open' && $conversation['response_method'] !== 'none') {
+        $followUpHtml = '<section class="admin-reply-box"><h2>Add to this conversation</h2>'
+            . '<form class="communication-form" action="/api/messages/follow-up.php" method="post">'
+            . '<input type="hidden" name="private_code" value="' . lol_html_escape($code) . '">'
+            . '<label for="follow-up-message">Message</label>'
+            . '<textarea id="follow-up-message" name="message" rows="6" maxlength="4000" required></textarea>'
+            . '<button class="button" type="submit">Send Follow-up</button>'
+            . '</form></section>';
+    }
+
     lol_render_shell(
         'Private Conversation',
         '<p class="section-label">Private conversation</p><h1>' . lol_html_escape((string)$conversation['public_reference']) . '</h1>'
         . '<p>Status: <strong>' . lol_html_escape(ucfirst((string)$conversation['status'])) . '</strong></p>'
         . '<div class="message-thread">' . $threadHtml . '</div>'
-        . '<p><a class="button" href="/communicate/check-response.html">Check Again Later</a></p>'
+        . $followUpHtml
+        . '<p><a class="button button-outline" href="/communicate/check-response.html">Check Again Later</a></p>'
     );
 } catch (Throwable $e) {
     $message = $e instanceof RuntimeException
