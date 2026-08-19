@@ -40,17 +40,17 @@
 @media print {
   @page {
     size: Letter;
-    margin: .52in .58in .55in;
+    margin: .50in .58in .50in;
   }
 
   .foster-care-start {
     font-size: 9.6pt !important;
-    line-height: 1.28 !important;
+    line-height: 1.26 !important;
   }
 
   .foster-care-start h1 {
     font-size: 20pt !important;
-    margin: 0 0 4pt !important;
+    margin: 0 0 3pt !important;
   }
 
   .foster-care-start h2 {
@@ -66,30 +66,30 @@
   .foster-care-start p,
   .foster-care-start li {
     margin-top: 0 !important;
-    margin-bottom: 3pt !important;
+    margin-bottom: 2.5pt !important;
   }
 
   .foster-care-start .resource-kicker {
-    margin: 0 0 3pt !important;
+    margin: 0 0 2pt !important;
     font-size: 7.2pt !important;
   }
 
   .foster-care-start .resource-intro,
   .foster-care-start .resource-callout,
   .foster-care-start .resource-note {
-    padding: 5pt 7pt !important;
-    margin: 4pt 0 6pt !important;
+    padding: 4pt 7pt !important;
+    margin: 3pt 0 5pt !important;
   }
 
   .foster-care-start .foster-lead {
-    margin: 0 0 5pt !important;
+    margin: 0 0 4pt !important;
   }
 
   .foster-care-start .foster-two-column {
     display: grid !important;
     grid-template-columns: 1fr 1fr !important;
     gap: 6pt !important;
-    margin: 5pt 0 !important;
+    margin: 4pt 0 !important;
   }
 
   .foster-care-start .foster-panel {
@@ -104,7 +104,7 @@
   }
 
   .foster-care-start .check-list li {
-    margin: 2.5pt 0 !important;
+    margin: 2pt 0 !important;
     padding-left: 15pt !important;
   }
 
@@ -121,22 +121,23 @@
   }
 
   .foster-care-start .foster-question-lines {
-    min-height: .55in !important;
+    min-height: .52in !important;
   }
 
   .foster-care-start .foster-next-lines {
-    min-height: .45in !important;
+    min-height: .42in !important;
   }
 
   .foster-care-start .foster-next-step {
-    margin-top: 5pt !important;
+    margin-top: 4pt !important;
     padding: 5pt 7pt !important;
     break-inside: avoid-page;
     page-break-inside: avoid;
   }
 
+  /* The screen version can carry the edition label. On paper it was the
+     only content overflowing onto a wasteful second page. */
   .foster-care-start .resource-version {
-    margin-top: 4pt !important;
-    font-size: 6.8pt !important;
+    display: none !important;
   }
 }
