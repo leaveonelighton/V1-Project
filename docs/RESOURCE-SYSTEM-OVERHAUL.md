@@ -23,6 +23,24 @@ The prototype is organized around what a visitor wants to do:
 
 Book-reader materials remain available, but are treated as a separate doorway toward the Books area rather than as the center of the movement resource library.
 
+## Accessibility, dignity, and visual rhythm
+
+Accessibility is not limited to font size or technical compliance. The resource system should feel orderly enough that a visitor can understand where to look next without unnecessary visual effort.
+
+Internal design rules:
+
+- Prefer symmetry, aligned edges, equal-height paired elements, and predictable spacing where they improve scanning.
+- Treat visual balance as functional: uneven controls, drifting baselines, crowded boxes, and arbitrary differences in button size can create avoidable reading friction.
+- Keep layouts calm, plain, high-contrast, and easy to re-enter after the reader looks away.
+- Do not confuse a learning difference with intelligence, motivation, character, professionalism, or potential.
+- Design for the person who may already have spent years being misunderstood. The resource should invite them in rather than make them work to decode the page.
+
+## The present-action principle
+
+The movement can acknowledge history without trapping a person in blame, resentment, or fear. Resources should help a visitor return to the present question: **What can I understand, choose, or do now?**
+
+This is an internal content principle, not an additional public slogan. It supports the existing practical-compassion direction: learn from what happened, protect what matters, then make the next useful choice in the present.
+
 ## Current prototype resources
 
 - `welcome-shelf/one-meaningful-step.html`
