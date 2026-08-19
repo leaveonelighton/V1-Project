@@ -7,6 +7,9 @@ on:
       - 'books/the-light-in-the-window-reader-materials.html'
       - 'research/foster-care-101.html'
       - 'research/dyslexia-reading-difficulties.html'
+      - 'css/evidence-guide-polish.css'
+      - 'js/golden-state.js'
+      - 'scripts/resource-staging-update.sh'
       - '.github/workflows/resource-release-audit.yml'
   workflow_dispatch:
 
@@ -60,6 +63,19 @@ jobs:
             grep -q 'noindex,nofollow' "$page"
           done
           echo 'STAGING NOINDEX OK'
+
+      - name: Confirm global evidence guide action symmetry
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f css/evidence-guide-polish.css
+          grep -q '.article-side > .button' css/evidence-guide-polish.css
+          grep -q 'width: 100%' css/evidence-guide-polish.css
+          grep -q '/css/evidence-guide-polish.css' js/golden-state.js
+          grep -q 'cp css/evidence-guide-polish.css' scripts/resource-staging-update.sh
+          grep -q 'cp js/golden-state.js' scripts/resource-staging-update.sh
+          grep -q 'cp research/foster-care-101.html' scripts/resource-staging-update.sh
+          echo 'EVIDENCE GUIDE ACTION SYMMETRY OK'
 
       - name: Reject retired PDF links from general Welcome Shelf
         shell: bash
