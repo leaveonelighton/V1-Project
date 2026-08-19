@@ -62,7 +62,9 @@ try {
     if (isset($pdo) && $pdo instanceof PDO && $pdo->inTransaction()) {
         $pdo->rollBack();
     }
-    $message = $e instanceof RuntimeException ? $e->getMessage() : 'We could not add that message right now.';
+    $message = ($e instanceof RuntimeException && !($e instanceof PDOException))
+        ? $e->getMessage()
+        : 'We could not add that message right now.';
     if (lol_wants_json()) {
         lol_json(['ok' => false, 'error' => $message], 400);
     }
