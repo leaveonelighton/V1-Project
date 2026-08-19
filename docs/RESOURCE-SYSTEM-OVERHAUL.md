@@ -1,6 +1,6 @@
 # Resource System Overhaul
 
-Status: **development branch only - not approved for production**
+Status: **release-candidate branch only - not approved for production**
 
 Branch: `resource-system-overhaul-v1`
 
@@ -12,9 +12,11 @@ The rule is simple:
 
 **Accessible HTML is the canonical digital resource. A PDF/print edition exists only when printing, writing, carrying, repeated offline use, or group facilitation adds real value.**
 
+For this release candidate, browser print from the approved HTML is the canonical print edition for rebuilt movement resources. A separate static PDF is not required merely to duplicate the same content.
+
 ## Visitor organization
 
-The prototype is organized around what a visitor wants to do:
+The Welcome Shelf is organized around what a visitor wants to do:
 
 - Reflect
 - Learn & Prepare
@@ -41,44 +43,50 @@ The movement can acknowledge history without trapping a person in blame, resentm
 
 This is an internal content principle, not an additional public slogan. It supports the existing practical-compassion direction: learn from what happened, protect what matters, then make the next useful choice in the present.
 
-## Current prototype resources
+## Current release-candidate resources
 
-- `welcome-shelf/one-meaningful-step.html`
 - `welcome-shelf/story-preservation-workbook.html`
+- `welcome-shelf/foster-care-start-here.html`
+- `welcome-shelf/reading-learning-questions.html`
+- `welcome-shelf/resource-navigation-notes.html`
 - `welcome-shelf/one-light-at-work.html`
+- `welcome-shelf/community-light-starter-kit.html`
+- `welcome-shelf/one-meaningful-step.html`
+- `books/the-light-in-the-window-reader-materials.html`
+
+Internal QA support remains at:
+
 - `prototype/pdf-qa.html`
 - `css/resource-system.css`
 - `css/resource-print.css`
 
-Existing PDFs remain untouched on this branch.
+## PDF disposition
 
-## Existing PDF disposition
+### Book-specific PDFs - remain active
 
-1. Book Club Welcome Kit - move toward the book-reader/story area.
-2. Discussion Guide - review whether it is book-specific or should become a standalone movement conversation guide.
-3. Foster Care Awareness Primer - rebuild as web-first Foster Care 101 plus a concise printable companion if useful.
-4. Story Preservation Workbook - keep and rebuild as a strong workbook/print candidate.
-5. One Light at Work - keep and rebuild as a practical workplace conversation and action guide.
-6. Community Light Starter Kit - keep and rebuild.
+- `welcome-shelf/book-club-welcome-kit.pdf`
+- `welcome-shelf/discussion-guide.pdf`
 
-## New candidates
+These files are explicitly tied to *The Light in the Window* and are linked only from the Books-area reader-materials page.
 
-- One Meaningful Step Planner
-- Reading & Learning - Questions to Ask
-- Resource Navigation Notes
+### Legacy general-resource PDFs - source/archive only
 
-Research before adding:
+- `welcome-shelf/foster-care-awareness-primer.pdf`
+- `welcome-shelf/story-preservation-workbook.pdf`
+- `welcome-shelf/workplace-conversation-guide.pdf`
+- `welcome-shelf/community-light-starter-kit.pdf`
 
-- Supportive Adult / Mentoring Boundaries
-- Opportunity / Education & Work Pathway
+These files remain in the repository as authoritative/history sources where applicable, but the general Welcome Shelf does not link to them. Their rebuilt HTML pages are the canonical public resources and provide the approved browser-print editions.
+
+Do not relink a legacy general-resource PDF merely because it exists in the repository. Any future static replacement PDF must be generated from the approved HTML/CSS source and pass the same print QA gate before publication.
 
 ## One Light at Work source rule
 
-The current `workplace-conversation-guide.pdf` is the wording authority for existing invitation examples and boundaries until the owner approves revisions.
+The legacy `workplace-conversation-guide.pdf` remains the source record for the invitation examples and boundaries that were reconciled into the approved HTML rebuild.
 
 Do not invent missing wording.
 
-The six invitation labels currently carried forward are:
+The six invitation labels carried forward are:
 
 - Give time
 - Give skill
@@ -87,7 +95,15 @@ The six invitation labels currently carried forward are:
 - Give opportunity
 - Give attention
 
-The new layout replaces the rigid three-column invitation table with independent wrap-safe cards so long example/boundary text can grow vertically without collisions.
+The approved layout replaces the rigid three-column invitation table with independent wrap-safe cards so long example/boundary text can grow vertically without collisions.
+
+## Evidence-guide rule
+
+Changing explanations, statistics, eligibility details, contact finders, and source links remain web-first.
+
+- Foster care companion points back to the living Foster Care 101 evidence guide.
+- Reading & Learning companion points back to the living Dyslexia & Reading Difficulties evidence guide.
+- Printable companions help a visitor ask questions, verify information, take notes, and choose a next step; they do not become frozen directories or substitute for current official information.
 
 ## Production gate
 
@@ -98,10 +114,10 @@ For each printable resource:
 3. Build/review accessible HTML.
 4. Apply print/PDF design from the same source.
 5. Run destructive layout QA.
-6. Render at 200 dpi and visually inspect every page.
+6. Render at 200 dpi and visually inspect every page where a static PDF is generated.
 7. Check reading order, links, labels, and extracted text behavior.
 8. Obtain owner approval.
-9. Only then prepare a production release PR.
+9. Only then prepare a production release decision.
 
 ## Print rules
 
@@ -114,8 +130,9 @@ For each printable resource:
 - No forced new page for every section.
 - Critical text belongs in HTML, not CSS pseudo-elements.
 - Avoid fixed headers/footers that can collide with content.
+- Prefer a usable form or card layout over a dense spreadsheet-style grid.
 
-## QA harness
+## QA and release guards
 
 `prototype/pdf-qa.html` includes destructive cases for:
 
@@ -126,6 +143,16 @@ For each printable resource:
 - 50-row pagination
 - components larger than one page
 - atomic invitation cards
+
+Automated guards include:
+
+- Resource system QA for source reconciliation and print anti-patterns.
+- Book reader source inspection for book-specific separation.
+- Resource release audit for visitor-facing review language, staging `noindex`, retired PDF links, and key destination existence.
+
+## Release switch
+
+All release-candidate pages remain `noindex,nofollow` while they are on staging. Removing those page-level `noindex` directives is a deliberate release action and must not happen early.
 
 ## Release warning
 
