@@ -87,7 +87,7 @@
   margin-top: 0;
 }
 
-/* Welcome Shelf cards only: keep action rows on a common baseline. */
+/* Welcome Shelf cards: one reusable content + action template. */
 .wide > .resource-section > .resource-grid {
   align-items: stretch;
 }
@@ -97,21 +97,28 @@
   flex-direction: column;
 }
 
-.wide > .resource-section > .resource-grid > .resource-card > p:last-child {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: .55rem;
+.resource-card-actions {
+  display: grid;
+  grid-template-rows: minmax(3rem, auto) 1.35rem;
+  align-content: end;
+  justify-items: start;
+  gap: .45rem;
+  min-height: 5.2rem;
   margin-top: auto;
-  margin-bottom: 0;
-  padding-top: .35rem;
+  padding-top: .55rem;
 }
 
-/* Give primary shelf actions a consistent visual footprint without making them full-width. */
-.wide > .resource-section > .resource-grid > .resource-card > p:last-child > .button {
+.resource-card-actions > .button {
   min-width: 11rem;
   justify-content: center;
   text-align: center;
+}
+
+.resource-card-secondary {
+  align-self: end;
+  font-weight: 700;
+  line-height: 1.2;
+  text-underline-offset: .18em;
 }
 
 .invitation-card p {
@@ -267,7 +274,12 @@
     flex-basis: 100%;
   }
 
-  .wide > .resource-section > .resource-grid > .resource-card > p:last-child > .button {
+  .resource-card-actions {
+    grid-template-rows: auto auto;
+    min-height: 0;
+  }
+
+  .resource-card-actions > .button {
     width: 100%;
     min-width: 0;
   }
