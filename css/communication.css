@@ -1,0 +1,184 @@
+/* Leave One Light On — Phase 1 private communication prototype */
+
+.communication-grid,
+.contact-choice-grid,
+.admin-message-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1rem;
+}
+
+.communication-card,
+.contact-choice-card,
+.private-code-box,
+.message-card,
+.admin-message-card,
+.conversation-summary,
+.admin-reply-box {
+  background: #fff;
+  border: 1px solid rgba(36, 54, 77, .18);
+  border-radius: .75rem;
+  padding: 1.25rem;
+  box-sizing: border-box;
+}
+
+.communication-card,
+.contact-choice-card,
+.admin-message-card {
+  border-top: 3px solid var(--gold, #d4a52c);
+}
+
+.communication-form {
+  display: grid;
+  gap: 1.15rem;
+  margin-top: 1.5rem;
+}
+
+.communication-form fieldset {
+  border: 1px solid rgba(36, 54, 77, .2);
+  border-radius: .7rem;
+  padding: 1rem 1.15rem;
+}
+
+.communication-form legend,
+.communication-form label {
+  font-weight: 700;
+}
+
+.communication-form input[type="text"],
+.communication-form input[type="email"],
+.communication-form input[type="tel"],
+.communication-form select,
+.communication-form textarea,
+.admin-reply-box textarea {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  margin-top: .4rem;
+  padding: .8rem .9rem;
+  border: 1px solid rgba(36, 54, 77, .28);
+  border-radius: .45rem;
+  background: #fff;
+  color: #172538;
+  font: inherit;
+  line-height: 1.5;
+}
+
+.communication-form textarea,
+.admin-reply-box textarea {
+  resize: vertical;
+}
+
+.response-option {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: .55rem;
+  align-items: start;
+  margin: .65rem 0;
+}
+
+.response-option input {
+  margin-top: .25rem;
+}
+
+.response-option span {
+  display: block;
+  font-weight: 400;
+}
+
+.field-help,
+.privacy-note,
+.message-meta {
+  font-size: .94rem;
+  line-height: 1.5;
+  color: #4d5968;
+}
+
+.privacy-note {
+  border-left: 4px solid var(--gold, #d4a52c);
+  padding: .8rem 1rem;
+  background: #fbf8ef;
+}
+
+.honeypot-field {
+  position: absolute !important;
+  left: -10000px !important;
+  width: 1px !important;
+  height: 1px !important;
+  overflow: hidden !important;
+}
+
+.conditional-contact[hidden] {
+  display: none !important;
+}
+
+.form-status {
+  min-height: 1.5em;
+  font-weight: 700;
+}
+
+.form-status.error {
+  color: #8b1e1e;
+}
+
+.form-status.success {
+  color: #17653a;
+}
+
+.private-code-box code {
+  display: inline-block;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  word-break: normal;
+  padding: .55rem .7rem;
+  background: #f4f5f6;
+  border-radius: .35rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 1rem;
+  letter-spacing: .03em;
+}
+
+.message-thread {
+  display: grid;
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+
+.message-card p:last-child {
+  margin-bottom: 0;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.message-admin {
+  border-left: 4px solid var(--gold, #d4a52c);
+}
+
+.message-visitor {
+  border-left: 4px solid #54677f;
+}
+
+.admin-heading {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: end;
+}
+
+.admin-message-card h2 {
+  margin-top: .2rem;
+}
+
+.admin-reply-box,
+.admin-close-form {
+  margin-top: 1.5rem;
+}
+
+@media (max-width: 640px) {
+  .communication-grid,
+  .contact-choice-grid,
+  .admin-message-list {
+    grid-template-columns: 1fr;
+  }
+}
