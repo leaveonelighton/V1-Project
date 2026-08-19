@@ -70,8 +70,8 @@ function lol_admin_header(string $title): void
         . '<link rel="stylesheet" href="/css/golden-state.css">'
         . '<link rel="stylesheet" href="/css/v3.css">'
         . '<link rel="stylesheet" href="/css/communication.css">'
-        . '</head><body><main id="main-content"><section class="section-light"><div class="wide">'
-        . '<p class="section-label">Protected admin</p>';
+        . '<link rel="stylesheet" href="/css/admin-messages.css">'
+        . '</head><body><main id="main-content"><section class="section-light"><div class="wide">';
 }
 
 function lol_admin_footer(): void
