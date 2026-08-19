@@ -6,6 +6,10 @@ if (PHP_SAPI !== 'cli') {
     exit;
 }
 
+// When this script runs from cron/SSH there is no web-server DOCUMENT_ROOT.
+// Set it to the staging/production web root so _bootstrap.php can locate the
+// shared private-config directory outside public_html.
+$_SERVER['DOCUMENT_ROOT'] = dirname(__DIR__);
 require dirname(__DIR__) . '/api/messages/_bootstrap.php';
 
 try {
