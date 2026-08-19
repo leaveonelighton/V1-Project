@@ -150,6 +150,18 @@ Automated guards include:
 - Book reader source inspection for book-specific separation.
 - Resource release audit for visitor-facing review language, staging `noindex`, retired PDF links, and key destination existence.
 
+## Final staging review
+
+Before any production decision, sync the latest branch to `phase1.leaveonelighton.org` and complete one final visitor-path review of:
+
+- Welcome Shelf at normal zoom and 50% zoom.
+- Each resource page and its print action.
+- Foster Care 101 and Dyslexia & Reading Difficulties evidence-guide links.
+- Book reader materials and both book-specific PDFs.
+- Back-navigation and Choose One Next Step links.
+
+No production toggle is implied by a successful staging review.
+
 ## Release switch
 
 All release-candidate pages remain `noindex,nofollow` while they are on staging. Removing those page-level `noindex` directives is a deliberate release action and must not happen early.
