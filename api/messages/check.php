@@ -84,7 +84,7 @@ try {
         . '<p><a class="button button-outline" href="/communicate/check-response.html">Check Again Later</a></p>'
     );
 } catch (Throwable $e) {
-    $message = $e instanceof RuntimeException
+    $message = ($e instanceof RuntimeException && !($e instanceof PDOException))
         ? $e->getMessage()
         : 'We could not check that conversation right now. Please try again later.';
 
