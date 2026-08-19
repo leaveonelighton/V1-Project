@@ -103,9 +103,38 @@ jobs:
           do
             grep -q "$label" /tmp/workplace-source.txt
           done
-          echo '--- AUTHORITATIVE WORKPLACE PDF CONTENT ---'
-          cat /tmp/workplace-source.txt
-          echo '--- END AUTHORITATIVE WORKPLACE PDF CONTENT ---'
+
+      - name: Decode authoritative Story Preservation Workbook PDF
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY' > /tmp/story-source.txt
+          import base64
+          import re
+          import zlib
+          from pathlib import Path
+
+          data = Path('welcome-shelf/story-preservation-workbook.pdf').read_bytes()
+          decoded = []
+          for match in re.finditer(rb'stream\r?\n(.*?)endstream', data, re.S):
+              raw = match.group(1).strip()
+              try:
+                  if raw.endswith(b'~>'):
+                      raw = raw[:-2]
+                  unpacked = base64.a85decode(raw, adobe=False)
+                  unpacked = zlib.decompress(unpacked)
+              except Exception:
+                  continue
+              decoded.append(unpacked.decode('latin-1', errors='replace'))
+
+          if not decoded:
+              raise SystemExit('No Story Preservation Workbook PDF content streams decoded.')
+
+          print('\n\n'.join(decoded))
+          PY
+          echo '--- AUTHORITATIVE STORY WORKBOOK PDF CONTENT ---'
+          cat /tmp/story-source.txt
+          echo '--- END AUTHORITATIVE STORY WORKBOOK PDF CONTENT ---'
 
       - name: Prevent PDF replacement before reconciliation
         shell: bash
