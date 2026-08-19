@@ -107,6 +107,13 @@
   padding-top: .35rem;
 }
 
+/* Give primary shelf actions a consistent visual footprint without making them full-width. */
+.wide > .resource-section > .resource-grid > .resource-card > p:last-child > .button {
+  min-width: 11rem;
+  justify-content: center;
+  text-align: center;
+}
+
 .invitation-card p {
   margin: .25rem 0 .65rem;
 }
@@ -258,5 +265,10 @@
 
   .resource-actions > .button {
     flex-basis: 100%;
+  }
+
+  .wide > .resource-section > .resource-grid > .resource-card > p:last-child > .button {
+    width: 100%;
+    min-width: 0;
   }
 }
