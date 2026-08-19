@@ -33,6 +33,20 @@ rsync -a \
   --exclude='config/private-messages.local.php' \
   "$SRC/" "$DEST/"
 
+printf '\n== Staging noindex guard ==\n'
+cat >> "$DEST/.htaccess" <<'EOF'
+
+# PHASE1-STAGING-NOINDEX
+<IfModule mod_headers.c>
+Header set X-Robots-Tag "noindex, nofollow, noarchive"
+</IfModule>
+EOF
+cat > "$DEST/robots.txt" <<'EOF'
+User-agent: *
+Disallow: /
+EOF
+printf 'Staging is marked noindex and robots are disallowed.\n'
+
 printf '\n== PHP lint ==\n'
 PHP_DIRS=(
   "$DEST/api/messages"
@@ -72,6 +86,10 @@ check_http() {
 check_http "Contact page" "200" "$BASE_URL/contact.html"
 check_http "Message form" "200" "$BASE_URL/communicate/"
 check_http "Admin protection" "401" "$BASE_URL/admin/messages/"
+
+NOINDEX_HEADER="$(curl -sSI "$BASE_URL/contact.html" | tr -d '\r' | grep -i '^X-Robots-Tag:' || true)"
+[ -n "$NOINDEX_HEADER" ] || fail "Staging X-Robots-Tag header is missing"
+printf '%-24s %s\n' "Noindex header" "OK"
 
 printf '\nPHASE 1 STAGING OK\n'
 printf 'Commit: %s\n' "$HEAD_SHA"
