@@ -25,26 +25,41 @@
 .resource-document .resource-card {
   overflow-wrap: anywhere;
   word-break: normal;
-  hyphens: auto;
+  hyphens: none;
 }
 
 .resource-kicker,
-.resource-version {
+.resource-version,
+.page-tag {
   font-size: .88rem;
   font-weight: 700;
   letter-spacing: .08em;
   text-transform: uppercase;
 }
 
+.page-tag {
+  color: #566274;
+}
+
 .resource-intro,
-.resource-note {
+.resource-note,
+.resource-callout {
   border-left: 4px solid #d4a52c;
   padding: .9rem 1rem;
   background: #fbf8ef;
 }
 
+.resource-callout strong {
+  display: block;
+  margin-bottom: .25rem;
+}
+
 .resource-section {
   margin: 2rem 0;
+}
+
+.guide-page {
+  margin: 2.5rem 0;
 }
 
 .resource-grid,
@@ -56,7 +71,8 @@
 
 .resource-card,
 .invitation-card,
-.worksheet-block {
+.worksheet-block,
+.worksheet-prompt {
   border: 1px solid rgba(36, 54, 77, .22);
   border-radius: .7rem;
   background: #fff;
@@ -66,8 +82,17 @@
 
 .resource-card h3,
 .invitation-card h3,
-.worksheet-block h3 {
+.worksheet-block h3,
+.worksheet-prompt h3 {
   margin-top: 0;
+}
+
+.invitation-card p {
+  margin: .25rem 0 .65rem;
+}
+
+.invitation-card p:last-child {
+  margin-bottom: 0;
 }
 
 .write-lines {
@@ -78,6 +103,14 @@
 
 .write-lines.short {
   min-height: 3.75rem;
+}
+
+.write-lines.compact {
+  min-height: 2.6rem;
+}
+
+.write-lines.medium {
+  min-height: 5rem;
 }
 
 .check-list {
@@ -117,9 +150,48 @@
   margin: 1.5rem 0;
 }
 
-.resource-field-label {
+.resource-field-label,
+.field-label {
   font-weight: 700;
   margin-bottom: .25rem;
+}
+
+.conversation-plan {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  margin: 1rem 0 1.5rem;
+}
+
+.conversation-plan th,
+.conversation-plan td {
+  border: 1px solid rgba(36, 54, 77, .25);
+  padding: .65rem .75rem;
+  vertical-align: top;
+}
+
+.conversation-plan th {
+  background: #172538;
+  color: #fff;
+  text-align: left;
+}
+
+.conversation-plan th:nth-child(1),
+.conversation-plan td:nth-child(1) {
+  width: 16%;
+}
+
+.conversation-plan th:nth-child(2),
+.conversation-plan td:nth-child(2) {
+  width: 22%;
+}
+
+.resource-question-list {
+  padding-left: 1.25rem;
+}
+
+.resource-question-list li {
+  margin: .65rem 0;
 }
 
 .qa-test-string {
@@ -144,6 +216,7 @@
   .resource-document {
     width: min(100% - 1.25rem, 860px);
   }
+
   .resource-grid,
   .invitation-grid {
     grid-template-columns: 1fr;
