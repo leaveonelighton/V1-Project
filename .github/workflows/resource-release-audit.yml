@@ -1,0 +1,94 @@
+name: Resource release audit
+
+on:
+  pull_request:
+    paths:
+      - 'welcome-shelf/**'
+      - 'books/the-light-in-the-window-reader-materials.html'
+      - 'research/foster-care-101.html'
+      - 'research/dyslexia-reading-difficulties.html'
+      - '.github/workflows/resource-release-audit.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  release-audit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Reject visitor-facing review language
+        shell: bash
+        run: |
+          set -euo pipefail
+          PAGES=(
+            welcome-shelf/index.html
+            welcome-shelf/one-light-at-work.html
+            welcome-shelf/community-light-starter-kit.html
+            welcome-shelf/foster-care-start-here.html
+            welcome-shelf/reading-learning-questions.html
+            welcome-shelf/resource-navigation-notes.html
+            welcome-shelf/one-meaningful-step.html
+            welcome-shelf/story-preservation-workbook.html
+            books/the-light-in-the-window-reader-materials.html
+          )
+          if grep -nEi 'prototype|under review|placement under review|rebuild prototype|print kit prototype' "${PAGES[@]}"; then
+            echo 'Visitor-facing review language remains.' >&2
+            exit 1
+          fi
+          echo 'VISITOR LANGUAGE OK'
+
+      - name: Keep staging pages noindex until release approval
+        shell: bash
+        run: |
+          set -euo pipefail
+          PAGES=(
+            welcome-shelf/index.html
+            welcome-shelf/one-light-at-work.html
+            welcome-shelf/community-light-starter-kit.html
+            welcome-shelf/foster-care-start-here.html
+            welcome-shelf/reading-learning-questions.html
+            welcome-shelf/resource-navigation-notes.html
+            welcome-shelf/one-meaningful-step.html
+            welcome-shelf/story-preservation-workbook.html
+            books/the-light-in-the-window-reader-materials.html
+          )
+          for page in "${PAGES[@]}"; do
+            grep -q 'noindex,nofollow' "$page"
+          done
+          echo 'STAGING NOINDEX OK'
+
+      - name: Reject retired PDF links from general Welcome Shelf
+        shell: bash
+        run: |
+          set -euo pipefail
+          if grep -nE '(workplace-conversation-guide|story-preservation-workbook|community-light-starter-kit|foster-care-awareness-primer|discussion-guide|book-club-welcome-kit)\.pdf' welcome-shelf/index.html; then
+            echo 'A legacy PDF is linked directly from the general Welcome Shelf.' >&2
+            exit 1
+          fi
+          echo 'WELCOME SHELF PDF SEPARATION OK'
+
+      - name: Confirm key destinations exist
+        shell: bash
+        run: |
+          set -euo pipefail
+          for path in \
+            welcome-shelf/one-light-at-work.html \
+            welcome-shelf/community-light-starter-kit.html \
+            welcome-shelf/foster-care-start-here.html \
+            welcome-shelf/reading-learning-questions.html \
+            welcome-shelf/resource-navigation-notes.html \
+            welcome-shelf/one-meaningful-step.html \
+            welcome-shelf/story-preservation-workbook.html \
+            books/the-light-in-the-window-reader-materials.html \
+            research/foster-care-101.html \
+            research/dyslexia-reading-difficulties.html \
+            welcome-shelf/discussion-guide.pdf \
+            welcome-shelf/book-club-welcome-kit.pdf
+          do
+            test -f "$path"
+          done
+          echo 'RESOURCE DESTINATIONS OK'
