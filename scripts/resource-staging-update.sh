@@ -27,6 +27,7 @@ printf '\n== Sync resource prototype only ==\n'
 mkdir -p "$DEST/css" "$DEST/welcome-shelf" "$DEST/prototype"
 cp css/resource-system.css "$DEST/css/resource-system.css"
 cp css/resource-print.css "$DEST/css/resource-print.css"
+cp css/resource-planner.css "$DEST/css/resource-planner.css"
 cp welcome-shelf/index.html "$DEST/welcome-shelf/index.html"
 cp welcome-shelf/one-light-at-work.html "$DEST/welcome-shelf/one-light-at-work.html"
 cp welcome-shelf/one-meaningful-step.html "$DEST/welcome-shelf/one-meaningful-step.html"
