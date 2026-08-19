@@ -5,6 +5,7 @@ on:
     paths:
       - 'welcome-shelf/**'
       - 'research/foster-care-101.html'
+      - 'research/dyslexia-reading-difficulties.html'
       - 'css/resource-*.css'
       - 'css/story-preservation-workbook.css'
       - 'css/community-light-starter-kit.css'
@@ -32,12 +33,14 @@ jobs:
           test -f welcome-shelf/one-light-at-work.html
           test -f welcome-shelf/community-light-starter-kit.html
           test -f welcome-shelf/foster-care-start-here.html
+          test -f welcome-shelf/reading-learning-questions.html
           test -f welcome-shelf/one-meaningful-step.html
           test -f welcome-shelf/story-preservation-workbook.html
           test -f css/resource-system.css
           test -f css/resource-print.css
           test -f css/resource-planner.css
           test -f css/resource-foster-care.css
+          test -f css/resource-reading-learning.css
           test -f css/story-preservation-workbook.css
           test -f css/community-light-starter-kit.css
           test -f prototype/pdf-qa.html
@@ -50,6 +53,7 @@ jobs:
           grep -q 'noindex,nofollow' welcome-shelf/one-light-at-work.html
           grep -q 'noindex,nofollow' welcome-shelf/community-light-starter-kit.html
           grep -q 'noindex,nofollow' welcome-shelf/foster-care-start-here.html
+          grep -q 'noindex,nofollow' welcome-shelf/reading-learning-questions.html
           grep -q 'noindex,nofollow' welcome-shelf/one-meaningful-step.html
           grep -q 'noindex,nofollow' welcome-shelf/story-preservation-workbook.html
 
@@ -57,7 +61,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          FILES=(css/resource-system.css css/resource-print.css css/resource-planner.css css/resource-foster-care.css css/story-preservation-workbook.css css/community-light-starter-kit.css)
+          FILES=(css/resource-system.css css/resource-print.css css/resource-planner.css css/resource-foster-care.css css/resource-reading-learning.css css/story-preservation-workbook.css css/community-light-starter-kit.css)
           ! grep -n -E 'word-break:[[:space:]]*break-all' "${FILES[@]}"
           ! grep -n -E 'position:[[:space:]]*fixed' "${FILES[@]}"
           ! grep -n -E 'tr[[:space:]]*\{[^}]*height:' "${FILES[@]}"
@@ -222,6 +226,29 @@ jobs:
             'Use current official information'
           do
             grep -q "$phrase" welcome-shelf/foster-care-start-here.html
+          done
+
+      - name: Confirm Reading and Learning companion follows living evidence guide
+        shell: bash
+        run: |
+          set -euo pipefail
+          for phrase in \
+            'difficulty alone does not establish a dyslexia diagnosis' \
+            'Dyslexia is not a measure of intelligence, motivation, character, or potential' \
+            'Schools do not have to avoid the word dyslexia' \
+            'may not be used to delay or deny a full evaluation' \
+            'what part of reading is difficult'
+          do
+            grep -q "$phrase" research/dyslexia-reading-difficulties.html
+          done
+          for phrase in \
+            'A difficulty alone does not establish a diagnosis' \
+            'Reading difficulty is not a measure of intelligence, motivation, character, or potential' \
+            'Not every reading difficulty is dyslexia' \
+            'what is the evaluation process' \
+            'What part of reading is difficult'
+          do
+            grep -q "$phrase" welcome-shelf/reading-learning-questions.html
           done
 
       - name: Prevent PDF replacement before reconciliation
