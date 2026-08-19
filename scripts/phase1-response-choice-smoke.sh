@@ -51,7 +51,7 @@ $expected=(string)getenv("CONTACT");
 $cipher=(string)($r["contact_ciphertext"] ?? "");
 if(getenv("METHOD") === "none"){
     if($cipher !== "") { fwrite(STDERR,"NO-REPLY CONTACT SHOULD BE EMPTY\n"); exit(1); }
-    echo "VERIFY OK"; exit(0);
+    exit(0);
 }
 if($cipher === "" || $cipher === $expected){
     fwrite(STDERR,"CONTACT ENCRYPTION FAILED\n"); exit(1);
@@ -61,7 +61,6 @@ require $_SERVER["DOCUMENT_ROOT"] . "/api/messages/_bootstrap.php";
 if(lol_decrypt_contact($cipher) !== $expected){
     fwrite(STDERR,"CONTACT DECRYPTION FAILED\n"); exit(1);
 }
-echo "VERIFY OK";
 '
 
   printf '%-12s %-22s %s\n' "$label" "$reference" "OK"
