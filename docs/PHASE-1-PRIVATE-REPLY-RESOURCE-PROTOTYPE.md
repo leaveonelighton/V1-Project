@@ -31,6 +31,7 @@ This prototype proves two related V4.1 directions without changing production:
 - Optional email/phone details are encrypted with AES-256-GCM using a key stored outside the repository.
 - Database credentials, encryption keys, rate-limit secrets, and admin password hashes must never be committed.
 - Public form rate limiting stores only an HMAC of the request IP and purges rate events frequently.
+- Dynamic private-message responses send no-store/noindex plus nosniff, no-referrer, clickjacking, permissions, and same-origin content-policy protections.
 - The public API exposes no conversation lists or sequential identifiers.
 - The admin inbox requires application-level Basic Auth; Hostinger directory password protection should be added as a second layer before production.
 - Admin write actions use session CSRF tokens.
@@ -42,27 +43,30 @@ This prototype proves two related V4.1 directions without changing production:
 
 The public form tells visitors not to submit Social Security numbers, financial account information, passwords, medical records, private foster-care case information, or information that identifies a child. The system is not a crisis service and links to the existing Need Help page.
 
-### Retention proposal
+### Retention policy prototype
 
 - Open conversation inactive for 180 days: close.
 - Closed conversation retained for 90 additional days: delete.
 - Manual deletion may occur sooner when appropriate.
-
-Automatic cleanup is not enabled in this prototype. It should be added and tested before production.
+- `maintenance/private-message-retention.php` implements the close/delete cycle and purges old rate-limit events.
+- `maintenance/.htaccess` blocks web access to the maintenance directory, and the script also refuses non-CLI execution.
+- The retention script is included but **not scheduled**. It must be tested first, then added as a Hostinger PHP cron job. Hostinger cron schedules use UTC.
 
 ## Hostinger setup required before functional testing
 
-1. Confirm PHP 8.x and MySQL/MariaDB are enabled for the hosting plan.
-2. Create a private MySQL database and user.
-3. Run `docs/private-messages-schema.sql`.
-4. Create a 32-byte random encryption key and store it Base64-encoded.
-5. Create a long random HMAC secret for rate limiting.
-6. Generate an admin password hash using PHP `password_hash()`.
-7. Create the real configuration outside `public_html` at:
+1. Confirm PHP 8.2+ and MySQL/MariaDB are enabled for the hosting plan.
+2. Confirm the PHP environment supports PDO/pdo_mysql and OpenSSL.
+3. Create a private MySQL database and user.
+4. Run `docs/private-messages-schema.sql` in phpMyAdmin.
+5. Create a 32-byte random encryption key and store it Base64-encoded.
+6. Create a long random HMAC secret for rate limiting.
+7. Generate an admin password hash using PHP `password_hash()`.
+8. Create the real configuration outside `public_html` at:
    `../private-config/leave-one-light-on-messages.php`
-8. Use `config/private-messages.example.php` only as a template.
-9. Add Hostinger directory password protection to `/admin/messages/`.
-10. Test HTTPS, PHP sessions, database connectivity, create/check/follow-up/reply/close paths, wrong-code throttling, and retention cleanup before any release.
+9. Use `config/private-messages.example.php` only as a template.
+10. Add Hostinger directory password protection to `/admin/messages/`.
+11. Test HTTPS, PHP sessions, database connectivity, create/check/follow-up/reply/close paths, wrong-code throttling, contact encryption/decryption, and the retention job before any release.
+12. Only after retention testing, schedule `maintenance/private-message-retention.php` as a Hostinger PHP cron job using a conservative daily schedule.
 
 ## Resource-system prototype
 
@@ -98,6 +102,10 @@ Before a resource is released:
 6. Check extracted reading order/text behavior separately from visual appearance.
 7. Obtain owner approval.
 8. Only then prepare a production pull request.
+
+## Separate book-site package noticed during QA
+
+The uploaded `LITW-V4-Site-v4.1.3-CORE-PAGES` package is for the **book site / WordPress blog layer**, not this movement-site repository. It is therefore not being mixed into this Phase 1 branch. Its README contains an older Texas formation-status sentence and should be reviewed separately before the book-site package is next published.
 
 ## Release gate
 
