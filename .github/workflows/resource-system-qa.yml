@@ -65,15 +65,34 @@ jobs:
             grep -q "$label" welcome-shelf/one-light-at-work.html
           done
 
-      - name: Extract authoritative workplace PDF text
+      - name: Decode authoritative workplace PDF content streams
         shell: bash
         run: |
           set -euo pipefail
-          if ! command -v pdftotext >/dev/null 2>&1; then
-            sudo apt-get update -qq
-            sudo apt-get install -y poppler-utils >/dev/null
-          fi
-          pdftotext -layout welcome-shelf/workplace-conversation-guide.pdf /tmp/workplace-source.txt
+          python3 - <<'PY' > /tmp/workplace-source.txt
+          import base64
+          import re
+          import zlib
+          from pathlib import Path
+
+          data = Path('welcome-shelf/workplace-conversation-guide.pdf').read_bytes()
+          decoded = []
+          for match in re.finditer(rb'stream\r?\n(.*?)\r?\nendstream', data, re.S):
+              raw = match.group(1).strip()
+              try:
+                  if raw.endswith(b'~>'):
+                      raw = raw[:-2]
+                  unpacked = base64.a85decode(raw, adobe=False)
+                  unpacked = zlib.decompress(unpacked)
+              except Exception:
+                  continue
+              decoded.append(unpacked.decode('latin-1', errors='replace'))
+
+          if not decoded:
+              raise SystemExit('No PDF content streams decoded.')
+
+          print('\n\n'.join(decoded))
+          PY
           for label in \
             'Give time' \
             'Give skill' \
@@ -84,9 +103,9 @@ jobs:
           do
             grep -q "$label" /tmp/workplace-source.txt
           done
-          echo '--- AUTHORITATIVE WORKPLACE PDF TEXT ---'
+          echo '--- AUTHORITATIVE WORKPLACE PDF CONTENT ---'
           cat /tmp/workplace-source.txt
-          echo '--- END AUTHORITATIVE WORKPLACE PDF TEXT ---'
+          echo '--- END AUTHORITATIVE WORKPLACE PDF CONTENT ---'
 
       - name: Prevent PDF replacement before reconciliation
         shell: bash
