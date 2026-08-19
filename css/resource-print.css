@@ -145,8 +145,8 @@
   .resource-note,
   .resource-callout {
     border-left: 3pt solid #b17c12 !important;
-    margin: 8pt 0 12pt !important;
-    padding: 8pt 10pt !important;
+    margin: 10pt 0 14pt !important;
+    padding: 6pt 9pt !important;
     background: #fbf8ef !important;
   }
 
@@ -154,7 +154,7 @@
   .resource-callout + h3,
   .resource-note + h2,
   .resource-note + h3 {
-    margin-top: 16pt !important;
+    margin-top: 18pt !important;
   }
 
   .write-lines {
