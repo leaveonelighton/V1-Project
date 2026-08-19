@@ -8,6 +8,7 @@ on:
       - 'maintenance/**'
       - 'config/private-messages.example.php'
       - 'docs/private-messages-schema.sql'
+      - 'tests/private-message-smoke.php'
       - '.github/workflows/phase-1-qa.yml'
   workflow_dispatch:
 
@@ -28,8 +29,20 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          find api/messages admin/messages maintenance -type f -name '*.php' -print0 \
+          find api/messages admin/messages maintenance tests -type f -name '*.php' -print0 \
             | xargs -0 -n1 php -l
+
+      - name: Run pure-function smoke tests
+        env:
+          LOLO_DB_HOST: localhost
+          LOLO_DB_NAME: phase1
+          LOLO_DB_USER: phase1
+          LOLO_DB_PASS: unused
+          LOLO_CRYPTO_KEY_B64: MDEyMzQ1Njc4OWFiY2RlZjAxMjM0NTY3ODlhYmNkZWY=
+          LOLO_RATE_HMAC_SECRET: phase-1-ci-rate-secret-not-for-production
+          LOLO_ADMIN_USER: phase1
+          LOLO_ADMIN_PASSWORD_HASH: unused
+        run: php tests/private-message-smoke.php
 
       - name: Guard local secret configuration
         shell: bash
