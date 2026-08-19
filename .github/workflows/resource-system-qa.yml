@@ -77,7 +77,7 @@ jobs:
 
           data = Path('welcome-shelf/workplace-conversation-guide.pdf').read_bytes()
           decoded = []
-          for match in re.finditer(rb'stream\r?\n(.*?)\r?\nendstream', data, re.S):
+          for match in re.finditer(rb'stream\r?\n(.*?)endstream', data, re.S):
               raw = match.group(1).strip()
               try:
                   if raw.endswith(b'~>'):
