@@ -65,6 +65,29 @@ jobs:
             grep -q "$label" welcome-shelf/one-light-at-work.html
           done
 
+      - name: Extract authoritative workplace PDF text
+        shell: bash
+        run: |
+          set -euo pipefail
+          if ! command -v pdftotext >/dev/null 2>&1; then
+            sudo apt-get update -qq
+            sudo apt-get install -y poppler-utils >/dev/null
+          fi
+          pdftotext -layout welcome-shelf/workplace-conversation-guide.pdf /tmp/workplace-source.txt
+          for label in \
+            'Give time' \
+            'Give skill' \
+            'Give practical support' \
+            'Give life' \
+            'Give opportunity' \
+            'Give attention'
+          do
+            grep -q "$label" /tmp/workplace-source.txt
+          done
+          echo '--- AUTHORITATIVE WORKPLACE PDF TEXT ---'
+          cat /tmp/workplace-source.txt
+          echo '--- END AUTHORITATIVE WORKPLACE PDF TEXT ---'
+
       - name: Prevent PDF replacement before reconciliation
         shell: bash
         run: |
