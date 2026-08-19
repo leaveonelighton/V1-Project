@@ -1,0 +1,150 @@
+/* Leave One Light On — protected private-message admin */
+
+.admin-heading {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 1.5rem;
+  align-items: end;
+  margin-bottom: 1.5rem;
+}
+
+.admin-filter-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .55rem;
+}
+
+.admin-filter-nav a {
+  display: inline-flex;
+  align-items: center;
+  gap: .45rem;
+  padding: .55rem .8rem;
+  border: 1px solid rgba(36, 54, 77, .2);
+  border-radius: 999px;
+  background: #fff;
+  color: #172538;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.admin-filter-nav a[aria-current="page"] {
+  border-color: var(--gold, #d4a52c);
+  box-shadow: inset 0 0 0 1px var(--gold, #d4a52c);
+}
+
+.admin-filter-nav span {
+  min-width: 1.6em;
+  text-align: center;
+  padding: .08rem .35rem;
+  border-radius: 999px;
+  background: #f1f3f5;
+  font-size: .86em;
+}
+
+.admin-message-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+  gap: 1rem;
+}
+
+.admin-message-card,
+.admin-empty-state,
+.conversation-summary,
+.admin-reply-box {
+  background: #fff;
+  border: 1px solid rgba(36, 54, 77, .18);
+  border-radius: .75rem;
+  padding: 1.25rem;
+  box-sizing: border-box;
+}
+
+.admin-message-card {
+  border-top: 3px solid var(--gold, #d4a52c);
+}
+
+.admin-message-card h2 {
+  margin: .65rem 0 .8rem;
+  overflow-wrap: anywhere;
+}
+
+.admin-message-card p:last-child {
+  margin-bottom: 0;
+}
+
+.admin-card-topline {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: .75rem;
+}
+
+.status-chip {
+  display: inline-block;
+  padding: .25rem .55rem;
+  border-radius: 999px;
+  font-size: .8rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  background: #eef1f4;
+}
+
+.status-open {
+  background: #edf7f0;
+  color: #17653a;
+}
+
+.status-closed {
+  background: #f0f1f3;
+  color: #4d5968;
+}
+
+.conversation-summary {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: .45rem 1.25rem;
+  margin: 1rem 0 1.5rem;
+}
+
+.conversation-summary p {
+  margin: .3rem 0;
+  overflow-wrap: anywhere;
+}
+
+.admin-reply-box textarea {
+  width: 100%;
+  box-sizing: border-box;
+  margin: .5rem 0 1rem;
+  padding: .85rem;
+  border: 1px solid rgba(36, 54, 77, .28);
+  border-radius: .45rem;
+  font: inherit;
+  line-height: 1.5;
+  resize: vertical;
+}
+
+.admin-close-form {
+  margin-top: 1rem;
+}
+
+@media (max-width: 700px) {
+  .admin-heading {
+    align-items: stretch;
+  }
+
+  .admin-filter-nav,
+  .admin-filter-nav a {
+    width: 100%;
+  }
+
+  .admin-filter-nav a {
+    justify-content: space-between;
+  }
+
+  .admin-message-list,
+  .conversation-summary {
+    grid-template-columns: 1fr;
+  }
+}
