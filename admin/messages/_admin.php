@@ -16,8 +16,10 @@ function lol_require_admin(): void
         && password_verify($providedPass, $expectedHash);
 
     if (!$valid) {
+        lol_security_headers(false);
         header('WWW-Authenticate: Basic realm="Leave One Light On Private Messages"');
         header('HTTP/1.1 401 Unauthorized');
+        header('Cache-Control: no-store, private');
         header('Content-Type: text/plain; charset=utf-8');
         echo 'Authentication required.';
         exit;
@@ -58,9 +60,9 @@ function lol_verify_csrf(): void
 
 function lol_admin_header(string $title): void
 {
+    lol_security_headers(true);
     header('Content-Type: text/html; charset=utf-8');
     header('Cache-Control: no-store, private');
-    header('X-Robots-Tag: noindex, nofollow, noarchive');
     echo '<!doctype html><html lang="en"><head><meta charset="utf-8">'
         . '<meta name="viewport" content="width=device-width,initial-scale=1">'
         . '<meta name="robots" content="noindex,nofollow,noarchive">'
