@@ -30,7 +30,7 @@ HEAD_SHA="$(git rev-parse --short HEAD)"
 printf 'Branch: %s\nCommit: %s\n' "$BRANCH" "$HEAD_SHA"
 
 printf '\n== Sync resource prototype only ==\n'
-mkdir -p "$DEST/css" "$DEST/welcome-shelf" "$DEST/prototype" "$DEST/research"
+mkdir -p "$DEST/css" "$DEST/welcome-shelf" "$DEST/prototype" "$DEST/research" "$DEST/books"
 cp css/resource-system.css "$DEST/css/resource-system.css"
 cp css/resource-print.css "$DEST/css/resource-print.css"
 cp css/resource-planner.css "$DEST/css/resource-planner.css"
@@ -46,7 +46,10 @@ cp welcome-shelf/foster-care-start-here.html "$DEST/welcome-shelf/foster-care-st
 cp welcome-shelf/reading-learning-questions.html "$DEST/welcome-shelf/reading-learning-questions.html"
 cp welcome-shelf/one-meaningful-step.html "$DEST/welcome-shelf/one-meaningful-step.html"
 cp welcome-shelf/story-preservation-workbook.html "$DEST/welcome-shelf/story-preservation-workbook.html"
+cp welcome-shelf/discussion-guide.pdf "$DEST/welcome-shelf/discussion-guide.pdf"
+cp welcome-shelf/book-club-welcome-kit.pdf "$DEST/welcome-shelf/book-club-welcome-kit.pdf"
 cp research/dyslexia-reading-difficulties.html "$DEST/research/dyslexia-reading-difficulties.html"
+cp books/the-light-in-the-window-reader-materials.html "$DEST/books/the-light-in-the-window-reader-materials.html"
 cp prototype/pdf-qa.html "$DEST/prototype/pdf-qa.html"
 
 printf '\n== HTTP checks ==\n'
@@ -67,6 +70,9 @@ check_200 "Reading & Learning" "$BASE_URL/welcome-shelf/reading-learning-questio
 check_200 "Reading evidence guide" "$BASE_URL/research/dyslexia-reading-difficulties.html"
 check_200 "One Meaningful Step" "$BASE_URL/welcome-shelf/one-meaningful-step.html"
 check_200 "Story Preservation" "$BASE_URL/welcome-shelf/story-preservation-workbook.html"
+check_200 "Book reader materials" "$BASE_URL/books/the-light-in-the-window-reader-materials.html"
+check_200 "Discussion Guide PDF" "$BASE_URL/welcome-shelf/discussion-guide.pdf"
+check_200 "Book Club Kit PDF" "$BASE_URL/welcome-shelf/book-club-welcome-kit.pdf"
 check_200 "Print QA harness" "$BASE_URL/prototype/pdf-qa.html"
 
 printf '\nRESOURCE STAGING OK\n'
