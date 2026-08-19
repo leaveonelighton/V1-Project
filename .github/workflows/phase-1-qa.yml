@@ -1,0 +1,42 @@
+name: Phase 1 prototype QA
+
+on:
+  pull_request:
+    paths:
+      - 'api/messages/**'
+      - 'admin/messages/**'
+      - 'maintenance/**'
+      - 'config/private-messages.example.php'
+      - 'docs/private-messages-schema.sql'
+      - '.github/workflows/phase-1-qa.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  php-lint-and-secret-guard:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Show PHP version
+        run: php -v
+
+      - name: Lint Phase 1 PHP
+        shell: bash
+        run: |
+          set -euo pipefail
+          find api/messages admin/messages maintenance -type f -name '*.php' -print0 \
+            | xargs -0 -n1 php -l
+
+      - name: Guard local secret configuration
+        shell: bash
+        run: |
+          set -euo pipefail
+          test ! -f config/private-messages.local.php
+          ! git ls-files | grep -E '(^|/)private-config/|private-messages\.local\.php$'
+
+      - name: Confirm maintenance web block exists
+        run: test -f maintenance/.htaccess
