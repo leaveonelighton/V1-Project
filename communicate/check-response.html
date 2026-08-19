@@ -43,11 +43,21 @@
         <h2 data-thread-reference></h2>
         <p>Status: <strong data-thread-status></strong></p>
         <div class="message-thread" data-thread></div>
-        <p class="field-help">A website reply will appear here after Leave One Light On responds. This page does not send notifications unless you separately chose email, text, or phone.</p>
+
+        <form class="communication-form" action="/api/messages/follow-up.php" method="post" data-follow-up-form>
+          <input type="hidden" name="private_code" value="" data-follow-up-code>
+          <div>
+            <label for="follow-up-message">Add to this conversation</label>
+            <textarea id="follow-up-message" name="message" rows="6" maxlength="4000" required></textarea>
+          </div>
+          <button class="button" type="submit">Send Follow-up</button>
+          <p class="form-status" aria-live="polite" data-follow-up-status></p>
+        </form>
+        <p class="field-help">You can return with the same code to continue an open conversation. This page does not send notifications unless you separately chose email, text, or phone.</p>
       </section>
 
       <p><a href="/communicate/">Send a new message</a> · <a href="/contact.html">Return to Contact</a></p>
-      <noscript><p class="privacy-note">JavaScript is not available. You can still submit this form; the conversation will open on the next page.</p></noscript>
+      <noscript><p class="privacy-note">JavaScript is not available. You can still open the conversation on the next page and add a follow-up there.</p></noscript>
     </div>
   </section>
 </main>
