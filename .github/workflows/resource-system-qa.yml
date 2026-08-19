@@ -5,6 +5,7 @@ on:
     paths:
       - 'welcome-shelf/**'
       - 'css/resource-*.css'
+      - 'css/story-preservation-workbook.css'
       - 'prototype/pdf-qa.html'
       - 'docs/RESOURCE-SYSTEM-OVERHAUL.md'
       - '.github/workflows/resource-system-qa.yml'
@@ -31,6 +32,8 @@ jobs:
           test -f welcome-shelf/story-preservation-workbook.html
           test -f css/resource-system.css
           test -f css/resource-print.css
+          test -f css/resource-planner.css
+          test -f css/story-preservation-workbook.css
           test -f prototype/pdf-qa.html
 
       - name: Confirm prototype pages remain noindex
@@ -46,9 +49,10 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          ! grep -R -n -E 'word-break:[[:space:]]*break-all' css/resource-*.css
-          ! grep -R -n -E 'position:[[:space:]]*fixed' css/resource-*.css
-          ! grep -R -n -E 'tr[[:space:]]*\{[^}]*height:' css/resource-*.css
+          FILES=(css/resource-system.css css/resource-print.css css/resource-planner.css css/story-preservation-workbook.css)
+          ! grep -n -E 'word-break:[[:space:]]*break-all' "${FILES[@]}"
+          ! grep -n -E 'position:[[:space:]]*fixed' "${FILES[@]}"
+          ! grep -n -E 'tr[[:space:]]*\{[^}]*height:' "${FILES[@]}"
 
       - name: Confirm One Light at Work labels
         shell: bash
@@ -104,7 +108,7 @@ jobs:
             grep -q "$label" /tmp/workplace-source.txt
           done
 
-      - name: Decode authoritative Story Preservation Workbook PDF
+      - name: Confirm Story Preservation Workbook source reconciliation
         shell: bash
         run: |
           set -euo pipefail
@@ -132,9 +136,19 @@ jobs:
 
           print('\n\n'.join(decoded))
           PY
-          echo '--- AUTHORITATIVE STORY WORKBOOK PDF CONTENT ---'
-          cat /tmp/story-source.txt
-          echo '--- END AUTHORITATIVE STORY WORKBOOK PDF CONTENT ---'
+          for phrase in \
+            'Begin with care' \
+            'The people who left a light on' \
+            'Places that held the story' \
+            'Memory timeline' \
+            'Photographs and documents' \
+            'Permission and privacy' \
+            'A story in one page' \
+            'Carry it forward'
+          do
+            grep -q "$phrase" /tmp/story-source.txt
+            grep -q "$phrase" welcome-shelf/story-preservation-workbook.html
+          done
 
       - name: Prevent PDF replacement before reconciliation
         shell: bash
