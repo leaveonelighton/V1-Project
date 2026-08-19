@@ -23,17 +23,23 @@
 .reading-learning-sheet .reading-question-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: .7rem 1rem;
+  gap: .85rem 1rem;
 }
 
 .reading-learning-sheet .reading-question-grid label {
-  display: block;
+  display: grid;
+  grid-template-rows: minmax(3.2rem, auto) 1fr;
+  align-content: start;
   font-weight: 700;
+}
+
+.reading-learning-sheet .reading-question-grid label > span:first-child {
+  align-self: start;
 }
 
 .reading-learning-sheet .reading-line {
   display: block;
-  min-height: 2.1rem;
+  min-height: 2.25rem;
   margin-top: .35rem;
   border-bottom: 1px solid rgba(36, 54, 77, .45);
 }
@@ -53,125 +59,138 @@
   .reading-learning-sheet .reading-question-grid {
     grid-template-columns: 1fr;
   }
+
+  .reading-learning-sheet .reading-question-grid label {
+    grid-template-rows: auto 1fr;
+  }
 }
 
 @media print {
   @page {
     size: Letter;
-    margin: .46in .54in .48in;
+    margin: .54in .56in .58in;
   }
 
   .reading-learning-sheet {
-    font-size: 9.45pt !important;
-    line-height: 1.24 !important;
+    font-size: 10.7pt !important;
+    line-height: 1.29 !important;
   }
 
   .reading-learning-sheet h1 {
-    font-size: 18.5pt !important;
-    margin: 0 0 3pt !important;
+    font-size: 22pt !important;
+    line-height: 1.08 !important;
+    margin: 0 0 5pt !important;
   }
 
   .reading-learning-sheet h2 {
-    font-size: 10.8pt !important;
-    margin: 0 0 2.5pt !important;
+    font-size: 12.3pt !important;
+    line-height: 1.15 !important;
+    margin: 0 0 4pt !important;
   }
 
   .reading-learning-sheet p,
   .reading-learning-sheet li {
     margin-top: 0 !important;
-    margin-bottom: 2.4pt !important;
+    margin-bottom: 3.2pt !important;
   }
 
   .reading-learning-sheet .resource-kicker {
-    margin: 0 0 2pt !important;
-    font-size: 7pt !important;
+    margin: 0 0 3pt !important;
+    font-size: 7.8pt !important;
   }
 
   .reading-learning-sheet .resource-intro,
   .reading-learning-sheet .resource-callout,
   .reading-learning-sheet .resource-note {
-    padding: 4pt 6pt !important;
-    margin: 3pt 0 5pt !important;
+    padding: 6pt 8pt !important;
+    margin: 5pt 0 7pt !important;
   }
 
   .reading-learning-sheet .reading-key-question {
-    margin-bottom: 4pt !important;
+    margin-bottom: 6pt !important;
   }
 
   .reading-learning-sheet .reading-two-column {
     display: grid !important;
     grid-template-columns: 1fr 1fr !important;
-    gap: 5pt !important;
-    margin: 4pt 0 !important;
+    gap: 7pt !important;
+    margin: 6pt 0 !important;
   }
 
   .reading-learning-sheet .reading-panel,
   .reading-learning-sheet .reading-question-block {
     border-radius: 0 !important;
-    padding: 4pt 5pt !important;
+    padding: 6pt 7pt !important;
     break-inside: avoid-page;
     page-break-inside: avoid;
   }
 
   .reading-learning-sheet .reading-checks {
-    margin: 1pt 0 !important;
+    margin: 2pt 0 !important;
   }
 
   .reading-learning-sheet .reading-checks li {
-    margin: 1.8pt 0 !important;
-    padding-left: 14pt !important;
+    margin: 2.7pt 0 !important;
+    padding-left: 16pt !important;
   }
 
   .reading-learning-sheet .reading-checks li::before {
-    width: 7.5pt !important;
-    height: 7.5pt !important;
-    border-width: 1.1pt !important;
-    top: 1.8pt !important;
+    width: 8.5pt !important;
+    height: 8.5pt !important;
+    border-width: 1.2pt !important;
+    top: 2pt !important;
   }
 
   .reading-learning-sheet .reading-question-block {
-    margin: 4pt 0 !important;
+    margin: 6pt 0 !important;
   }
 
   .reading-learning-sheet .reading-question-grid {
     display: grid !important;
     grid-template-columns: 1fr 1fr !important;
-    gap: 3pt 6pt !important;
+    gap: 5pt 8pt !important;
   }
 
   .reading-learning-sheet .reading-question-grid label {
-    font-size: 8.9pt !important;
-    line-height: 1.18 !important;
-  }
-
-  .reading-learning-sheet .reading-line {
-    min-height: 15pt !important;
-    margin-top: 1.5pt !important;
-  }
-
-  .reading-learning-sheet .reading-bottom-grid {
-    margin-top: 4pt !important;
-  }
-
-  .reading-learning-sheet .reading-next p {
-    font-size: 8.9pt !important;
+    display: grid !important;
+    grid-template-rows: 29pt 1fr !important;
+    align-content: start !important;
+    font-size: 10.1pt !important;
     line-height: 1.2 !important;
   }
 
-  .reading-learning-sheet .reading-next-label {
+  .reading-learning-sheet .reading-question-grid label > span:first-child {
+    align-self: start !important;
+  }
+
+  .reading-learning-sheet .reading-line {
+    min-height: 24pt !important;
     margin-top: 2pt !important;
   }
 
+  .reading-learning-sheet .reading-bottom-grid {
+    margin-top: 6pt !important;
+  }
+
+  .reading-learning-sheet .reading-next p {
+    font-size: 10.1pt !important;
+    line-height: 1.24 !important;
+  }
+
+  .reading-learning-sheet .reading-next-label {
+    margin-top: 4pt !important;
+  }
+
   .reading-learning-sheet .reading-next-lines {
-    min-height: .34in !important;
-    margin-top: 1pt !important;
-    background-image: repeating-linear-gradient(to bottom, transparent 0, transparent .16in, #aaa .17in) !important;
+    min-height: .55in !important;
+    margin-top: 2pt !important;
+    background-image: repeating-linear-gradient(to bottom, transparent 0, transparent .21in, #aaa .22in) !important;
   }
 
   .reading-learning-sheet .reading-source-note {
-    font-size: 8.3pt !important;
-    line-height: 1.18 !important;
-    margin-top: 4pt !important;
+    font-size: 9.3pt !important;
+    line-height: 1.22 !important;
+    margin-top: 6pt !important;
   }
 
   .reading-learning-sheet .reading-version {
