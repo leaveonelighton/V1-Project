@@ -173,4 +173,48 @@
   .story-workbook .story-compact-page {
     font-size: 9.7pt !important;
   }
+
+  /* Final page: keep Carry it forward together, even in browser print preview. */
+  .story-workbook .story-page:last-of-type {
+    font-size: 9.8pt !important;
+    line-height: 1.28 !important;
+  }
+
+  .story-workbook .story-page:last-of-type > h2 {
+    margin-bottom: 5pt !important;
+  }
+
+  .story-workbook .story-page:last-of-type > p {
+    margin: 0 0 6pt !important;
+  }
+
+  .story-workbook .story-page:last-of-type .check-list {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    column-gap: 16pt !important;
+    row-gap: 1pt !important;
+    margin: 5pt 0 7pt !important;
+  }
+
+  .story-workbook .story-page:last-of-type .check-list li {
+    margin: 1.5pt 0 !important;
+    padding-left: 16pt !important;
+    break-inside: avoid-page;
+    page-break-inside: avoid;
+  }
+
+  .story-workbook .story-page:last-of-type .story-field {
+    margin: 4pt 0 6pt !important;
+  }
+
+  .story-workbook .story-page:last-of-type .write-lines {
+    min-height: .62in !important;
+    margin-top: 2pt !important;
+  }
+
+  .story-workbook .story-page:last-of-type .resource-callout,
+  .story-workbook .story-page:last-of-type .resource-note {
+    margin: 7pt 0 0 !important;
+    padding: 5pt 8pt !important;
+  }
 }
