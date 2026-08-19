@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>Check My Response | Leave One Light On</title>
+  <meta name="description" content="Use your private response code to return to a Leave One Light On conversation without an account, email address, or phone number.">
+  <link rel="stylesheet" href="/css/golden-state.css">
+  <link rel="stylesheet" href="/css/v3.css">
+  <link rel="stylesheet" href="/css/reading-friendly.css">
+  <link rel="stylesheet" href="/css/communication.css">
+  <script defer src="/js/communication.js"></script>
+</head>
+<body>
+<a class="skip-link" href="#main-content">Skip to main content</a>
+<header class="site-header">
+  <a class="brand" href="/index.html" aria-label="Leave One Light On home">
+    <span class="brand-name">LEAVE ONE LIGHT ON</span>
+    <span class="brand-tagline">A movement of hope and practical compassion</span>
+  </a>
+  <nav class="desktop-nav" aria-label="Main navigation">
+    <a href="/index.html">Home</a><a href="/why-we-exist.html">Why We Exist</a><a href="/get-involved.html">Get Involved</a><a href="/resources.html">Resources</a><a href="/research.html">Research &amp; Learning</a><a href="/books.html">Books</a><a href="/contact.html">Contact</a>
+  </nav>
+</header>
+<main id="main-content">
+  <section class="page-hero compact"><div class="narrow"><h1>Check my response.</h1><p class="hero-line">Return with the private code you saved.</p></div></section>
+  <section class="section-light">
+    <div class="narrow">
+      <p>Your private response code is the key to this conversation. Leave One Light On cannot recover an anonymous code if it is lost and you did not provide another contact method.</p>
+      <form class="communication-form" action="/api/messages/check.php" method="post" data-check-response-form>
+        <div>
+          <label for="private-code">Private response code</label>
+          <input id="private-code" name="private_code" type="text" inputmode="text" autocomplete="off" autocapitalize="characters" spellcheck="false" required aria-describedby="code-help">
+          <p id="code-help" class="field-help">Enter the complete code, including all letters and numbers. Hyphens and spaces are optional.</p>
+        </div>
+        <button class="button" type="submit">Open My Conversation</button>
+        <p class="form-status" aria-live="polite" data-check-status></p>
+      </form>
+
+      <section class="conversation-summary" data-response-panel hidden>
+        <p class="section-label">Private conversation</p>
+        <h2 data-thread-reference></h2>
+        <p>Status: <strong data-thread-status></strong></p>
+        <div class="message-thread" data-thread></div>
+
+        <form class="communication-form" action="/api/messages/follow-up.php" method="post" data-follow-up-form>
+          <input type="hidden" name="private_code" value="" data-follow-up-code>
+          <div>
+            <label for="follow-up-message">Add to this conversation</label>
+            <textarea id="follow-up-message" name="message" rows="6" maxlength="4000" required></textarea>
+          </div>
+          <button class="button" type="submit">Send Follow-up</button>
+          <p class="form-status" aria-live="polite" data-follow-up-status></p>
+        </form>
+        <p class="field-help">You can return with the same code to continue an open conversation. This page does not send notifications unless you separately chose email, text, or phone.</p>
+      </section>
+
+      <p><a href="/communicate/">Send a new message</a> · <a href="/contact.html">Return to Contact</a></p>
+      <noscript><p class="privacy-note">JavaScript is not available. You can still open the conversation on the next page and add a follow-up there.</p></noscript>
+    </div>
+  </section>
+</main>
+<footer class="site-footer"><p class="footer-note">Keep your private response code in a safe place. It functions as the key to this anonymous conversation.</p><div class="footer-bottom"><span>© 2026 Leave One Light On</span></div></footer>
+</body>
+</html>

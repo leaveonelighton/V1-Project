@@ -1,0 +1,60 @@
+name: Private communications QA
+
+on:
+  pull_request:
+    paths:
+      - 'api/messages/**'
+      - 'admin/messages/**'
+      - 'communicate/**'
+      - 'contact.html'
+      - 'css/communication.css'
+      - 'css/admin-messages.css'
+      - 'js/communication.js'
+      - 'maintenance/**'
+      - 'config/private-messages.example.php'
+      - 'docs/private-messages-schema.sql'
+      - 'tests/private-message-smoke.php'
+      - '.github/workflows/private-communications-qa.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  php-lint-and-secret-guard:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Show PHP version
+        run: php -v
+
+      - name: Lint private communications PHP
+        shell: bash
+        run: |
+          set -euo pipefail
+          find api/messages admin/messages maintenance tests -type f -name '*.php' -print0 \
+            | xargs -0 -n1 php -l
+
+      - name: Run pure-function smoke tests
+        env:
+          LOLO_DB_HOST: localhost
+          LOLO_DB_NAME: communications_ci
+          LOLO_DB_USER: communications_ci
+          LOLO_DB_PASS: unused
+          LOLO_CRYPTO_KEY_B64: MDEyMzQ1Njc4OWFiY2RlZjAxMjM0NTY3ODlhYmNkZWY=
+          LOLO_RATE_HMAC_SECRET: communications-ci-rate-secret-not-for-production
+          LOLO_ADMIN_USER: ci
+          LOLO_ADMIN_PASSWORD_HASH: unused
+        run: php tests/private-message-smoke.php
+
+      - name: Guard local secret configuration
+        shell: bash
+        run: |
+          set -euo pipefail
+          test ! -f config/private-messages.local.php
+          ! git ls-files | grep -E '(^|/)private-config/|private-messages\.local\.php$'
+
+      - name: Confirm maintenance web block exists
+        run: test -f maintenance/.htaccess
