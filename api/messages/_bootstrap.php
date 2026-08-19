@@ -68,6 +68,18 @@ function lol_db(): PDO
     return $pdo;
 }
 
+function lol_security_headers(bool $html = false): void
+{
+    header('X-Content-Type-Options: nosniff');
+    header('Referrer-Policy: no-referrer');
+    header('X-Frame-Options: DENY');
+    header('Permissions-Policy: camera=(), microphone=(), geolocation=()');
+    header('X-Robots-Tag: noindex, nofollow, noarchive');
+    if ($html) {
+        header("Content-Security-Policy: default-src 'self'; style-src 'self'; img-src 'self' data:; script-src 'self'; connect-src 'self'; form-action 'self'; frame-ancestors 'none'; base-uri 'none'");
+    }
+}
+
 function lol_wants_json(): bool
 {
     $accept = strtolower((string)($_SERVER['HTTP_ACCEPT'] ?? ''));
@@ -78,6 +90,7 @@ function lol_wants_json(): bool
 function lol_json(array $payload, int $status = 200): never
 {
     http_response_code($status);
+    lol_security_headers(false);
     header('Content-Type: application/json; charset=utf-8');
     header('Cache-Control: no-store');
     echo json_encode($payload, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
@@ -216,6 +229,7 @@ function lol_audit(PDO $pdo, ?int $conversationId, string $eventType): void
 
 function lol_render_shell(string $title, string $bodyHtml): never
 {
+    lol_security_headers(true);
     header('Content-Type: text/html; charset=utf-8');
     header('Cache-Control: no-store');
     $safeTitle = lol_html_escape($title);
