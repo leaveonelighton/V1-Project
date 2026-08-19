@@ -13,6 +13,25 @@ This prototype proves two related V4.1 directions without changing production:
 
 ## Private two-way communication
 
+### Functional validation — staging passed 2026-08-19
+
+The Phase 1 staging site at `phase1.leaveonelighton.org` has completed a real Hostinger/MySQL round-trip test:
+
+- PHP 8.3.30 confirmed.
+- PDO `mysql` driver confirmed.
+- OpenSSL confirmed.
+- Dedicated MySQL schema imported successfully.
+- Private configuration loaded from outside `public_html`.
+- Database authentication and connection confirmed.
+- Visitor private-message creation confirmed.
+- Private response-code lookup confirmed.
+- Protected admin inbox confirmed.
+- Admin reply confirmed.
+- Visitor retrieval of the admin reply confirmed.
+- Visitor follow-up path confirmed as available in the returned conversation.
+
+This proves the core two-way private website communication loop on staging. It does **not** authorize production release.
+
 ### Visitor flow
 
 - Contact page offers Send a Message, Check My Response, Email, and Need Help.
@@ -33,7 +52,7 @@ This prototype proves two related V4.1 directions without changing production:
 - Public form rate limiting stores only an HMAC of the request IP and purges rate events frequently.
 - Dynamic private-message responses send no-store/noindex plus nosniff, no-referrer, clickjacking, permissions, and same-origin content-policy protections.
 - The public API exposes no conversation lists or sequential identifiers.
-- The admin inbox requires application-level Basic Auth; Hostinger directory password protection should be added as a second layer before production.
+- The admin inbox requires application-level Basic Auth; Hostinger directory password protection remains recommended as a second layer before production.
 - Admin write actions use session CSRF tokens.
 - All message text is stripped of HTML and escaped on output.
 - Attachments are intentionally excluded from Phase 1.
@@ -49,24 +68,44 @@ The public form tells visitors not to submit Social Security numbers, financial 
 - Closed conversation retained for 90 additional days: delete.
 - Manual deletion may occur sooner when appropriate.
 - `maintenance/private-message-retention.php` implements the close/delete cycle and purges old rate-limit events.
-- `maintenance/.htaccess` blocks web access to the maintenance directory, and the script also refuses non-CLI execution.
+- `maintenance/private-message-cleanup.php` is a CLI-only exact-reference cleanup tool for test or intentionally removed conversations.
+- `maintenance/private-message-self-test.php` validates database connectivity, contact encryption/decryption, and private-code hashing without creating message records.
+- `maintenance/.htaccess` blocks web access to the maintenance directory, and the maintenance scripts also refuse non-CLI execution.
 - The retention script is included but **not scheduled**. It must be tested first, then added as a Hostinger PHP cron job. Hostinger cron schedules use UTC.
 
-## Hostinger setup required before functional testing
+## Hostinger staging workflow
 
-1. Confirm PHP 8.2+ and MySQL/MariaDB are enabled for the hosting plan.
-2. Confirm the PHP environment supports PDO/pdo_mysql and OpenSSL.
-3. Create a private MySQL database and user.
-4. Run `docs/private-messages-schema.sql` in phpMyAdmin.
-5. Create a 32-byte random encryption key and store it Base64-encoded.
-6. Create a long random HMAC secret for rate limiting.
-7. Generate an admin password hash using PHP `password_hash()`.
-8. Create the real configuration outside `public_html` at:
-   `../private-config/leave-one-light-on-messages.php`
-9. Use `config/private-messages.example.php` only as a template.
-10. Add Hostinger directory password protection to `/admin/messages/`.
-11. Test HTTPS, PHP sessions, database connectivity, create/check/follow-up/reply/close paths, wrong-code throttling, contact encryption/decryption, and the retention job before any release.
-12. Only after retention testing, schedule `maintenance/private-message-retention.php` as a Hostinger PHP cron job using a conservative daily schedule.
+Staging is hosted at `phase1.leaveonelighton.org` under the existing website account rather than using another website slot.
+
+`scripts/phase1-update.sh` is the staging update command. It:
+
+- fast-forwards the Phase 1 branch,
+- syncs it only to `public_html/phase1`,
+- excludes local secret configuration,
+- applies an idempotent staging `noindex` guard,
+- writes a staging-only `robots.txt` with `Disallow: /`,
+- lints all Phase 1 PHP,
+- runs the private-message cryptography/database self-test,
+- checks Contact and Message pages for HTTP 200,
+- checks the unauthenticated admin endpoint for HTTP 401,
+- verifies the staging `X-Robots-Tag` header.
+
+The script does not deploy or modify production `main`.
+
+## Remaining private-message release checks
+
+Before production release:
+
+1. Test email response choice with an encrypted contact value and confirm correct admin decryption.
+2. Test text response choice with an encrypted contact value and confirm correct admin decryption.
+3. Test phone response choice with an encrypted contact value and confirm correct admin decryption.
+4. Test no-reply submission behavior.
+5. Test wrong-code throttling and public rate limiting.
+6. Test close-conversation behavior and confirm visitor sees the closed state.
+7. Run the retention script in a controlled staging test before scheduling it.
+8. Add Hostinger directory password protection to `/admin/messages/` as a second layer if supported cleanly by the staging/production layout.
+9. Delete exposed or obsolete staging test conversations.
+10. Re-run `scripts/phase1-update.sh` and complete a final browser QA pass.
 
 ## Resource-system prototype
 
