@@ -11,15 +11,21 @@ fail() {
   exit 1
 }
 
-printf '== Resource-system staging update ==\n'
-
 [ -d "$SRC/.git" ] || fail "Missing Git clone at $SRC"
 [ -d "$DEST" ] || fail "Missing staging directory at $DEST"
 
+# Pull first, then restart into the newly pulled copy of this script once.
+# This prevents new copy/check lines from being skipped when the updater updates itself.
+if [ "${RESOURCE_UPDATER_SYNCED:-0}" != "1" ]; then
+  cd "$SRC"
+  git fetch origin "$BRANCH"
+  git checkout "$BRANCH"
+  git pull --ff-only origin "$BRANCH"
+  exec env RESOURCE_UPDATER_SYNCED=1 bash "$SRC/scripts/resource-staging-update.sh"
+fi
+
+printf '== Resource-system staging update ==\n'
 cd "$SRC"
-git fetch origin "$BRANCH"
-git checkout "$BRANCH"
-git pull --ff-only origin "$BRANCH"
 HEAD_SHA="$(git rev-parse --short HEAD)"
 printf 'Branch: %s\nCommit: %s\n' "$BRANCH" "$HEAD_SHA"
 
@@ -29,14 +35,16 @@ cp css/resource-system.css "$DEST/css/resource-system.css"
 cp css/resource-print.css "$DEST/css/resource-print.css"
 cp css/resource-planner.css "$DEST/css/resource-planner.css"
 cp css/resource-foster-care.css "$DEST/css/resource-foster-care.css"
+cp css/resource-reading-learning.css "$DEST/css/resource-reading-learning.css"
 cp css/story-preservation-workbook.css "$DEST/css/story-preservation-workbook.css"
 cp css/community-light-starter-kit.css "$DEST/css/community-light-starter-kit.css"
 cp welcome-shelf/index.html "$DEST/welcome-shelf/index.html"
 cp welcome-shelf/one-light-at-work.html "$DEST/welcome-shelf/one-light-at-work.html"
 cp welcome-shelf/community-light-starter-kit.html "$DEST/welcome-shelf/community-light-starter-kit.html"
+cp welcome-shelf/foster-care-start-here.html "$DEST/welcome-shelf/foster-care-start-here.html"
+cp welcome-shelf/reading-learning-questions.html "$DEST/welcome-shelf/reading-learning-questions.html"
 cp welcome-shelf/one-meaningful-step.html "$DEST/welcome-shelf/one-meaningful-step.html"
 cp welcome-shelf/story-preservation-workbook.html "$DEST/welcome-shelf/story-preservation-workbook.html"
-cp welcome-shelf/foster-care-start-here.html "$DEST/welcome-shelf/foster-care-start-here.html"
 cp prototype/pdf-qa.html "$DEST/prototype/pdf-qa.html"
 
 printf '\n== HTTP checks ==\n'
@@ -53,6 +61,7 @@ check_200 "Welcome Shelf" "$BASE_URL/welcome-shelf/"
 check_200 "One Light at Work" "$BASE_URL/welcome-shelf/one-light-at-work.html"
 check_200 "Community Light Kit" "$BASE_URL/welcome-shelf/community-light-starter-kit.html"
 check_200 "Foster Care Start Here" "$BASE_URL/welcome-shelf/foster-care-start-here.html"
+check_200 "Reading & Learning" "$BASE_URL/welcome-shelf/reading-learning-questions.html"
 check_200 "One Meaningful Step" "$BASE_URL/welcome-shelf/one-meaningful-step.html"
 check_200 "Story Preservation" "$BASE_URL/welcome-shelf/story-preservation-workbook.html"
 check_200 "Print QA harness" "$BASE_URL/prototype/pdf-qa.html"
