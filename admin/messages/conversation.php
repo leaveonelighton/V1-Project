@@ -28,17 +28,29 @@ $messagesStmt->execute([$id]);
 $messages = $messagesStmt->fetchAll();
 $contact = lol_decrypt_contact($conversation['contact_ciphertext'] ?? null);
 $csrf = lol_csrf_token();
+$methodLabels = [
+    'private' => 'Private website reply',
+    'email' => 'Email',
+    'text' => 'Text',
+    'phone' => 'Phone',
+    'none' => 'No reply requested',
+];
+$method = (string)$conversation['response_method'];
+$methodLabel = $methodLabels[$method] ?? ucfirst($method);
+$status = (string)$conversation['status'];
 
 lol_admin_header('Conversation ' . (string)$conversation['public_reference']);
 echo '<p><a href="index.php">← Back to inbox</a></p>'
+    . '<div class="admin-card-topline"><span class="status-chip status-' . lol_html_escape($status) . '">' . lol_html_escape($status) . '</span>'
+    . '<span class="message-meta">Last activity: ' . lol_html_escape((string)$conversation['last_activity_at']) . '</span></div>'
     . '<h1>' . lol_html_escape((string)$conversation['public_reference']) . '</h1>'
     . '<div class="conversation-summary">'
-    . '<p><strong>Status:</strong> ' . lol_html_escape((string)$conversation['status']) . '</p>'
     . '<p><strong>Topic:</strong> ' . lol_html_escape((string)$conversation['topic']) . '</p>'
     . '<p><strong>Name/nickname:</strong> ' . lol_html_escape((string)($conversation['nickname'] ?: 'Not provided')) . '</p>'
-    . '<p><strong>Response method:</strong> ' . lol_html_escape((string)$conversation['response_method']) . '</p>'
+    . '<p><strong>Response method:</strong> ' . lol_html_escape($methodLabel) . '</p>'
     . '<p><strong>Contact:</strong> ' . lol_html_escape($contact ?: 'Not provided') . '</p>'
     . '<p><strong>Created:</strong> ' . lol_html_escape((string)$conversation['created_at']) . '</p>'
+    . '<p><strong>Messages:</strong> ' . count($messages) . '</p>'
     . '</div><div class="message-thread">';
 
 foreach ($messages as $message) {
@@ -49,8 +61,9 @@ foreach ($messages as $message) {
 }
 echo '</div>';
 
-if ($conversation['status'] === 'open' && $conversation['response_method'] !== 'none') {
-    echo '<section class="admin-reply-box"><h2>Reply</h2>'
+if ($status === 'open' && $method !== 'none') {
+    echo '<section class="admin-reply-box"><h2>Post a private reply</h2>'
+        . '<p class="message-meta">This reply stays inside this private conversation.</p>'
         . '<form action="reply.php" method="post">'
         . '<input type="hidden" name="conversation_id" value="' . $id . '">'
         . '<input type="hidden" name="csrf_token" value="' . lol_html_escape($csrf) . '">'
@@ -60,7 +73,7 @@ if ($conversation['status'] === 'open' && $conversation['response_method'] !== '
         . '</form></section>';
 }
 
-if ($conversation['status'] === 'open') {
+if ($status === 'open') {
     echo '<form class="admin-close-form" action="close.php" method="post">'
         . '<input type="hidden" name="conversation_id" value="' . $id . '">'
         . '<input type="hidden" name="csrf_token" value="' . lol_html_escape($csrf) . '">'
