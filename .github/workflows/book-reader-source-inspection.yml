@@ -6,6 +6,8 @@ on:
       - '.github/workflows/book-reader-source-inspection.yml'
       - 'welcome-shelf/book-club-welcome-kit.pdf'
       - 'welcome-shelf/discussion-guide.pdf'
+      - 'welcome-shelf/index.html'
+      - 'books/the-light-in-the-window-reader-materials.html'
   workflow_dispatch:
 
 permissions:
@@ -36,9 +38,7 @@ jobs:
               while i < len(src):
                   b = src[i]
                   if b != 92:
-                      out.append(b)
-                      i += 1
-                      continue
+                      out.append(b); i += 1; continue
                   i += 1
                   if i >= len(src):
                       break
@@ -89,12 +89,37 @@ jobs:
                               strings.append(text)
               return strings
 
-          for path in ('welcome-shelf/book-club-welcome-kit.pdf', 'welcome-shelf/discussion-guide.pdf'):
-              print('\n' + '=' * 72)
-              print(path)
-              print('=' * 72)
+          expected = {
+              'welcome-shelf/book-club-welcome-kit.pdf': [
+                  'Book Club Welcome Kit',
+                  'A hospitable four-meeting path through The Light in the Window',
+                  'A four-meeting reading path',
+              ],
+              'welcome-shelf/discussion-guide.pdf': [
+                  'Discussion Guide',
+                  'Questions for reading The Light in the Window with care',
+                  'Questions about welcome and belonging',
+              ],
+          }
+
+          for path, phrases in expected.items():
               text = extract(path)
               if not text:
                   raise SystemExit(f'No readable text extracted from {path}')
-              print('\n'.join(text))
+              joined = '\n'.join(text)
+              for phrase in phrases:
+                  if phrase not in joined:
+                      raise SystemExit(f'Missing expected book-specific phrase in {path}: {phrase}')
+              print(f'BOOK-SPECIFIC SOURCE OK: {path}')
           PY
+
+      - name: Confirm reader-material separation
+        shell: bash
+        run: |
+          set -euo pipefail
+          grep -q '/welcome-shelf/discussion-guide.pdf' books/the-light-in-the-window-reader-materials.html
+          grep -q '/welcome-shelf/book-club-welcome-kit.pdf' books/the-light-in-the-window-reader-materials.html
+          grep -q '/books/the-light-in-the-window-reader-materials.html' welcome-shelf/index.html
+          ! grep -q 'discussion-guide.pdf' welcome-shelf/index.html
+          ! grep -q 'book-club-welcome-kit.pdf' welcome-shelf/index.html
+          echo 'BOOK READER SEPARATION OK'
