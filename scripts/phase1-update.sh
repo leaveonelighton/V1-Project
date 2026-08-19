@@ -34,13 +34,15 @@ rsync -a \
   "$SRC/" "$DEST/"
 
 printf '\n== Staging noindex guard ==\n'
-cat >> "$DEST/.htaccess" <<'EOF'
+if ! grep -q '^# PHASE1-STAGING-NOINDEX$' "$DEST/.htaccess" 2>/dev/null; then
+  cat >> "$DEST/.htaccess" <<'EOF'
 
 # PHASE1-STAGING-NOINDEX
 <IfModule mod_headers.c>
 Header set X-Robots-Tag "noindex, nofollow, noarchive"
 </IfModule>
 EOF
+fi
 cat > "$DEST/robots.txt" <<'EOF'
 User-agent: *
 Disallow: /
@@ -55,22 +57,8 @@ PHP_DIRS=(
 )
 find "${PHP_DIRS[@]}" -type f -name '*.php' -print0 | xargs -0 -n1 php -l
 
-printf '\n== Database connection ==\n'
-CONFIG_PATH="$CONFIG" php -r '
-$c = require getenv("CONFIG_PATH");
-try {
-    new PDO(
-        "mysql:host=".$c["db_host"].";dbname=".$c["db_name"].";charset=utf8mb4",
-        $c["db_user"],
-        $c["db_pass"],
-        [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]
-    );
-    echo "DATABASE OK\n";
-} catch (Throwable $e) {
-    fwrite(STDERR, "DATABASE FAILED\n");
-    exit(1);
-}
-'
+printf '\n== Private-message self-test ==\n'
+php "$DEST/maintenance/private-message-self-test.php"
 
 printf '\n== HTTP health checks ==\n'
 check_http() {
