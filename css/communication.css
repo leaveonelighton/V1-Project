@@ -8,6 +8,14 @@
   gap: 1rem;
 }
 
+/* Contact choices use deliberate breakpoints so four cards stay balanced
+   instead of squeezing into narrow, uneven columns. */
+.contact-choice-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1.15rem;
+  align-items: stretch;
+}
+
 .communication-card,
 .contact-choice-card,
 .private-code-box,
@@ -26,6 +34,33 @@
 .contact-choice-card,
 .admin-message-card {
   border-top: 3px solid var(--gold, #d4a52c);
+}
+
+.contact-choice-card {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  height: 100%;
+}
+
+.contact-choice-card .card-label {
+  min-height: 2.2rem;
+  margin: 0 0 .45rem;
+}
+
+.contact-choice-card h2 {
+  min-height: 4.35em;
+  margin: 0 0 1rem;
+  line-height: 1.08;
+}
+
+.contact-choice-card > p:not(.card-label) {
+  flex: 1 1 auto;
+}
+
+.contact-choice-card .button {
+  align-self: flex-start;
+  margin-top: auto;
 }
 
 .communication-form {
@@ -175,10 +210,25 @@
   margin-top: 1.5rem;
 }
 
+@media (max-width: 1050px) {
+  .contact-choice-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .contact-choice-card h2 {
+    min-height: 2.3em;
+  }
+}
+
 @media (max-width: 640px) {
   .communication-grid,
   .contact-choice-grid,
   .admin-message-list {
     grid-template-columns: 1fr;
+  }
+
+  .contact-choice-card .card-label,
+  .contact-choice-card h2 {
+    min-height: 0;
   }
 }
