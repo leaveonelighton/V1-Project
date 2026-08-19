@@ -11,11 +11,14 @@ function lol_config(): array
     $documentRoot = rtrim((string)($_SERVER['DOCUMENT_ROOT'] ?? ''), '/');
     $candidates = [];
     if ($documentRoot !== '') {
+        // Production document root: .../public_html -> config is next to public_html.
         $candidates[] = dirname($documentRoot) . '/private-config/leave-one-light-on-messages.php';
+        // Staging subdomain document root: .../public_html/phase1 -> shared config is two levels up.
+        $candidates[] = dirname($documentRoot, 2) . '/private-config/leave-one-light-on-messages.php';
     }
     $candidates[] = dirname(__DIR__, 2) . '/config/private-messages.local.php';
 
-    foreach ($candidates as $path) {
+    foreach (array_unique($candidates) as $path) {
         if (is_file($path)) {
             $loaded = require $path;
             if (is_array($loaded)) {
