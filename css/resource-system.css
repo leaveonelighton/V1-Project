@@ -87,6 +87,26 @@
   margin-top: 0;
 }
 
+/* Welcome Shelf cards only: keep action rows on a common baseline. */
+.wide > .resource-section > .resource-grid {
+  align-items: stretch;
+}
+
+.wide > .resource-section > .resource-grid > .resource-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.wide > .resource-section > .resource-grid > .resource-card > p:last-child {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: .55rem;
+  margin-top: auto;
+  margin-bottom: 0;
+  padding-top: .35rem;
+}
+
 .invitation-card p {
   margin: .25rem 0 .65rem;
 }
