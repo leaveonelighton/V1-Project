@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>Resource Print QA Harness | Leave One Light On</title>
+  <link rel="stylesheet" href="/css/golden-state.css">
+  <link rel="stylesheet" href="/css/v3.css">
+  <link rel="stylesheet" href="/css/resource-system.css">
+  <link rel="stylesheet" href="/css/resource-print.css" media="print">
+</head>
+<body>
+<main id="main-content">
+  <section class="section-light">
+    <article class="resource-document">
+      <div class="prototype-warning"><strong>Internal QA harness.</strong> Not public content. Print this page to exercise destructive layout cases before approving any generated PDF.</div>
+      <h1>Resource Print QA Harness</h1>
+
+      <section class="resource-section"><h2>1. Unbroken-string test</h2><div class="resource-card"><p class="qa-test-string">SUPERCALIFRAGILISTICEXPIALIDOCIOUSSUPERCALIFRAGILISTICEXPIALIDOCIOUSSUPERCALIFRAGILISTICEXPIALIDOCIOUSSUPERCALIFRAGILISTICEXPIALIDOCIOUSSUPERCALIFRAGILISTICEXPIALIDOCIOUSSUPERCALIFRAGILISTICEXPIALIDOCIOUSSUPERCALIFRAGILISTICEXPIALIDOCIOUSSUPERCALIFRAGILISTICEXPIALIDOCIOUS</p></div></section>
+
+      <section class="resource-section"><h2>2. Long URL and narrow-card test</h2><div class="resource-grid"><div class="resource-card"><h3>Long address</h3><p>https://example.org/resources/this-is-an-intentionally-very-long-path-without-convenient-break-points-and-with-a-query-string?one=abcdefghijklmnopqrstuvwxyz&amp;two=012345678901234567890123456789</p></div><div class="resource-card"><h3>Long heading that must remain attached to the explanation below it even when this block approaches a page boundary</h3><p>This paragraph exists to test heading and paragraph pagination behavior without globally forcing every paragraph to remain on one page.</p></div></div></section>
+
+      <section class="resource-section print-page-break"><h2>3. Fifty-row table test</h2><p>This verifies that rows stay readable and the page does not bleed horizontally.</p><table class="qa-wide-table"><thead><tr><th>Row</th><th>Purpose</th><th>Long content</th></tr></thead><tbody id="qa-rows"></tbody></table></section>
+
+      <section class="resource-section"><h2>4. Large card test</h2><div class="resource-card"><h3>A component allowed to split when necessary</h3><div id="qa-paragraphs"></div></div></section>
+
+      <section class="resource-section"><h2>5. Atomic invitation-card test</h2><div class="invitation-grid"><article class="invitation-card atomic-block"><h3>Give opportunity</h3><p><strong>Example</strong></p><p>Prototype stress copy that is intentionally long enough to wrap across several lines without changing the width of the card or colliding with neighboring content.</p><p><strong>Boundary</strong></p><p>Another intentionally long block that must stay inside the card and move to a new page as a unit when there is not enough remaining space.</p></article><article class="invitation-card atomic-block"><h3>Give attention</h3><p><strong>Example</strong></p><p>Short content.</p><p><strong>Boundary</strong></p><p>Short content.</p></article></div></section>
+    </article>
+  </section>
+</main>
+<script>
+  const tbody = document.getElementById('qa-rows');
+  for (let i = 1; i <= 50; i += 1) {
+    const row = document.createElement('tr');
+    row.innerHTML = `<td>${i}</td><td>Pagination and wrapping</td><td>Q4 2026 Forecast Adjustment - stress row ${i} with enough words to wrap naturally inside the available print width.</td>`;
+    tbody.append(row);
+  }
+  const paragraphs = document.getElementById('qa-paragraphs');
+  for (let i = 1; i <= 12; i += 1) {
+    const p = document.createElement('p');
+    p.textContent = `Stress paragraph ${i}. This content is repeated to make the component larger than a typical page so the renderer must split it instead of leaving a giant blank area or clipping text.`;
+    paragraphs.append(p);
+  }
+</script>
+</body>
+</html>
