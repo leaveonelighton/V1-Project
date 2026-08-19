@@ -1,12 +1,14 @@
 /* Leave One Light On - evidence-guide action polish */
 
 .article-side > .button {
-  width: 100%;
+  display: flex !important;
+  width: 100% !important;
   box-sizing: border-box;
-  margin-top: .75rem;
+  justify-content: center;
   text-align: center;
+  margin: .75rem 0 0 !important;
 }
 
 .article-side > .button + .button {
-  margin-top: .7rem;
+  margin-top: .7rem !important;
 }
