@@ -1,0 +1,176 @@
+/* Leave One Light On - Story Preservation Workbook */
+
+.story-workbook .story-page {
+  margin: 2.5rem 0;
+}
+
+.story-workbook .story-person-card {
+  border: 1px solid rgba(36, 54, 77, .22);
+  border-radius: .7rem;
+  background: #fff;
+  padding: 1rem 1.1rem;
+  margin: 1rem 0;
+}
+
+.story-workbook .story-field {
+  margin: .8rem 0 1rem;
+}
+
+.story-workbook .story-field-label,
+.story-workbook .story-mini-label {
+  font-weight: 700;
+}
+
+.story-workbook .story-mini-label {
+  display: block;
+  margin-bottom: .15rem;
+  font-size: .84rem;
+  color: #566274;
+}
+
+.story-workbook .story-timeline-entry,
+.story-workbook .story-item-entry {
+  border-top: 1px solid rgba(36, 54, 77, .22);
+  padding: .5rem 0 .6rem;
+}
+
+.story-workbook .story-timeline-grid,
+.story-workbook .story-item-grid,
+.story-workbook .story-permission-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: .4rem 1rem;
+}
+
+.story-workbook .story-mini-field {
+  min-height: 2.1rem;
+  border-bottom: 1px solid rgba(36, 54, 77, .35);
+  padding: .05rem .1rem;
+}
+
+.story-workbook .story-permission-options {
+  margin: .5rem 0 1rem;
+}
+
+.story-workbook .story-permission-option {
+  position: relative;
+  padding-left: 1.8rem;
+}
+
+.story-workbook .story-permission-option::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: .25rem;
+  width: .95rem;
+  height: .95rem;
+  border: 2px solid #172538;
+  box-sizing: border-box;
+}
+
+.story-workbook .story-lines-tall {
+  min-height: 10.5rem;
+}
+
+.story-workbook .story-lines-story {
+  min-height: 13rem;
+}
+
+@media (max-width: 640px) {
+  .story-workbook .story-timeline-grid,
+  .story-workbook .story-item-grid,
+  .story-workbook .story-permission-options {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media print {
+  .story-workbook {
+    font-size: 10.5pt !important;
+    line-height: 1.36 !important;
+  }
+
+  .story-workbook .story-page {
+    margin: 0 !important;
+    break-before: page;
+    page-break-before: always;
+  }
+
+  .story-workbook .story-page:first-of-type {
+    break-before: auto;
+    page-break-before: auto;
+  }
+
+  .story-workbook .story-person-card {
+    border: 1pt solid #c8ced5 !important;
+    border-radius: 0 !important;
+    padding: 7pt 8pt !important;
+    margin: 6pt 0 8pt !important;
+    break-inside: avoid-page;
+    page-break-inside: avoid;
+  }
+
+  .story-workbook .story-person-card h3 {
+    font-size: 12.5pt !important;
+  }
+
+  .story-workbook .story-field {
+    margin: 6pt 0 8pt !important;
+  }
+
+  .story-workbook .story-field-label {
+    margin-bottom: 2pt !important;
+  }
+
+  .story-workbook .story-timeline-entry,
+  .story-workbook .story-item-entry {
+    padding: 3pt 0 4pt !important;
+    break-inside: avoid-page;
+    page-break-inside: avoid;
+  }
+
+  .story-workbook .story-timeline-grid,
+  .story-workbook .story-item-grid,
+  .story-workbook .story-permission-options {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 2pt 8pt !important;
+  }
+
+  .story-workbook .story-mini-field {
+    min-height: .23in !important;
+    padding: 0 1pt !important;
+  }
+
+  .story-workbook .story-mini-label {
+    margin: 0 !important;
+    font-size: 7.2pt !important;
+  }
+
+  .story-workbook .story-permission-options {
+    margin: 4pt 0 8pt !important;
+  }
+
+  .story-workbook .story-permission-option {
+    padding-left: 16pt !important;
+  }
+
+  .story-workbook .story-permission-option::before {
+    width: 8pt !important;
+    height: 8pt !important;
+    border-width: 1.2pt !important;
+    top: 2pt !important;
+  }
+
+  .story-workbook .story-lines-tall {
+    min-height: 1.85in !important;
+  }
+
+  .story-workbook .story-lines-story {
+    min-height: 2.15in !important;
+  }
+
+  .story-workbook .story-compact-page {
+    font-size: 9.7pt !important;
+  }
+}
