@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>Send a Message | Leave One Light On</title>
+  <meta name="description" content="Send Leave One Light On a message and choose a private website reply without providing an email address or phone number.">
+  <link rel="stylesheet" href="/css/golden-state.css">
+  <link rel="stylesheet" href="/css/v3.css">
+  <link rel="stylesheet" href="/css/reading-friendly.css">
+  <link rel="stylesheet" href="/css/communication.css">
+  <script defer src="/js/communication.js"></script>
+</head>
+<body>
+<a class="skip-link" href="#main-content">Skip to main content</a>
+<header class="site-header">
+  <a class="brand" href="/index.html" aria-label="Leave One Light On home">
+    <span class="brand-name">LEAVE ONE LIGHT ON</span>
+    <span class="brand-tagline">A movement of hope and practical compassion</span>
+  </a>
+  <nav class="desktop-nav" aria-label="Main navigation">
+    <a href="/index.html">Home</a><a href="/why-we-exist.html">Why We Exist</a><a href="/get-involved.html">Get Involved</a><a href="/resources.html">Resources</a><a href="/research.html">Research &amp; Learning</a><a href="/books.html">Books</a><a href="/contact.html">Contact</a>
+  </nav>
+</header>
+<main id="main-content">
+  <section class="page-hero compact">
+    <div class="narrow">
+      <h1>Send a message.</h1>
+      <p class="hero-line">Choose how—or whether—you want a response.</p>
+    </div>
+  </section>
+  <section class="section-light">
+    <div class="narrow">
+      <p class="privacy-note"><strong>Your email or phone number is not required.</strong> Choose Private website reply and you will receive a private response code after sending your message.</p>
+      <p>Please do not submit Social Security numbers, financial account information, passwords, medical records, private foster-care case information, or information that identifies a child. This form is not monitored as a crisis service. If you need immediate support, use the <a href="/looking-for-hope.html">Need Help page</a>.</p>
+
+      <form class="communication-form" action="/api/messages/create.php" method="post" data-private-message-form>
+        <input type="hidden" name="started_at" value="">
+        <div class="honeypot-field" aria-hidden="true">
+          <label for="website">Leave this field empty</label>
+          <input id="website" name="website" type="text" tabindex="-1" autocomplete="off">
+        </div>
+
+        <div>
+          <label for="nickname">Name or nickname <span class="field-help">(optional)</span></label>
+          <input id="nickname" name="nickname" type="text" maxlength="120" autocomplete="name">
+        </div>
+
+        <div>
+          <label for="topic">What is this about?</label>
+          <select id="topic" name="topic">
+            <option value="general">General question</option>
+            <option value="correction">Correction or source question</option>
+            <option value="partnership">Partnership idea</option>
+            <option value="resource">Resource question</option>
+            <option value="story">Share something</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="message">Your message</label>
+          <textarea id="message" name="message" rows="9" maxlength="4000" required aria-describedby="message-help"></textarea>
+          <p id="message-help" class="field-help">Keep the message focused on what you want us to understand or respond to.</p>
+        </div>
+
+        <fieldset>
+          <legend>How would you like us to respond?</legend>
+          <label class="response-option"><input type="radio" name="response_method" value="private" checked><span><strong>Private website reply</strong><br>No email or phone number required. Save the private code you receive after submitting.</span></label>
+          <label class="response-option"><input type="radio" name="response_method" value="email"><span><strong>Email</strong><br>Provide an address only for this conversation.</span></label>
+          <label class="response-option"><input type="radio" name="response_method" value="text"><span><strong>Text</strong><br>Provide a mobile number only for this conversation.</span></label>
+          <label class="response-option"><input type="radio" name="response_method" value="phone"><span><strong>Phone</strong><br>Provide a number only for this conversation.</span></label>
+          <label class="response-option"><input type="radio" name="response_method" value="none"><span><strong>No reply needed</strong><br>I only want to share this message.</span></label>
+        </fieldset>
+
+        <div class="conditional-contact" data-contact-wrap hidden>
+          <label for="contact" data-contact-label>Contact information</label>
+          <input id="contact" name="contact" type="text" maxlength="240" data-contact-input>
+          <p class="field-help" data-contact-help>Used only to respond to this message.</p>
+        </div>
+
+        <p class="field-help">Sending a message does not subscribe you to newsletters or ongoing updates.</p>
+        <button class="button" type="submit">Send Message</button>
+        <p class="form-status" aria-live="polite" data-send-status></p>
+      </form>
+
+      <section class="private-code-box" data-success-panel hidden aria-live="polite">
+        <p class="section-label">Message received</p>
+        <h2>Save your details.</h2>
+        <p>Your reference is <strong data-reference></strong>.</p>
+        <div data-private-code-section>
+          <p><strong>Your private response code</strong></p>
+          <p><code data-private-code></code></p>
+          <p>If you did not provide another contact method, this code cannot be recovered if lost.</p>
+          <p><a class="button" href="/communicate/check-response.html">Check My Response</a></p>
+        </div>
+      </section>
+
+      <noscript><p class="privacy-note">JavaScript is not available. You can still submit the form; the next page will display your private code.</p></noscript>
+    </div>
+  </section>
+</main>
+<footer class="site-footer"><p class="footer-note">Leave One Light On is an independent educational nonprofit, not a crisis center or professional service provider.</p><div class="footer-bottom"><span>© 2026 Leave One Light On</span></div></footer>
+</body>
+</html>

@@ -1,0 +1,138 @@
+/* Leave One Light On — shared print/PDF rules for resource prototypes */
+
+@page {
+  size: Letter;
+  margin: .65in .65in .7in;
+}
+
+@media print {
+  html,
+  body {
+    background: #fff !important;
+    color: #111 !important;
+  }
+
+  .site-header,
+  .site-footer,
+  .skip-link,
+  .resource-actions,
+  .prototype-warning,
+  .screen-only {
+    display: none !important;
+  }
+
+  .resource-document {
+    width: auto !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    font-family: Arial, Helvetica, sans-serif !important;
+    font-size: 11.5pt !important;
+    line-height: 1.48 !important;
+  }
+
+  .resource-document h1,
+  .resource-document h2,
+  .resource-document h3,
+  .resource-document h4 {
+    font-family: Arial, Helvetica, sans-serif !important;
+    break-after: avoid-page;
+    page-break-after: avoid;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .resource-document h1 { font-size: 24pt !important; }
+  .resource-document h2 { font-size: 17pt !important; margin-top: 18pt !important; }
+  .resource-document h3 { font-size: 13pt !important; }
+
+  .resource-document p,
+  .resource-document li,
+  .resource-document td,
+  .resource-document th,
+  .resource-document label,
+  .resource-document code {
+    overflow-wrap: anywhere;
+    word-break: normal;
+    hyphens: auto;
+    max-width: 100%;
+  }
+
+  .resource-section,
+  .resource-card,
+  .invitation-card,
+  .worksheet-block {
+    break-inside: auto;
+    page-break-inside: auto;
+  }
+
+  .atomic-block,
+  .resource-note,
+  .resource-intro,
+  .private-code-box {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .resource-grid,
+  .invitation-grid {
+    display: block !important;
+  }
+
+  .resource-card,
+  .invitation-card,
+  .worksheet-block {
+    margin: 0 0 12pt !important;
+    border: 1pt solid #777 !important;
+    border-radius: 0 !important;
+    padding: 10pt !important;
+    box-shadow: none !important;
+  }
+
+  .invitation-card {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .write-lines {
+    min-height: 1.65in;
+    background-image: repeating-linear-gradient(to bottom, transparent 0, transparent .31in, #aaa .32in) !important;
+  }
+
+  .write-lines.short {
+    min-height: .85in;
+  }
+
+  table,
+  .qa-wide-table {
+    width: 100% !important;
+    max-width: 100% !important;
+    table-layout: fixed !important;
+    border-collapse: collapse !important;
+  }
+
+  th,
+  td {
+    vertical-align: top !important;
+    white-space: normal !important;
+  }
+
+  tr {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  a[href]::after {
+    content: none !important;
+  }
+
+  .print-page-break {
+    break-before: page;
+    page-break-before: always;
+  }
+
+  .no-print-break-before {
+    break-before: auto !important;
+    page-break-before: auto !important;
+  }
+}

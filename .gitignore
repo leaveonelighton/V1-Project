@@ -1,0 +1,8 @@
+# Local/private configuration must never be committed.
+config/private-messages.local.php
+.env
+.env.*
+
+# Local build output and OS/editor files.
+.DS_Store
+Thumbs.db
