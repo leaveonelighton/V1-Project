@@ -16,38 +16,36 @@ try {
 
     $pdo->beginTransaction();
 
-    $close = $pdo->prepare(
+    $closeSql = sprintf(
         "UPDATE conversations
          SET status = 'closed', closed_at = UTC_TIMESTAMP()
          WHERE status = 'open'
-           AND last_activity_at < DATE_SUB(UTC_TIMESTAMP(), INTERVAL ? DAY)"
+           AND last_activity_at < DATE_SUB(UTC_TIMESTAMP(), INTERVAL %d DAY)",
+        $inactiveDays
     );
-    $close->execute([$inactiveDays]);
-    $closedCount = $close->rowCount();
+    $closedCount = $pdo->exec($closeSql);
 
-    $delete = $pdo->prepare(
+    $deleteSql = sprintf(
         "DELETE FROM conversations
          WHERE status = 'closed'
            AND closed_at IS NOT NULL
-           AND closed_at < DATE_SUB(UTC_TIMESTAMP(), INTERVAL ? DAY)"
+           AND closed_at < DATE_SUB(UTC_TIMESTAMP(), INTERVAL %d DAY)",
+        $deleteDays
     );
-    $delete->execute([$deleteDays]);
-    $deletedCount = $delete->rowCount();
+    $deletedCount = $pdo->exec($deleteSql);
 
-    $purgeRates = $pdo->prepare(
+    $rateCount = $pdo->exec(
         "DELETE FROM rate_events
          WHERE created_at < DATE_SUB(UTC_TIMESTAMP(), INTERVAL 2 DAY)"
     );
-    $purgeRates->execute();
-    $rateCount = $purgeRates->rowCount();
 
     $pdo->commit();
 
     echo sprintf(
         "Private-message retention complete. Closed: %d; deleted: %d; rate events purged: %d\n",
-        $closedCount,
-        $deletedCount,
-        $rateCount
+        (int)$closedCount,
+        (int)$deletedCount,
+        (int)$rateCount
     );
 } catch (Throwable $e) {
     if (isset($pdo) && $pdo instanceof PDO && $pdo->inTransaction()) {
