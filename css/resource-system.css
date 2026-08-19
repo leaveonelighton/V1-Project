@@ -1,0 +1,151 @@
+/* Leave One Light On — V4.1 resource-system prototype */
+
+.resource-document {
+  width: min(860px, calc(100% - 2rem));
+  margin: 0 auto;
+  color: #172538;
+  font-family: Lato, Arial, sans-serif;
+  font-size: 1.05rem;
+  line-height: 1.62;
+}
+
+.resource-document h1,
+.resource-document h2,
+.resource-document h3 {
+  font-family: Lato, Arial, sans-serif;
+  line-height: 1.22;
+  text-wrap: balance;
+}
+
+.resource-document p,
+.resource-document li,
+.resource-document label,
+.resource-document td,
+.resource-document th,
+.resource-document .resource-card {
+  overflow-wrap: anywhere;
+  word-break: normal;
+  hyphens: auto;
+}
+
+.resource-kicker,
+.resource-version {
+  font-size: .88rem;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.resource-intro,
+.resource-note {
+  border-left: 4px solid #d4a52c;
+  padding: .9rem 1rem;
+  background: #fbf8ef;
+}
+
+.resource-section {
+  margin: 2rem 0;
+}
+
+.resource-grid,
+.invitation-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1rem;
+}
+
+.resource-card,
+.invitation-card,
+.worksheet-block {
+  border: 1px solid rgba(36, 54, 77, .22);
+  border-radius: .7rem;
+  background: #fff;
+  padding: 1rem 1.1rem;
+  box-sizing: border-box;
+}
+
+.resource-card h3,
+.invitation-card h3,
+.worksheet-block h3 {
+  margin-top: 0;
+}
+
+.write-lines {
+  min-height: 7rem;
+  margin-top: .75rem;
+  background-image: repeating-linear-gradient(to bottom, transparent 0, transparent 1.75rem, rgba(36, 54, 77, .22) 1.78rem);
+}
+
+.write-lines.short {
+  min-height: 3.75rem;
+}
+
+.check-list {
+  list-style: none;
+  padding: 0;
+}
+
+.check-list li {
+  position: relative;
+  padding-left: 1.8rem;
+  margin: .55rem 0;
+}
+
+.check-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: .25rem;
+  width: .95rem;
+  height: .95rem;
+  border: 2px solid #172538;
+  border-radius: .08rem;
+  box-sizing: border-box;
+}
+
+.prototype-warning {
+  border: 2px dashed #8b6a16;
+  padding: .9rem 1rem;
+  margin: 1rem 0 2rem;
+  background: #fffaf0;
+}
+
+.resource-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .75rem;
+  margin: 1.5rem 0;
+}
+
+.resource-field-label {
+  font-weight: 700;
+  margin-bottom: .25rem;
+}
+
+.qa-test-string {
+  max-width: 100%;
+  overflow-wrap: anywhere;
+}
+
+.qa-wide-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.qa-wide-table th,
+.qa-wide-table td {
+  border: 1px solid rgba(36, 54, 77, .25);
+  padding: .55rem;
+  vertical-align: top;
+}
+
+@media (max-width: 640px) {
+  .resource-document {
+    width: min(100% - 1.25rem, 860px);
+  }
+  .resource-grid,
+  .invitation-grid {
+    grid-template-columns: 1fr;
+  }
+}
