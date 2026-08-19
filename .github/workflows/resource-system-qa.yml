@@ -1,0 +1,77 @@
+name: Resource system QA
+
+on:
+  pull_request:
+    paths:
+      - 'welcome-shelf/**'
+      - 'css/resource-*.css'
+      - 'prototype/pdf-qa.html'
+      - 'docs/RESOURCE-SYSTEM-OVERHAUL.md'
+      - '.github/workflows/resource-system-qa.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  resource-guards:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Confirm required prototype files
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f welcome-shelf/one-light-at-work.html
+          test -f welcome-shelf/one-meaningful-step.html
+          test -f welcome-shelf/story-preservation-workbook.html
+          test -f css/resource-system.css
+          test -f css/resource-print.css
+          test -f prototype/pdf-qa.html
+
+      - name: Confirm prototype pages remain noindex
+        shell: bash
+        run: |
+          set -euo pipefail
+          grep -q 'noindex,nofollow' welcome-shelf/index.html
+          grep -q 'noindex,nofollow' welcome-shelf/one-light-at-work.html
+          grep -q 'noindex,nofollow' welcome-shelf/one-meaningful-step.html
+          grep -q 'noindex,nofollow' welcome-shelf/story-preservation-workbook.html
+
+      - name: Guard print anti-patterns
+        shell: bash
+        run: |
+          set -euo pipefail
+          ! grep -R -n -E 'word-break:[[:space:]]*break-all' css/resource-*.css
+          ! grep -R -n -E 'position:[[:space:]]*fixed' css/resource-*.css
+          ! grep -R -n -E 'tr[[:space:]]*\{[^}]*height:' css/resource-*.css
+
+      - name: Confirm One Light at Work labels
+        shell: bash
+        run: |
+          set -euo pipefail
+          for label in \
+            'Give time' \
+            'Give skill' \
+            'Give practical support' \
+            'Give life' \
+            'Give opportunity' \
+            'Give attention'
+          do
+            grep -q "$label" welcome-shelf/one-light-at-work.html
+          done
+
+      - name: Prevent PDF replacement before reconciliation
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch origin main
+          if git diff --name-only origin/main...HEAD | grep -E '\.pdf$'; then
+            echo 'PDF files changed before authoritative-source reconciliation.' >&2
+            exit 1
+          fi
+          echo 'Existing PDFs remain untouched.'
