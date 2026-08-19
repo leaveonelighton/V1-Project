@@ -57,10 +57,7 @@
       try {
         const response = await fetch(sendForm.action, {
           method: 'POST',
-          headers: {
-            Accept: 'application/json',
-            'X-Requested-With': 'fetch'
-          },
+          headers: { Accept: 'application/json', 'X-Requested-With': 'fetch' },
           body: new FormData(sendForm)
         });
         const data = await response.json();
@@ -97,9 +94,56 @@
   const checkForm = document.querySelector('[data-check-response-form]');
   const checkStatus = document.querySelector('[data-check-status]');
   const responsePanel = document.querySelector('[data-response-panel]');
+  const followUpForm = document.querySelector('[data-follow-up-form]');
+  const followUpCode = document.querySelector('[data-follow-up-code]');
+  const followUpStatus = document.querySelector('[data-follow-up-status]');
+  let activePrivateCode = '';
 
   function formatSender(sender) {
     return sender === 'admin' ? 'Leave One Light On' : 'You';
+  }
+
+  function renderConversation(conversation) {
+    if (!responsePanel) return;
+    const heading = responsePanel.querySelector('[data-thread-reference]');
+    const state = responsePanel.querySelector('[data-thread-status]');
+    const thread = responsePanel.querySelector('[data-thread]');
+    if (heading) heading.textContent = conversation.reference;
+    if (state) state.textContent = conversation.status;
+    if (followUpForm) followUpForm.hidden = conversation.status !== 'open';
+    if (thread) {
+      thread.replaceChildren();
+      conversation.messages.forEach((message) => {
+        const article = document.createElement('article');
+        article.className = `message-card ${message.sender === 'admin' ? 'message-admin' : 'message-visitor'}`;
+        const meta = document.createElement('p');
+        meta.className = 'message-meta';
+        const strong = document.createElement('strong');
+        strong.textContent = formatSender(message.sender);
+        meta.append(strong, document.createTextNode(` · ${message.created_at}`));
+        const body = document.createElement('p');
+        body.textContent = message.message;
+        article.append(meta, body);
+        thread.append(article);
+      });
+    }
+    responsePanel.hidden = false;
+  }
+
+  async function loadConversation(privateCode) {
+    const formData = new FormData();
+    formData.set('private_code', privateCode);
+    const response = await fetch('/api/messages/check.php', {
+      method: 'POST',
+      headers: { Accept: 'application/json', 'X-Requested-With': 'fetch' },
+      body: formData
+    });
+    const data = await response.json();
+    if (!response.ok || !data.ok) {
+      throw new Error(data.error || 'We could not open that conversation.');
+    }
+    renderConversation(data.conversation);
+    return data.conversation;
   }
 
   if (checkForm) {
@@ -111,44 +155,10 @@
       }
 
       try {
-        const response = await fetch(checkForm.action, {
-          method: 'POST',
-          headers: {
-            Accept: 'application/json',
-            'X-Requested-With': 'fetch'
-          },
-          body: new FormData(checkForm)
-        });
-        const data = await response.json();
-        if (!response.ok || !data.ok) {
-          throw new Error(data.error || 'We could not open that conversation.');
-        }
-
-        const conversation = data.conversation;
-        if (responsePanel) {
-          const heading = responsePanel.querySelector('[data-thread-reference]');
-          const state = responsePanel.querySelector('[data-thread-status]');
-          const thread = responsePanel.querySelector('[data-thread]');
-          if (heading) heading.textContent = conversation.reference;
-          if (state) state.textContent = conversation.status;
-          if (thread) {
-            thread.replaceChildren();
-            conversation.messages.forEach((message) => {
-              const article = document.createElement('article');
-              article.className = `message-card ${message.sender === 'admin' ? 'message-admin' : 'message-visitor'}`;
-              const meta = document.createElement('p');
-              meta.className = 'message-meta';
-              const strong = document.createElement('strong');
-              strong.textContent = formatSender(message.sender);
-              meta.append(strong, document.createTextNode(` · ${message.created_at}`));
-              const body = document.createElement('p');
-              body.textContent = message.message;
-              article.append(meta, body);
-              thread.append(article);
-            });
-          }
-          responsePanel.hidden = false;
-        }
+        const formData = new FormData(checkForm);
+        activePrivateCode = String(formData.get('private_code') || '');
+        if (followUpCode) followUpCode.value = activePrivateCode;
+        await loadConversation(activePrivateCode);
         if (checkStatus) {
           checkStatus.textContent = 'Conversation found.';
           checkStatus.className = 'form-status success';
@@ -158,6 +168,42 @@
         if (checkStatus) {
           checkStatus.textContent = error instanceof Error ? error.message : 'We could not open that conversation.';
           checkStatus.className = 'form-status error';
+        }
+      }
+    });
+  }
+
+  if (followUpForm) {
+    followUpForm.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      if (followUpStatus) {
+        followUpStatus.textContent = 'Sending…';
+        followUpStatus.className = 'form-status';
+      }
+
+      try {
+        const formData = new FormData(followUpForm);
+        formData.set('private_code', activePrivateCode || String(formData.get('private_code') || ''));
+        const response = await fetch(followUpForm.action, {
+          method: 'POST',
+          headers: { Accept: 'application/json', 'X-Requested-With': 'fetch' },
+          body: formData
+        });
+        const data = await response.json();
+        if (!response.ok || !data.ok) {
+          throw new Error(data.error || 'We could not add that message.');
+        }
+        const textarea = followUpForm.querySelector('textarea[name="message"]');
+        if (textarea) textarea.value = '';
+        await loadConversation(activePrivateCode);
+        if (followUpStatus) {
+          followUpStatus.textContent = 'Your follow-up was added.';
+          followUpStatus.className = 'form-status success';
+        }
+      } catch (error) {
+        if (followUpStatus) {
+          followUpStatus.textContent = error instanceof Error ? error.message : 'We could not add that message.';
+          followUpStatus.className = 'form-status error';
         }
       }
     });
