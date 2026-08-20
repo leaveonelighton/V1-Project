@@ -47,18 +47,27 @@ jobs:
           test -f css/community-light-starter-kit.css
           test -f prototype/pdf-qa.html
 
-      - name: Confirm prototype pages remain noindex
+      - name: Confirm release pages remain indexable
         shell: bash
         run: |
           set -euo pipefail
-          grep -q 'noindex,nofollow' welcome-shelf/index.html
-          grep -q 'noindex,nofollow' welcome-shelf/one-light-at-work.html
-          grep -q 'noindex,nofollow' welcome-shelf/community-light-starter-kit.html
-          grep -q 'noindex,nofollow' welcome-shelf/foster-care-start-here.html
-          grep -q 'noindex,nofollow' welcome-shelf/reading-learning-questions.html
-          grep -q 'noindex,nofollow' welcome-shelf/resource-navigation-notes.html
-          grep -q 'noindex,nofollow' welcome-shelf/one-meaningful-step.html
-          grep -q 'noindex,nofollow' welcome-shelf/story-preservation-workbook.html
+          PAGES=(
+            welcome-shelf/index.html
+            welcome-shelf/one-light-at-work.html
+            welcome-shelf/community-light-starter-kit.html
+            welcome-shelf/foster-care-start-here.html
+            welcome-shelf/reading-learning-questions.html
+            welcome-shelf/resource-navigation-notes.html
+            welcome-shelf/one-meaningful-step.html
+            welcome-shelf/story-preservation-workbook.html
+          )
+          for page in "${PAGES[@]}"; do
+            if grep -nEi 'noindex|nofollow' "$page"; then
+              echo "Release indexing directive remains in $page." >&2
+              exit 1
+            fi
+          done
+          echo 'WELCOME SHELF INDEXING OK'
 
       - name: Guard print anti-patterns
         shell: bash
