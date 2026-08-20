@@ -2,17 +2,19 @@
 """Smoke-test the live Leave One Light On production site.
 
 This audit complements repository-level QA by checking what Hostinger actually
-serves over HTTPS: core pages, crawler files, canonical redirects, and the
-Welcome Shelf HTTP canonical headers configured in .htaccess.
+serves over HTTPS: core pages, crawler files, canonical redirects, Welcome
+Shelf HTTP canonical headers, and (after deployment) server hardening headers,
+compression, and cache behavior.
 """
 
 from __future__ import annotations
 
 from dataclasses import dataclass
 from email.message import Message
-from http.client import HTTPResponse
 from urllib.error import HTTPError, URLError
 from urllib.request import HTTPRedirectHandler, Request, build_opener
+import os
+import re
 import sys
 import time
 import xml.etree.ElementTree as ET
@@ -41,19 +43,25 @@ FOLLOW = build_opener()
 NO_REDIRECT = build_opener(NoRedirect())
 
 
-def fetch(url: str, *, follow_redirects: bool = True) -> Result:
+def fetch(
+    url: str,
+    *,
+    follow_redirects: bool = True,
+    extra_headers: dict[str, str] | None = None,
+) -> Result:
     opener = FOLLOW if follow_redirects else NO_REDIRECT
     last_error: Exception | None = None
 
     for attempt in range(1, RETRIES + 1):
-        request = Request(
-            url,
-            headers={
-                "User-Agent": USER_AGENT,
-                "Accept": "text/html,application/xml,text/xml,text/plain,*/*;q=0.8",
-                "Cache-Control": "no-cache",
-            },
-        )
+        headers = {
+            "User-Agent": USER_AGENT,
+            "Accept": "text/html,application/xml,text/xml,text/plain,*/*;q=0.8",
+            "Cache-Control": "no-cache",
+        }
+        if extra_headers:
+            headers.update(extra_headers)
+
+        request = Request(url, headers=headers)
         try:
             with opener.open(request, timeout=TIMEOUT_SECONDS) as response:
                 status = getattr(response, "status", response.getcode())
@@ -175,6 +183,58 @@ def check_welcome_shelf_canonicals(errors: list[str]) -> None:
         )
 
 
+def max_age(cache_control: str) -> int | None:
+    match = re.search(r"(?:^|,)\s*max-age=(\d+)", cache_control, re.IGNORECASE)
+    return int(match.group(1)) if match else None
+
+
+def check_server_hardening(errors: list[str]) -> None:
+    page_url = f"{BASE}/"
+    page = fetch(page_url)
+    add_error(errors, page.status == 200, f"Expected 200 for {page_url}; got {page.status}")
+    if page.status == 200:
+        expected_headers = {
+            "X-Content-Type-Options": "nosniff",
+            "Referrer-Policy": "strict-origin-when-cross-origin",
+            "X-Frame-Options": "SAMEORIGIN",
+        }
+        for name, expected in expected_headers.items():
+            actual = page.headers.get(name, "")
+            add_error(errors, actual.lower() == expected.lower(), f"Unexpected {name} on {page_url}: {actual!r}")
+
+        permissions = page.headers.get("Permissions-Policy", "").replace(" ", "").lower()
+        for directive in ["camera=()", "microphone=()", "geolocation=()"]:
+            add_error(errors, directive in permissions, f"Permissions-Policy missing {directive} on {page_url}")
+
+        html_cache = page.headers.get("Cache-Control", "").lower()
+        add_error(errors, "no-cache" in html_cache, f"HTML is missing no-cache policy: {html_cache!r}")
+        add_error(errors, "max-age=0" in html_cache, f"HTML is missing max-age=0 policy: {html_cache!r}")
+
+    css_url = f"{BASE}/css/v3.css"
+    css = fetch(css_url, extra_headers={"Accept-Encoding": "gzip"})
+    add_error(errors, css.status == 200, f"Expected 200 for {css_url}; got {css.status}")
+    if css.status == 200:
+        encoding = css.headers.get("Content-Encoding", "").lower()
+        add_error(errors, encoding == "gzip", f"Expected gzip compression for {css_url}; got {encoding!r}")
+        css_cache = css.headers.get("Cache-Control", "")
+        css_age = max_age(css_cache)
+        add_error(errors, css_age is not None and css_age >= 3600, f"CSS cache lifetime too short: {css_cache!r}")
+
+    image_url = f"{BASE}/images/books/leave-one-light-on.jpg"
+    image = fetch(image_url)
+    add_error(errors, image.status == 200, f"Expected 200 for {image_url}; got {image.status}")
+    if image.status == 200:
+        image_cache = image.headers.get("Cache-Control", "")
+        image_age = max_age(image_cache)
+        add_error(
+            errors,
+            image_age is not None and image_age >= 604800,
+            f"Image cache lifetime too short: {image_cache!r}",
+        )
+
+    print("Live server hardening: security headers, HTML revalidation, gzip CSS, and asset caching checked.")
+
+
 def main() -> int:
     errors: list[str] = []
 
@@ -205,6 +265,15 @@ def main() -> int:
 
     check_welcome_shelf_canonicals(errors)
 
+    # Pull-request runs inspect the currently deployed site, which does not yet
+    # contain the branch's .htaccess changes. Main-push, scheduled, and manual
+    # runs verify the hardening after it is eligible to be live.
+    event_name = os.environ.get("GITHUB_EVENT_NAME", "")
+    if event_name and event_name != "pull_request":
+        check_server_hardening(errors)
+    else:
+        print("Server-hardening checks skipped before deployment.")
+
     if errors:
         print("PRODUCTION SMOKE AUDIT FAILED", file=sys.stderr)
         for error in errors:
@@ -212,7 +281,7 @@ def main() -> int:
         return 1
 
     print("PRODUCTION SMOKE OK")
-    print("Core pages, crawler files, redirects, and Welcome Shelf canonical headers are live.")
+    print("Core pages, crawler files, redirects, canonical headers, and eligible server checks are live.")
     return 0
 
 
