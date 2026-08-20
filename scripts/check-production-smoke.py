@@ -4,7 +4,7 @@
 This audit complements repository-level QA by checking what Hostinger actually
 serves over HTTPS: core pages, crawler files, canonical redirects, Welcome
 Shelf HTTP canonical headers, and (after deployment) server hardening headers,
-compression, and cache behavior.
+compression, caching, and Content Security Policy behavior.
 """
 
 from __future__ import annotations
@@ -24,6 +24,7 @@ TIMEOUT_SECONDS = 15
 RETRIES = 3
 RETRY_DELAY_SECONDS = 3
 USER_AGENT = "LeaveOneLightOn-ProductionSmoke/1.0"
+PRINT_HANDLER_HASH = "sha256-MguIPR6qNR8D3B+eAlK+bIRTZe8t3wkOY4B/56Me9FU="
 
 
 @dataclass
@@ -188,6 +189,45 @@ def max_age(cache_control: str) -> int | None:
     return int(match.group(1)) if match else None
 
 
+def check_csp(headers: Message, url: str, errors: list[str]) -> None:
+    csp = headers.get("Content-Security-Policy", "")
+    add_error(errors, bool(csp), f"Missing Content-Security-Policy on {url}")
+    if not csp:
+        return
+
+    required_fragments = [
+        "default-src 'self'",
+        "base-uri 'self'",
+        "object-src 'none'",
+        "frame-ancestors 'self'",
+        "frame-src 'none'",
+        "form-action 'self'",
+        "script-src 'self'",
+        f"script-src-attr 'unsafe-hashes' '{PRINT_HANDLER_HASH}'",
+        "connect-src 'self'",
+        "https://fonts.googleapis.com",
+        "https://fonts.gstatic.com",
+        "upgrade-insecure-requests",
+    ]
+    for fragment in required_fragments:
+        add_error(errors, fragment in csp, f"CSP missing {fragment!r} on {url}: {csp!r}")
+
+    add_error(
+        errors,
+        "unsafe-eval" not in csp,
+        f"CSP unexpectedly permits unsafe-eval on {url}: {csp!r}",
+    )
+    script_directive = next(
+        (piece.strip() for piece in csp.split(";") if piece.strip().startswith("script-src ")),
+        "",
+    )
+    add_error(
+        errors,
+        "'unsafe-inline'" not in script_directive,
+        f"CSP script-src unexpectedly permits unsafe-inline on {url}: {script_directive!r}",
+    )
+
+
 def check_server_hardening(errors: list[str]) -> None:
     page_url = f"{BASE}/"
     page = fetch(page_url)
@@ -209,6 +249,7 @@ def check_server_hardening(errors: list[str]) -> None:
         html_cache = page.headers.get("Cache-Control", "").lower()
         add_error(errors, "no-cache" in html_cache, f"HTML is missing no-cache policy: {html_cache!r}")
         add_error(errors, "max-age=0" in html_cache, f"HTML is missing max-age=0 policy: {html_cache!r}")
+        check_csp(page.headers, page_url, errors)
 
     css_url = f"{BASE}/css/v3.css"
     css = fetch(css_url, extra_headers={"Accept-Encoding": "gzip"})
@@ -232,7 +273,7 @@ def check_server_hardening(errors: list[str]) -> None:
             f"Image cache lifetime too short: {image_cache!r}",
         )
 
-    print("Live server hardening: security headers, HTML revalidation, gzip CSS, and asset caching checked.")
+    print("Live server hardening: security headers, CSP, HTML revalidation, gzip CSS, and asset caching checked.")
 
 
 def main() -> int:
