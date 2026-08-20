@@ -40,21 +40,6 @@ SKIP_SCHEMES = {"mailto", "tel", "javascript", "data", "blob", "about"}
 CSS_URL_RE = re.compile(r"url\(\s*(['\"]?)(.*?)\1\s*\)", re.IGNORECASE)
 SAFE_DATA_SCRIPT_TYPES = {"application/ld+json", "application/json"}
 
-# These seven printable Welcome Shelf tools predate the CSP. Their only inline
-# executable behavior is the exact low-risk handler window.print(), which the
-# production policy permits by SHA-256 hash. Any other inline handler is a hard
-# failure, and this narrow exception can be removed once the buttons are moved
-# to addEventListener().
-LEGACY_PRINT_PAGES = {
-    "welcome-shelf/community-light-starter-kit.html",
-    "welcome-shelf/foster-care-start-here.html",
-    "welcome-shelf/one-light-at-work.html",
-    "welcome-shelf/one-meaningful-step.html",
-    "welcome-shelf/reading-learning-questions.html",
-    "welcome-shelf/resource-navigation-notes.html",
-    "welcome-shelf/story-preservation-workbook.html",
-}
-
 
 class ReferenceParser(HTMLParser):
     def __init__(self, relative_path: str) -> None:
@@ -62,7 +47,6 @@ class ReferenceParser(HTMLParser):
         self.relative_path = relative_path
         self.references: list[tuple[str, str, str]] = []
         self.csp_issues: list[str] = []
-        self.legacy_print_handlers = 0
 
     def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
         tag = tag.lower()
@@ -70,20 +54,9 @@ class ReferenceParser(HTMLParser):
 
         for key, value in values.items():
             if key.startswith("on") and value:
-                allowed_print = (
-                    self.relative_path in LEGACY_PRINT_PAGES
-                    and key == "onclick"
-                    and value == "window.print()"
+                self.csp_issues.append(
+                    f"inline event handler {key}={value!r} is not CSP-safe"
                 )
-                if allowed_print:
-                    self.legacy_print_handlers += 1
-                else:
-                    self.csp_issues.append(
-                        f"inline event handler {key}={value!r} is not CSP-safe"
-                    )
-
-        if self.legacy_print_handlers > 1:
-            self.csp_issues.append("more than one legacy window.print() handler is present")
 
         if tag == "script":
             src = values.get("src", "")
@@ -212,13 +185,11 @@ def main() -> int:
     css_count = 0
     html_refs = 0
     css_refs = 0
-    legacy_print_handlers = 0
 
     for page in iter_public_html():
         html_count += 1
         relative = page.relative_to(ROOT)
         parser = parse_html(page)
-        legacy_print_handlers += parser.legacy_print_handlers
 
         for issue in parser.csp_issues:
             errors.append(f"{relative}: {issue}")
@@ -262,7 +233,7 @@ def main() -> int:
         "Site integrity inventory: "
         f"{html_count} public HTML files; {html_refs} internal HTML references; "
         f"{css_count} CSS files; {css_refs} local CSS asset references; "
-        f"{legacy_print_handlers} narrowly hashed legacy print handlers."
+        "0 inline executable event handlers allowed."
     )
 
     if errors:
