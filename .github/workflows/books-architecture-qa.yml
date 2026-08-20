@@ -1,0 +1,88 @@
+name: Books architecture QA
+
+on:
+  pull_request:
+    paths:
+      - 'books.html'
+      - 'books/**'
+      - 'sitemap.xml'
+      - '.htaccess'
+      - '.github/workflows/books-architecture-qa.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  books-guards:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Confirm two-book movement shelf
+        shell: bash
+        run: |
+          set -euo pipefail
+          count=$(grep -c 'class="library-book"' books.html)
+          test "$count" -eq 2
+          grep -q '<h2>Leave One Light On</h2>' books.html
+          grep -q '<h2>The Light in the Window</h2>' books.html
+          grep -q 'The Light in the Window tells the story.' books.html
+          grep -q 'invites us to live it.' books.html
+          echo 'TWO-BOOK MOVEMENT SHELF OK'
+
+      - name: Confirm intentional book detail files
+        shell: bash
+        run: |
+          set -euo pipefail
+          actual=$(find books -maxdepth 1 -type f -name '*.html' -printf '%f\n' | sort)
+          expected=$(printf '%s\n' \
+            'leave-one-light-on.html' \
+            'the-light-in-the-window-reader-materials.html' \
+            'the-light-in-the-window.html' | sort)
+          diff -u <(printf '%s\n' "$expected") <(printf '%s\n' "$actual")
+          echo 'BOOK DETAIL FILE SET OK'
+
+      - name: Confirm reader materials canonical
+        shell: bash
+        run: |
+          set -euo pipefail
+          grep -Fq '<link rel="canonical" href="https://leaveonelighton.org/books/the-light-in-the-window-reader-materials.html">' books/the-light-in-the-window-reader-materials.html
+          echo 'READER MATERIALS CANONICAL OK'
+
+      - name: Confirm book URLs in sitemap
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import xml.etree.ElementTree as ET
+
+          expected = {
+              'https://leaveonelighton.org/books.html',
+              'https://leaveonelighton.org/books/leave-one-light-on.html',
+              'https://leaveonelighton.org/books/the-light-in-the-window.html',
+              'https://leaveonelighton.org/books/the-light-in-the-window-reader-materials.html',
+          }
+
+          root = ET.parse('sitemap.xml').getroot()
+          ns = {'sm': 'http://www.sitemaps.org/schemas/sitemap/0.9'}
+          urls = {
+              node.text.strip()
+              for node in root.findall('sm:url/sm:loc', ns)
+              if node.text and node.text.strip().startswith('https://leaveonelighton.org/books')
+          }
+
+          if urls != expected:
+              raise SystemExit(f'Unexpected book URL set in sitemap: {sorted(urls)}')
+
+          print('BOOK SITEMAP SET OK')
+          PY
+
+      - name: Confirm canonical bare Books redirect
+        shell: bash
+        run: |
+          set -euo pipefail
+          grep -Fq 'RedirectMatch 301 ^/books/?$ https://leaveonelighton.org/books.html' .htaccess
+          grep -Fq 'RedirectMatch 301 ^/book\.html$ https://leaveonelighton.org/books.html' .htaccess
+          echo 'BOOK REDIRECTS OK'
