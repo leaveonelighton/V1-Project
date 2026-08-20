@@ -1,0 +1,29 @@
+name: External link QA
+
+on:
+  pull_request:
+    paths:
+      - "**/*.html"
+      - "scripts/check-external-links.py"
+      - ".github/workflows/external-link-qa.yml"
+  schedule:
+    - cron: "27 13 * * 3"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: external-link-qa-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  external-link-health:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Audit external links
+        run: python3 scripts/check-external-links.py
