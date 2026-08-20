@@ -1,0 +1,68 @@
+name: PR46 live verification
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/postdeploy-pr46-live-check.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify-live-pr46:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Verify deployed CSP and print tools
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from urllib.request import Request, urlopen
+
+          BASE = "https://leaveonelighton.org"
+          UA = "LeaveOneLightOn-PR46-LiveCheck/1.0"
+          slugs = [
+              "community-light-starter-kit.html",
+              "foster-care-start-here.html",
+              "one-light-at-work.html",
+              "one-meaningful-step.html",
+              "reading-learning-questions.html",
+              "resource-navigation-notes.html",
+              "story-preservation-workbook.html",
+          ]
+
+          def fetch(path):
+              req = Request(BASE + path, headers={"User-Agent": UA, "Cache-Control": "no-cache"})
+              with urlopen(req, timeout=15) as r:
+                  return r.status, r.headers, r.read(2_000_000).decode("utf-8", errors="replace")
+
+          status, headers, home = fetch("/")
+          assert status == 200, f"homepage status {status}"
+          csp = headers.get("Content-Security-Policy", "")
+          hsts = headers.get("Strict-Transport-Security", "")
+          assert "script-src 'self'" in csp, csp
+          assert "script-src-attr 'none'" in csp, csp
+          assert "unsafe-hashes" not in csp, csp
+          assert "'unsafe-inline'" not in next((p.strip() for p in csp.split(';') if p.strip().startswith("script-src ")), ""), csp
+          assert hsts.strip() == "max-age=86400", hsts
+          print("LIVE HEADERS OK")
+
+          status, _, script = fetch("/js/print-resource.js")
+          assert status == 200, f"print script status {status}"
+          assert 'querySelectorAll("[data-print-resource]")' in script, script
+          assert 'addEventListener("click"' in script, script
+          assert "window.print()" in script, script
+          print("LIVE PRINT SCRIPT OK")
+
+          for slug in slugs:
+              path = "/welcome-shelf/" + slug
+              status, _, html = fetch(path)
+              assert status == 200, f"{path} status {status}"
+              assert "data-print-resource" in html, f"missing print hook in {path}"
+              assert '<script src="/js/print-resource.js" defer></script>' in html, f"missing shared print script in {path}"
+              assert 'onclick="window.print()"' not in html, f"legacy inline handler remains in {path}"
+              print("OK", path)
+
+          print("PR46 LIVE DEPLOYMENT VERIFIED")
+          PY
