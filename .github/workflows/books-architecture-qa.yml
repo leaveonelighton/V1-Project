@@ -5,6 +5,9 @@ on:
     paths:
       - 'books.html'
       - 'books/**'
+      - 'recommendations/index.html'
+      - 'data/resource-recommendations.json'
+      - 'affiliate-disclosure/index.html'
       - 'sitemap.xml'
       - '.htaccess'
       - '.github/workflows/books-architecture-qa.yml'
@@ -31,6 +34,28 @@ jobs:
           grep -q 'The Light in the Window tells the story.' books.html
           grep -q 'invites us to live it.' books.html
           echo 'TWO-BOOK MOVEMENT SHELF OK'
+
+      - name: Confirm current Amazon purchase paths
+        shell: bash
+        run: |
+          set -euo pipefail
+          grep -Fq 'https://amzn.to/4gq4H2s' books.html
+          grep -Fq 'https://amzn.to/4gq4H2s' books/leave-one-light-on.html
+          grep -Fq 'https://amzn.to/4gq4H2s' recommendations/index.html
+          grep -Fq 'B0HCCL1GZR' data/resource-recommendations.json
+          grep -Fq 'B0FFV7V2GW' books.html
+          grep -Fq 'B0FFV7V2GW' recommendations/index.html
+          grep -Fq 'B0FFV7V2GW' data/resource-recommendations.json
+          grep -Fq '"affiliate_url": "https://amzn.to/4gq4H2s"' data/resource-recommendations.json
+          grep -Fq 'tag=mybookwebs03c-20' data/resource-recommendations.json
+          if grep -R -nF 'B0H7QP4HSY' books.html recommendations/index.html data/resource-recommendations.json; then
+            echo 'Retired The Light in the Window Amazon ASIN remains.' >&2
+            exit 1
+          fi
+          grep -q 'Affiliate link' books.html
+          grep -q 'As an Amazon Associate I earn from qualifying purchases.' books.html
+          grep -q 'Selected Amazon Associates links are active' affiliate-disclosure/index.html
+          echo 'BOOK PURCHASE PATHS OK'
 
       - name: Confirm intentional book detail files
         shell: bash
