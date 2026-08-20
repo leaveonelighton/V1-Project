@@ -6,8 +6,10 @@ on:
       - main
   pull_request:
     paths:
+      - ".htaccess"
       - ".github/workflows/production-smoke-qa.yml"
       - "scripts/check-production-smoke.py"
+      - "scripts/check-hsts-live.py"
   schedule:
     - cron: "17 12 * * *"
   workflow_dispatch:
@@ -33,3 +35,6 @@ jobs:
 
       - name: Smoke-test live production
         run: python3 scripts/check-production-smoke.py
+
+      - name: Verify staged HSTS behavior
+        run: python3 scripts/check-hsts-live.py
