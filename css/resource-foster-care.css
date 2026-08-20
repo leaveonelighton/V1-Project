@@ -1,0 +1,143 @@
+/* Leave One Light On - Foster Care: Start Here printable companion */
+
+.foster-care-start .foster-lead {
+  max-width: 50rem;
+}
+
+.foster-care-start .foster-two-column {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+.foster-care-start .foster-panel {
+  border: 1px solid rgba(36, 54, 77, .22);
+  border-radius: .7rem;
+  background: #fff;
+  padding: 1rem 1.1rem;
+}
+
+.foster-care-start .foster-panel h2 {
+  margin-top: 0;
+}
+
+.foster-care-start .foster-url {
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
+.foster-care-start .foster-next-step {
+  margin-top: 1rem;
+}
+
+@media (max-width: 640px) {
+  .foster-care-start .foster-two-column {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media print {
+  @page {
+    size: Letter;
+    margin: .50in .58in .50in;
+  }
+
+  .foster-care-start {
+    font-size: 9.6pt !important;
+    line-height: 1.26 !important;
+  }
+
+  .foster-care-start h1 {
+    font-size: 20pt !important;
+    margin: 0 0 3pt !important;
+  }
+
+  .foster-care-start h2 {
+    font-size: 11.5pt !important;
+    margin: 0 0 3pt !important;
+  }
+
+  .foster-care-start h3 {
+    font-size: 10pt !important;
+    margin: 0 0 2pt !important;
+  }
+
+  .foster-care-start p,
+  .foster-care-start li {
+    margin-top: 0 !important;
+    margin-bottom: 2.5pt !important;
+  }
+
+  .foster-care-start .resource-kicker {
+    margin: 0 0 2pt !important;
+    font-size: 7.2pt !important;
+  }
+
+  .foster-care-start .resource-intro,
+  .foster-care-start .resource-callout,
+  .foster-care-start .resource-note {
+    padding: 4pt 7pt !important;
+    margin: 3pt 0 5pt !important;
+  }
+
+  .foster-care-start .foster-lead {
+    margin: 0 0 4pt !important;
+  }
+
+  .foster-care-start .foster-two-column {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 6pt !important;
+    margin: 4pt 0 !important;
+  }
+
+  .foster-care-start .foster-panel {
+    border-radius: 0 !important;
+    padding: 5pt 6pt !important;
+    break-inside: avoid-page;
+    page-break-inside: avoid;
+  }
+
+  .foster-care-start .check-list {
+    margin: 2pt 0 !important;
+  }
+
+  .foster-care-start .check-list li {
+    margin: 2pt 0 !important;
+    padding-left: 15pt !important;
+  }
+
+  .foster-care-start .check-list li::before {
+    width: 8pt !important;
+    height: 8pt !important;
+    border-width: 1.2pt !important;
+    top: 2pt !important;
+  }
+
+  .foster-care-start .write-lines {
+    margin-top: 2pt !important;
+    background-image: repeating-linear-gradient(to bottom, transparent 0, transparent .20in, #aaa .21in) !important;
+  }
+
+  .foster-care-start .foster-question-lines {
+    min-height: .52in !important;
+  }
+
+  .foster-care-start .foster-next-lines {
+    min-height: .42in !important;
+  }
+
+  .foster-care-start .foster-next-step {
+    margin-top: 4pt !important;
+    padding: 5pt 7pt !important;
+    break-inside: avoid-page;
+    page-break-inside: avoid;
+  }
+
+  /* The screen version can carry the edition label. On paper it was the
+     only content overflowing onto a wasteful second page. */
+  .foster-care-start .resource-version {
+    display: none !important;
+  }
+}

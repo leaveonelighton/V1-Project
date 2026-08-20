@@ -1,0 +1,145 @@
+/* Leave One Light On - Community Light Starter Kit */
+
+.community-light-kit .community-page {
+  margin: 2.5rem 0;
+}
+
+.community-light-kit .session-grid,
+.community-light-kit .asset-grid,
+.community-light-kit .readiness-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.community-light-kit .session-card,
+.community-light-kit .asset-card,
+.community-light-kit .plan-block {
+  border: 1px solid rgba(36, 54, 77, .22);
+  border-radius: .7rem;
+  background: #fff;
+  padding: 1rem 1.1rem;
+  box-sizing: border-box;
+}
+
+.community-light-kit .session-card h3,
+.community-light-kit .asset-card h3,
+.community-light-kit .plan-block h3 {
+  margin-top: 0;
+}
+
+.community-light-kit .session-time {
+  display: block;
+  margin-bottom: .2rem;
+  font-weight: 700;
+  color: #566274;
+}
+
+.community-light-kit .asset-field,
+.community-light-kit .plan-field {
+  margin: .75rem 0 1rem;
+}
+
+.community-light-kit .asset-label,
+.community-light-kit .plan-label {
+  font-weight: 700;
+  margin-bottom: .2rem;
+}
+
+.community-light-kit .asset-line,
+.community-light-kit .plan-line {
+  min-height: 3.2rem;
+  border-bottom: 1px solid rgba(36, 54, 77, .35);
+}
+
+.community-light-kit .stop-list {
+  margin-top: .75rem;
+}
+
+@media (max-width: 640px) {
+  .community-light-kit .session-grid,
+  .community-light-kit .asset-grid,
+  .community-light-kit .readiness-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media print {
+  .community-light-kit {
+    font-size: 10.5pt !important;
+    line-height: 1.36 !important;
+  }
+
+  .community-light-kit .community-page {
+    margin: 0 !important;
+    break-before: page;
+    page-break-before: always;
+  }
+
+  .community-light-kit .community-page:first-of-type {
+    break-before: auto;
+    page-break-before: auto;
+  }
+
+  .community-light-kit .session-grid,
+  .community-light-kit .asset-grid,
+  .community-light-kit .readiness-grid {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 7pt !important;
+  }
+
+  .community-light-kit .session-card,
+  .community-light-kit .asset-card,
+  .community-light-kit .plan-block {
+    border: 1pt solid #c8ced5 !important;
+    border-radius: 0 !important;
+    padding: 7pt 8pt !important;
+    break-inside: avoid-page;
+    page-break-inside: avoid;
+  }
+
+  .community-light-kit .session-card {
+    min-height: 1.15in;
+  }
+
+  .community-light-kit .session-card p {
+    margin: 2pt 0 !important;
+  }
+
+  .community-light-kit .asset-card {
+    margin: 0 !important;
+  }
+
+  .community-light-kit .asset-field,
+  .community-light-kit .plan-field {
+    margin: 4pt 0 6pt !important;
+  }
+
+  .community-light-kit .asset-label,
+  .community-light-kit .plan-label {
+    font-size: 8.4pt !important;
+    margin: 0 0 1pt !important;
+  }
+
+  .community-light-kit .asset-line,
+  .community-light-kit .plan-line {
+    min-height: .34in !important;
+  }
+
+  .community-light-kit .community-compact-page {
+    font-size: 9.8pt !important;
+  }
+
+  .community-light-kit .community-compact-page .check-list li {
+    margin: 3pt 0 !important;
+  }
+
+  .community-light-kit .stop-list li {
+    margin: 3pt 0 !important;
+  }
+
+  .community-light-kit .community-reflection .worksheet-prompt {
+    margin-bottom: 7pt !important;
+  }
+}

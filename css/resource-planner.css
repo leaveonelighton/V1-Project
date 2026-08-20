@@ -1,0 +1,121 @@
+/* Leave One Light On - One Meaningful Step Planner */
+
+.meaningful-step-planner .planner-step {
+  margin: 1rem 0;
+}
+
+.meaningful-step-planner .planner-purpose {
+  max-width: 48rem;
+}
+
+.meaningful-step-planner .planner-knowledge-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.meaningful-step-planner .planner-afterward {
+  margin-top: 1rem;
+}
+
+@media (max-width: 640px) {
+  .meaningful-step-planner .planner-knowledge-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media print {
+  .meaningful-step-planner {
+    font-size: 9.4pt !important;
+    line-height: 1.24 !important;
+  }
+
+  .meaningful-step-planner h1 {
+    font-size: 19pt !important;
+    margin: 0 0 4pt !important;
+  }
+
+  .meaningful-step-planner h2 {
+    font-size: 11.4pt !important;
+    margin: 0 0 3pt !important;
+  }
+
+  .meaningful-step-planner h3 {
+    font-size: 9.8pt !important;
+    margin: 0 0 2pt !important;
+  }
+
+  .meaningful-step-planner p {
+    margin: 0 0 4pt !important;
+  }
+
+  .meaningful-step-planner .resource-kicker {
+    margin: 0 0 3pt !important;
+    font-size: 7.2pt !important;
+  }
+
+  .meaningful-step-planner .resource-intro {
+    margin: 4pt 0 5pt !important;
+    padding: 5pt 7pt !important;
+    font-size: 9.5pt !important;
+  }
+
+  .meaningful-step-planner .planner-purpose {
+    margin: 0 0 6pt !important;
+  }
+
+  .meaningful-step-planner .planner-step,
+  .meaningful-step-planner .worksheet-block {
+    margin: 0 0 5pt !important;
+    padding: 5pt 7pt !important;
+    break-inside: avoid-page;
+    page-break-inside: avoid;
+  }
+
+  .meaningful-step-planner .planner-knowledge-grid {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 5pt !important;
+  }
+
+  .meaningful-step-planner .planner-knowledge-grid .resource-card {
+    margin: 0 !important;
+    padding: 5pt 6pt !important;
+    break-inside: avoid-page;
+    page-break-inside: avoid;
+  }
+
+  .meaningful-step-planner .write-lines {
+    margin-top: 2pt !important;
+    background-image: repeating-linear-gradient(to bottom, transparent 0, transparent .20in, #aaa .21in) !important;
+  }
+
+  .meaningful-step-planner .planner-lines-large {
+    min-height: .60in !important;
+  }
+
+  .meaningful-step-planner .planner-lines-medium {
+    min-height: .42in !important;
+  }
+
+  .meaningful-step-planner .planner-lines-small {
+    min-height: .35in !important;
+  }
+
+  .meaningful-step-planner .planner-commitment p {
+    white-space: nowrap;
+    font-size: 8.8pt !important;
+  }
+
+  .meaningful-step-planner .planner-afterward {
+    margin: 0 0 4pt !important;
+    padding: 5pt 7pt !important;
+  }
+
+  .meaningful-step-planner .planner-afterward h2 {
+    margin-bottom: 2pt !important;
+  }
+
+  .meaningful-step-planner .resource-version {
+    margin-top: 3pt !important;
+    font-size: 6.8pt !important;
+  }
+}

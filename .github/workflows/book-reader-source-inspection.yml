@@ -1,0 +1,125 @@
+name: Book reader source inspection
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/book-reader-source-inspection.yml'
+      - 'welcome-shelf/book-club-welcome-kit.pdf'
+      - 'welcome-shelf/discussion-guide.pdf'
+      - 'welcome-shelf/index.html'
+      - 'books/the-light-in-the-window-reader-materials.html'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  inspect-book-reader-pdfs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Extract readable text from book-reader PDFs
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import base64
+          import re
+          import zlib
+          from pathlib import Path
+
+          def decode_literal(token: bytes) -> str:
+              src = token[1:-1]
+              out = bytearray()
+              i = 0
+              escapes = {ord('n'): 10, ord('r'): 13, ord('t'): 9, ord('b'): 8, ord('f'): 12}
+              while i < len(src):
+                  b = src[i]
+                  if b != 92:
+                      out.append(b); i += 1; continue
+                  i += 1
+                  if i >= len(src):
+                      break
+                  b = src[i]
+                  if b in escapes:
+                      out.append(escapes[b]); i += 1
+                  elif b in (40, 41, 92):
+                      out.append(b); i += 1
+                  elif 48 <= b <= 55:
+                      digits = bytes([b]); i += 1
+                      for _ in range(2):
+                          if i < len(src) and 48 <= src[i] <= 55:
+                              digits += bytes([src[i]]); i += 1
+                          else:
+                              break
+                      out.append(int(digits, 8))
+                  elif b in (10, 13):
+                      if b == 13 and i + 1 < len(src) and src[i + 1] == 10:
+                          i += 1
+                      i += 1
+                  else:
+                      out.append(b); i += 1
+              return out.decode('latin-1', errors='replace')
+
+          def extract(path: str):
+              data = Path(path).read_bytes()
+              strings = []
+              for match in re.finditer(rb'stream\r?\n(.*?)endstream', data, re.S):
+                  raw = match.group(1).strip()
+                  unpacked = None
+                  for candidate in (raw, raw[:-2] if raw.endswith(b'~>') else raw):
+                      try:
+                          decoded = base64.a85decode(candidate, adobe=False)
+                          unpacked = zlib.decompress(decoded)
+                          break
+                      except Exception:
+                          try:
+                              unpacked = zlib.decompress(candidate)
+                              break
+                          except Exception:
+                              pass
+                  if unpacked is None:
+                      continue
+                  for block in re.findall(rb'BT(.*?)ET', unpacked, re.S):
+                      for token in re.findall(rb'\((?:\\.|[^\\)])*\)', block):
+                          text = decode_literal(token).strip()
+                          if text and any(ch.isalnum() for ch in text):
+                              strings.append(text)
+              return strings
+
+          expected = {
+              'welcome-shelf/book-club-welcome-kit.pdf': [
+                  'Book Club Welcome Kit',
+                  'A hospitable four-meeting path through The Light in the Window',
+                  'A four-meeting reading path',
+              ],
+              'welcome-shelf/discussion-guide.pdf': [
+                  'Discussion Guide',
+                  'Questions for reading The Light in the Window with care',
+                  'Questions about welcome and belonging',
+              ],
+          }
+
+          for path, phrases in expected.items():
+              text = extract(path)
+              if not text:
+                  raise SystemExit(f'No readable text extracted from {path}')
+              joined = '\n'.join(text)
+              for phrase in phrases:
+                  if phrase not in joined:
+                      raise SystemExit(f'Missing expected book-specific phrase in {path}: {phrase}')
+              print(f'BOOK-SPECIFIC SOURCE OK: {path}')
+          PY
+
+      - name: Confirm reader-material separation
+        shell: bash
+        run: |
+          set -euo pipefail
+          grep -q '/welcome-shelf/discussion-guide.pdf' books/the-light-in-the-window-reader-materials.html
+          grep -q '/welcome-shelf/book-club-welcome-kit.pdf' books/the-light-in-the-window-reader-materials.html
+          grep -q '/books/the-light-in-the-window-reader-materials.html' welcome-shelf/index.html
+          ! grep -q 'discussion-guide.pdf' welcome-shelf/index.html
+          ! grep -q 'book-club-welcome-kit.pdf' welcome-shelf/index.html
+          echo 'BOOK READER SEPARATION OK'

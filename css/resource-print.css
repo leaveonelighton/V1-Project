@@ -1,0 +1,258 @@
+/* Leave One Light On — shared print/PDF rules for resource prototypes */
+
+@page {
+  size: Letter;
+  margin: .6in .62in .62in;
+}
+
+@media print {
+  html,
+  body {
+    background: #fff !important;
+    color: #111 !important;
+  }
+
+  .site-header,
+  .site-footer,
+  .skip-link,
+  .resource-actions,
+  .prototype-warning,
+  .screen-only {
+    display: none !important;
+  }
+
+  .resource-document {
+    width: auto !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    font-family: Arial, Helvetica, sans-serif !important;
+    font-size: 10.8pt !important;
+    line-height: 1.38 !important;
+  }
+
+  .resource-document h1,
+  .resource-document h2,
+  .resource-document h3,
+  .resource-document h4 {
+    font-family: Arial, Helvetica, sans-serif !important;
+    break-after: avoid-page;
+    page-break-after: avoid;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .resource-document h1 {
+    font-size: 23pt !important;
+    margin: 0 0 8pt !important;
+  }
+
+  .resource-document h2 {
+    font-size: 16pt !important;
+    margin: 0 0 8pt !important;
+  }
+
+  .resource-document h3 {
+    font-size: 12.5pt !important;
+    margin-bottom: 5pt !important;
+  }
+
+  .resource-document p,
+  .resource-document li,
+  .resource-document td,
+  .resource-document th,
+  .resource-document label,
+  .resource-document code {
+    overflow-wrap: anywhere;
+    word-break: normal;
+    hyphens: none;
+    max-width: 100%;
+  }
+
+  .guide-page {
+    margin: 0 !important;
+    break-before: page;
+    page-break-before: always;
+  }
+
+  .guide-page.first-page {
+    break-before: auto;
+    page-break-before: auto;
+  }
+
+  .resource-section,
+  .resource-card,
+  .worksheet-prompt {
+    break-inside: auto;
+    page-break-inside: auto;
+  }
+
+  .atomic-block,
+  .resource-note,
+  .resource-intro,
+  .private-code-box,
+  .resource-callout,
+  .invitation-card,
+  .worksheet-block {
+    break-inside: avoid-page;
+    page-break-inside: avoid;
+  }
+
+  .resource-grid {
+    display: block !important;
+  }
+
+  .invitation-grid {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 8pt !important;
+  }
+
+  .resource-card,
+  .invitation-card,
+  .worksheet-block,
+  .worksheet-prompt {
+    border: 1pt solid #777 !important;
+    border-radius: 0 !important;
+    padding: 8pt 9pt !important;
+    box-shadow: none !important;
+    background: #fff !important;
+  }
+
+  .resource-card,
+  .worksheet-block {
+    margin: 0 0 12pt !important;
+  }
+
+  .invitation-card {
+    margin: 0 !important;
+    min-height: 0 !important;
+  }
+
+  .invitation-card p {
+    margin: 2pt 0 5pt !important;
+  }
+
+  .worksheet-prompt {
+    margin: 0 0 8pt !important;
+  }
+
+  .worksheet-prompt p {
+    margin: 0 0 4pt !important;
+  }
+
+  .resource-intro,
+  .resource-note,
+  .resource-callout {
+    border-left: 3pt solid #b17c12 !important;
+    margin: 10pt 0 14pt !important;
+    padding: 6pt 9pt !important;
+    background: #fbf8ef !important;
+  }
+
+  .resource-callout + h2,
+  .resource-callout + h3,
+  .resource-note + h2,
+  .resource-note + h3 {
+    margin-top: 18pt !important;
+  }
+
+  .write-lines {
+    min-height: 1.2in;
+    margin-top: 4pt !important;
+    background-image: repeating-linear-gradient(to bottom, transparent 0, transparent .26in, #aaa .27in) !important;
+  }
+
+  .write-lines.short {
+    min-height: .65in;
+  }
+
+  .write-lines.compact {
+    min-height: .44in;
+  }
+
+  .write-lines.medium {
+    min-height: .9in;
+  }
+
+  .conversation-plan,
+  .qa-wide-table {
+    width: 100% !important;
+    max-width: 100% !important;
+    table-layout: fixed !important;
+    border-collapse: collapse !important;
+  }
+
+  .conversation-plan {
+    margin: 8pt 0 12pt !important;
+  }
+
+  .conversation-plan th,
+  .conversation-plan td {
+    padding: 5pt 6pt !important;
+    font-size: 9.5pt !important;
+    line-height: 1.25 !important;
+    vertical-align: top !important;
+    white-space: normal !important;
+  }
+
+  th,
+  td {
+    vertical-align: top !important;
+    white-space: normal !important;
+  }
+
+  tr {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .check-list {
+    margin: 6pt 0 10pt !important;
+  }
+
+  .check-list li {
+    margin: 4pt 0 !important;
+    padding-left: 18pt !important;
+  }
+
+  .check-list li::before {
+    width: 9pt !important;
+    height: 9pt !important;
+    border-width: 1.3pt !important;
+    top: 2pt !important;
+  }
+
+  .resource-question-list {
+    margin: 6pt 0 10pt !important;
+    padding-left: 18pt !important;
+  }
+
+  .resource-question-list li {
+    margin: 5pt 0 !important;
+  }
+
+  .page-tag {
+    margin: 0 0 8pt !important;
+    font-size: 7.8pt !important;
+  }
+
+  .resource-version {
+    margin-top: 10pt !important;
+    font-size: 7.5pt !important;
+  }
+
+  a[href]::after {
+    content: none !important;
+  }
+
+  .print-page-break {
+    break-before: page;
+    page-break-before: always;
+  }
+
+  .no-print-break-before {
+    break-before: auto !important;
+    page-break-before: auto !important;
+  }
+}

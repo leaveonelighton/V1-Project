@@ -1,0 +1,290 @@
+name: Resource system QA
+
+on:
+  pull_request:
+    paths:
+      - 'welcome-shelf/**'
+      - 'research/foster-care-101.html'
+      - 'research/dyslexia-reading-difficulties.html'
+      - 'css/resource-*.css'
+      - 'css/story-preservation-workbook.css'
+      - 'css/community-light-starter-kit.css'
+      - 'prototype/pdf-qa.html'
+      - 'docs/RESOURCE-SYSTEM-OVERHAUL.md'
+      - '.github/workflows/resource-system-qa.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  resource-guards:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Confirm required prototype files
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f welcome-shelf/one-light-at-work.html
+          test -f welcome-shelf/community-light-starter-kit.html
+          test -f welcome-shelf/foster-care-start-here.html
+          test -f welcome-shelf/reading-learning-questions.html
+          test -f welcome-shelf/resource-navigation-notes.html
+          test -f welcome-shelf/one-meaningful-step.html
+          test -f welcome-shelf/story-preservation-workbook.html
+          test -f css/resource-system.css
+          test -f css/resource-print.css
+          test -f css/resource-planner.css
+          test -f css/resource-foster-care.css
+          test -f css/resource-reading-learning.css
+          test -f css/resource-navigation-notes.css
+          test -f css/story-preservation-workbook.css
+          test -f css/community-light-starter-kit.css
+          test -f prototype/pdf-qa.html
+
+      - name: Confirm release pages remain indexable
+        shell: bash
+        run: |
+          set -euo pipefail
+          PAGES=(
+            welcome-shelf/index.html
+            welcome-shelf/one-light-at-work.html
+            welcome-shelf/community-light-starter-kit.html
+            welcome-shelf/foster-care-start-here.html
+            welcome-shelf/reading-learning-questions.html
+            welcome-shelf/resource-navigation-notes.html
+            welcome-shelf/one-meaningful-step.html
+            welcome-shelf/story-preservation-workbook.html
+          )
+          for page in "${PAGES[@]}"; do
+            if grep -nEi 'noindex|nofollow' "$page"; then
+              echo "Release indexing directive remains in $page." >&2
+              exit 1
+            fi
+          done
+          echo 'WELCOME SHELF INDEXING OK'
+
+      - name: Guard print anti-patterns
+        shell: bash
+        run: |
+          set -euo pipefail
+          FILES=(css/resource-system.css css/resource-print.css css/resource-planner.css css/resource-foster-care.css css/resource-reading-learning.css css/resource-navigation-notes.css css/story-preservation-workbook.css css/community-light-starter-kit.css)
+          ! grep -n -E 'word-break:[[:space:]]*break-all' "${FILES[@]}"
+          ! grep -n -E 'position:[[:space:]]*fixed' "${FILES[@]}"
+          ! grep -n -E 'tr[[:space:]]*\{[^}]*height:' "${FILES[@]}"
+
+      - name: Confirm Resource Navigation Notes guardrails
+        shell: bash
+        run: |
+          set -euo pipefail
+          for phrase in \
+            'What am I trying to find?' \
+            'What should I verify?' \
+            'Compare two possible resources' \
+            'Choose the next follow-up' \
+            'Keep private information out of these notes.'
+          do
+            grep -q "$phrase" welcome-shelf/resource-navigation-notes.html
+          done
+          grep -q 'Resource Navigation Notes' welcome-shelf/index.html
+
+      - name: Confirm One Light at Work labels
+        shell: bash
+        run: |
+          set -euo pipefail
+          for label in \
+            'Give time' \
+            'Give skill' \
+            'Give practical support' \
+            'Give life' \
+            'Give opportunity' \
+            'Give attention'
+          do
+            grep -q "$label" welcome-shelf/one-light-at-work.html
+          done
+
+      - name: Decode authoritative workplace PDF content streams
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY' > /tmp/workplace-source.txt
+          import base64
+          import re
+          import zlib
+          from pathlib import Path
+
+          data = Path('welcome-shelf/workplace-conversation-guide.pdf').read_bytes()
+          decoded = []
+          for match in re.finditer(rb'stream\r?\n(.*?)endstream', data, re.S):
+              raw = match.group(1).strip()
+              try:
+                  if raw.endswith(b'~>'):
+                      raw = raw[:-2]
+                  unpacked = base64.a85decode(raw, adobe=False)
+                  unpacked = zlib.decompress(unpacked)
+              except Exception:
+                  continue
+              decoded.append(unpacked.decode('latin-1', errors='replace'))
+
+          if not decoded:
+              raise SystemExit('No PDF content streams decoded.')
+
+          print('\n\n'.join(decoded))
+          PY
+          for label in \
+            'Give time' \
+            'Give skill' \
+            'Give practical support' \
+            'Give life' \
+            'Give opportunity' \
+            'Give attention'
+          do
+            grep -q "$label" /tmp/workplace-source.txt
+          done
+
+      - name: Confirm Story Preservation Workbook source reconciliation
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY' > /tmp/story-source.txt
+          import base64
+          import re
+          import zlib
+          from pathlib import Path
+
+          data = Path('welcome-shelf/story-preservation-workbook.pdf').read_bytes()
+          decoded = []
+          for match in re.finditer(rb'stream\r?\n(.*?)endstream', data, re.S):
+              raw = match.group(1).strip()
+              try:
+                  if raw.endswith(b'~>'):
+                      raw = raw[:-2]
+                  unpacked = base64.a85decode(raw, adobe=False)
+                  unpacked = zlib.decompress(unpacked)
+              except Exception:
+                  continue
+              decoded.append(unpacked.decode('latin-1', errors='replace'))
+
+          if not decoded:
+              raise SystemExit('No Story Preservation Workbook PDF content streams decoded.')
+
+          print('\n\n'.join(decoded))
+          PY
+          for phrase in \
+            'Begin with care' \
+            'The people who left a light on' \
+            'Places that held the story' \
+            'Memory timeline' \
+            'Photographs and documents' \
+            'Permission and privacy' \
+            'A story in one page' \
+            'Carry it forward'
+          do
+            grep -q "$phrase" /tmp/story-source.txt
+            grep -q "$phrase" welcome-shelf/story-preservation-workbook.html
+          done
+
+      - name: Confirm Community Light Starter Kit source reconciliation
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY' > /tmp/community-source.txt
+          import base64
+          import re
+          import zlib
+          from pathlib import Path
+
+          data = Path('welcome-shelf/community-light-starter-kit.pdf').read_bytes()
+          decoded = []
+          for match in re.finditer(rb'stream\r?\n(.*?)endstream', data, re.S):
+              raw = match.group(1).strip()
+              try:
+                  if raw.endswith(b'~>'):
+                      raw = raw[:-2]
+                  unpacked = base64.a85decode(raw, adobe=False)
+                  unpacked = zlib.decompress(unpacked)
+              except Exception:
+                  continue
+              decoded.append(unpacked.decode('latin-1', errors='replace'))
+
+          if not decoded:
+              raise SystemExit('No Community Light Starter Kit PDF content streams decoded.')
+
+          print('\n\n'.join(decoded))
+          PY
+          for phrase in \
+            'Start small and local' \
+            '45-minute listening session' \
+            'Community asset map' \
+            'Understand the need' \
+            'Invitation planner' \
+            'Action readiness check' \
+            'One-action plan' \
+            'After-action reflection' \
+            'Keep the light on'
+          do
+            grep -q "$phrase" /tmp/community-source.txt
+            grep -q "$phrase" welcome-shelf/community-light-starter-kit.html
+          done
+
+      - name: Confirm Foster Care companion follows living evidence guide
+        shell: bash
+        run: |
+          set -euo pipefail
+          for phrase in \
+            'Foster care is temporary out-of-home care' \
+            'State and tribal systems differ' \
+            'Do not apply population-level findings to an individual' \
+            'social-media anecdotes' \
+            'Find your state foster-care contact'
+          do
+            grep -q "$phrase" research/foster-care-101.html
+          done
+          for phrase in \
+            'Foster care is temporary out-of-home care' \
+            'State and tribal systems differ' \
+            'Population-level findings should not be applied to an individual' \
+            'social-media story' \
+            'Use current official information'
+          do
+            grep -q "$phrase" welcome-shelf/foster-care-start-here.html
+          done
+
+      - name: Confirm Reading and Learning companion follows living evidence guide
+        shell: bash
+        run: |
+          set -euo pipefail
+          for phrase in \
+            'difficulty alone does not establish a dyslexia diagnosis' \
+            'Dyslexia is not a measure of intelligence, motivation, character, or potential' \
+            'Schools do not have to avoid the word dyslexia' \
+            'may not be used to delay or deny a full evaluation' \
+            'what part of reading is difficult'
+          do
+            grep -q "$phrase" research/dyslexia-reading-difficulties.html
+          done
+          for phrase in \
+            'A difficulty alone does not establish a diagnosis' \
+            'Reading difficulty is not a measure of intelligence, motivation, character, or potential' \
+            'Not every reading difficulty is dyslexia' \
+            'what is the evaluation process' \
+            'What part of reading is difficult'
+          do
+            grep -q "$phrase" welcome-shelf/reading-learning-questions.html
+          done
+
+      - name: Prevent PDF replacement before reconciliation
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch origin main
+          if git diff --name-only origin/main...HEAD | grep -E '\.pdf$'; then
+            echo 'PDF files changed before authoritative-source reconciliation.' >&2
+            exit 1
+          fi
+          echo 'Existing PDFs remain untouched.'
