@@ -54,6 +54,7 @@ cp welcome-shelf/book-club-welcome-kit.pdf "$DEST/welcome-shelf/book-club-welcom
 cp research/foster-care-101.html "$DEST/research/foster-care-101.html"
 cp research/dyslexia-reading-difficulties.html "$DEST/research/dyslexia-reading-difficulties.html"
 cp books/the-light-in-the-window-reader-materials.html "$DEST/books/the-light-in-the-window-reader-materials.html"
+cp books/the-light-in-the-window.html "$DEST/books/the-light-in-the-window.html"
 cp prototype/pdf-qa.html "$DEST/prototype/pdf-qa.html"
 
 printf '\n== HTTP checks ==\n'
@@ -77,6 +78,7 @@ check_200 "Reading evidence guide" "$BASE_URL/research/dyslexia-reading-difficul
 check_200 "One Meaningful Step" "$BASE_URL/welcome-shelf/one-meaningful-step.html"
 check_200 "Story Preservation" "$BASE_URL/welcome-shelf/story-preservation-workbook.html"
 check_200 "Book reader materials" "$BASE_URL/books/the-light-in-the-window-reader-materials.html"
+check_200 "Movement book page" "$BASE_URL/books/the-light-in-the-window.html"
 check_200 "Discussion Guide PDF" "$BASE_URL/welcome-shelf/discussion-guide.pdf"
 check_200 "Book Club Kit PDF" "$BASE_URL/welcome-shelf/book-club-welcome-kit.pdf"
 check_200 "Print QA harness" "$BASE_URL/prototype/pdf-qa.html"
