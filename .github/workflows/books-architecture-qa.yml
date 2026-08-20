@@ -8,6 +8,7 @@ on:
       - 'recommendations/index.html'
       - 'data/resource-recommendations.json'
       - 'affiliate-disclosure/index.html'
+      - 'thelightinthewindowbook.com/**'
       - 'sitemap.xml'
       - '.htaccess'
       - '.github/workflows/books-architecture-qa.yml'
@@ -35,43 +36,87 @@ jobs:
           grep -q 'invites us to live it.' books.html
           echo 'TWO-BOOK MOVEMENT SHELF OK'
 
-      - name: Confirm verified Amazon book mappings
+      - name: Confirm movement and book-site purchase separation
         shell: bash
         run: |
           set -euo pipefail
 
-          light_short='https://amzn.to/45Wp9TT'
-          leave_short='https://amzn.to/3Sji4te'
-          light_search='https://www.amazon.com/s?k=the+light+in+the+window+book+by+theodore+johnson&crid=BZ7NLBE8NQTH&sprefix=the+light+in+the+window+book+%2Caps%2C183&linkCode=ll2&tag=mybookwebs03c-20&linkId=517aee9da4edc4b6c45f6ed4a5809eb7&language=en_US&ref_=as_li_ss_tl'
-          leave_search='https://www.amazon.com/s?k=leave+one+light+on+book+by+Theodore+Johnson&crid=1T47HE7OTQQFM&sprefix=leave+one+light+on+book+by+theodore+johnson%2Caps%2C172&linkCode=ll2&tag=mybookwebs03c-20&linkId=40fbc60c16bcbf59e777df38fcf362a5&language=en_US&ref_=as_li_ss_tl'
+          light_direct='https://www.amazon.com/dp/B0H7QP4HSY'
+          leave_direct='https://www.amazon.com/dp/B0HCCL1GZR'
+          book_site_affiliate='https://amzn.to/45Wp9TT'
 
-          grep -Fq "$light_short" books.html
-          grep -Fq "$leave_short" books.html
-          grep -Fq "$light_search" books.html
-          grep -Fq "$leave_search" books.html
-
-          grep -Fq "$leave_short" books/leave-one-light-on.html
-          grep -Fq "$leave_search" books/leave-one-light-on.html
-          grep -Fq 'https://www.amazon.com/dp/B0HCCL1GZR' books/leave-one-light-on.html
-
-          grep -Fq "$light_search" recommendations/index.html
-          grep -Fq "$leave_search" recommendations/index.html
+          # Movement shelf: clickable covers and buttons stay transactional,
+          # but use clean direct product URLs with no Associates tracking.
+          test "$(grep -Fc "$light_direct" books.html)" -ge 2
+          test "$(grep -Fc "$leave_direct" books.html)" -ge 2
+          grep -Fq "$leave_direct" books/leave-one-light-on.html
+          grep -Fq "$light_direct" recommendations/index.html
+          grep -Fq "$leave_direct" recommendations/index.html
           grep -Fq 'data-resource-id="light-window-amazon"' recommendations/index.html
           grep -Fq 'data-resource-id="leave-one-light-on-amazon"' recommendations/index.html
 
-          grep -Fq '"canonical_url": "https://www.amazon.com/dp/B0H7QP4HSY"' data/resource-recommendations.json
-          grep -Fq '"canonical_url": "https://www.amazon.com/dp/B0HCCL1GZR"' data/resource-recommendations.json
-          grep -Fq '"affiliate_short_url": "https://amzn.to/45Wp9TT"' data/resource-recommendations.json
-          grep -Fq '"affiliate_short_url": "https://amzn.to/3Sji4te"' data/resource-recommendations.json
-          grep -Fq 'tag=mybookwebs03c-20' books.html
-          grep -Fq 'As an Amazon Associate I earn from qualifying purchases.' affiliate-disclosure/index.html
+          movement_paths=(
+            books.html
+            books
+            recommendations/index.html
+            data/resource-recommendations.json
+            affiliate-disclosure/index.html
+          )
 
-          if grep -R -Fq 'B0FFV7V2GW' -- books.html books recommendations data/resource-recommendations.json affiliate-disclosure/index.html; then
+          if grep -R -nE 'amzn\.to/|tag=mybookwebs03c-20' -- "${movement_paths[@]}"; then
+            echo 'Amazon Associates tracking found on LeaveOneLightOn.org movement surfaces.' >&2
+            exit 1
+          fi
+
+          if grep -R -nF 'As an Amazon Associate I earn from qualifying purchases.' -- "${movement_paths[@]}"; then
+            echo 'Amazon Associate earning statement belongs on the separate book property, not movement surfaces.' >&2
+            exit 1
+          fi
+
+          if grep -R -nF 'class="affiliate-label"' -- books.html books/leave-one-light-on.html recommendations/index.html; then
+            echo 'Affiliate badge returned to movement book surfaces.' >&2
+            exit 1
+          fi
+
+          if grep -R -nF 'rel="noopener noreferrer sponsored"' -- books.html books/leave-one-light-on.html recommendations/index.html; then
+            echo 'Sponsored relationship marker returned to movement book/recommendation surfaces.' >&2
+            exit 1
+          fi
+
+          # Recommendation governance data must describe the movement links as non-affiliate.
+          python3 - <<'PY'
+          import json
+
+          with open('data/resource-recommendations.json', encoding='utf-8') as handle:
+              data = json.load(handle)
+
+          expected = {
+              'light-window-amazon': 'https://www.amazon.com/dp/B0H7QP4HSY',
+              'leave-one-light-on-amazon': 'https://www.amazon.com/dp/B0HCCL1GZR',
+          }
+          records = {item['id']: item for item in data['resources']}
+          for resource_id, canonical in expected.items():
+              record = records[resource_id]
+              assert record['canonical_url'] == canonical, (resource_id, record['canonical_url'])
+              assert record.get('affiliate_program') == 'none', resource_id
+              assert record.get('affiliate_eligible') is False, resource_id
+              assert 'affiliate_url' not in record, resource_id
+              assert 'affiliate_short_url' not in record, resource_id
+
+          print('MOVEMENT BOOK DATA NON-AFFILIATE OK')
+          PY
+
+          # Separate commercial book property: Associates is allowed, and disclosure is local to it.
+          grep -Fq "$book_site_affiliate" thelightinthewindowbook.com/buy.html
+          grep -Fq '<strong>Affiliate link.</strong> As an Amazon Associate I earn from qualifying purchases.' thelightinthewindowbook.com/buy.html
+          grep -Fq 'rel="noopener noreferrer sponsored"' thelightinthewindowbook.com/buy.html
+
+          if grep -R -Fq 'B0FFV7V2GW' -- books.html books recommendations data/resource-recommendations.json affiliate-disclosure/index.html thelightinthewindowbook.com; then
             echo 'Forbidden non-book ASIN B0FFV7V2GW found in book purchase surfaces.' >&2
             exit 1
           fi
 
-          echo 'VERIFIED AMAZON BOOK MAPPINGS OK'
+          echo 'MOVEMENT / BOOK-SITE COMMERCE SEPARATION OK'
 
       - name: Confirm intentional book detail files
         shell: bash
