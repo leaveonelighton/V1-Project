@@ -39,9 +39,9 @@ RedirectMatch 301 ^/when-does-a-second-chance-become-real\.html$ https://leaveon
   Header always set Strict-Transport-Security "max-age=86400" "expr=%{HTTPS} == 'on'"
 
   # Defense-in-depth against injected script and untrusted resource loads.
-  # The only inline script-attribute exception is the exact legacy
-  # window.print() handler used by seven printable Welcome Shelf tools.
-  Header always set Content-Security-Policy "default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'self'; frame-src 'none'; form-action 'self'; script-src 'self'; script-src-attr 'unsafe-hashes' 'sha256-MguIPR6qNR8D3B+eAlK+bIRTZe8t3wkOY4B/56Me9FU='; connect-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; media-src 'self'; worker-src 'self'; manifest-src 'self'; upgrade-insecure-requests"
+  # Inline event-handler attributes are blocked outright; printable Welcome
+  # Shelf tools use a self-hosted addEventListener() script instead.
+  Header always set Content-Security-Policy "default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'self'; frame-src 'none'; form-action 'self'; script-src 'self'; script-src-attr 'none'; connect-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; media-src 'self'; worker-src 'self'; manifest-src 'self'; upgrade-insecure-requests"
 
   <FilesMatch "\.(?:html?|xml|txt)$">
     Header set Cache-Control "no-cache, max-age=0, must-revalidate"

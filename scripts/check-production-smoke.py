@@ -24,7 +24,6 @@ TIMEOUT_SECONDS = 15
 RETRIES = 3
 RETRY_DELAY_SECONDS = 3
 USER_AGENT = "LeaveOneLightOn-ProductionSmoke/1.0"
-PRINT_HANDLER_HASH = "sha256-MguIPR6qNR8D3B+eAlK+bIRTZe8t3wkOY4B/56Me9FU="
 
 
 @dataclass
@@ -203,7 +202,7 @@ def check_csp(headers: Message, url: str, errors: list[str]) -> None:
         "frame-src 'none'",
         "form-action 'self'",
         "script-src 'self'",
-        f"script-src-attr 'unsafe-hashes' '{PRINT_HANDLER_HASH}'",
+        "script-src-attr 'none'",
         "connect-src 'self'",
         "https://fonts.googleapis.com",
         "https://fonts.gstatic.com",
@@ -216,6 +215,11 @@ def check_csp(headers: Message, url: str, errors: list[str]) -> None:
         errors,
         "unsafe-eval" not in csp,
         f"CSP unexpectedly permits unsafe-eval on {url}: {csp!r}",
+    )
+    add_error(
+        errors,
+        "unsafe-hashes" not in csp,
+        f"CSP unexpectedly permits unsafe-hashes on {url}: {csp!r}",
     )
     script_directive = next(
         (piece.strip() for piece in csp.split(";") if piece.strip().startswith("script-src ")),
