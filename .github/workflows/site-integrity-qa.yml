@@ -1,0 +1,21 @@
+name: Site integrity QA
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  site-integrity:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Audit internal links and local assets
+        run: python3 scripts/check-site-integrity.py
+
+      - name: Reconfirm discoverability baseline
+        run: python3 scripts/check-discoverability.py
