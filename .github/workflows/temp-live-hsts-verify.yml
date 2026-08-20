@@ -1,0 +1,20 @@
+name: TEMP live HSTS verify
+
+on:
+  pull_request:
+    paths:
+      - ".github/workflows/temp-live-hsts-verify.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  live-hsts-verify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v7
+      - name: Verify deployed HSTS
+        env:
+          GITHUB_EVENT_NAME: diagnostic
+        run: python3 scripts/check-hsts-live.py
