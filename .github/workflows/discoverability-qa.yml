@@ -11,6 +11,7 @@ on:
       - 'research/when-does-a-second-chance-become-real.html'
       - 'research/dyslexia-reading-difficulties.html'
       - 'resources/learning-differences.html'
+      - 'welcome-shelf/*.html'
   workflow_dispatch:
 
 permissions:
@@ -38,6 +39,28 @@ jobs:
           grep -Fq '<link rel="canonical" href="https://leaveonelighton.org/resources/learning-differences.html">' resources/learning-differences.html
           echo 'CANONICAL PUBLIC PAGES OK'
 
+      - name: Confirm Welcome Shelf public web tools
+        shell: bash
+        run: |
+          set -euo pipefail
+          pages=(
+            community-light-starter-kit.html
+            foster-care-start-here.html
+            one-light-at-work.html
+            one-meaningful-step.html
+            reading-learning-questions.html
+            resource-navigation-notes.html
+            story-preservation-workbook.html
+          )
+          for page in "${pages[@]}"; do
+            test -f "welcome-shelf/$page"
+            ! grep -Fiq 'noindex' "welcome-shelf/$page"
+            grep -Fq "href=\"$page\"" welcome-shelf/index.html
+            grep -Fq "<https://leaveonelighton.org/welcome-shelf/$page>; rel=" .htaccess
+          done
+          grep -Fq 'Header set Link' .htaccess
+          echo 'WELCOME SHELF CANONICAL SIGNALS OK'
+
       - name: Confirm sitemap coverage
         shell: bash
         run: |
@@ -46,6 +69,16 @@ jobs:
           grep -Fq '<loc>https://leaveonelighton.org/research/when-does-a-second-chance-become-real.html</loc>' sitemap.xml
           grep -Fq '<loc>https://leaveonelighton.org/research/dyslexia-reading-difficulties.html</loc>' sitemap.xml
           grep -Fq '<loc>https://leaveonelighton.org/resources/learning-differences.html</loc>' sitemap.xml
+          for page in \
+            community-light-starter-kit.html \
+            foster-care-start-here.html \
+            one-light-at-work.html \
+            one-meaningful-step.html \
+            reading-learning-questions.html \
+            resource-navigation-notes.html \
+            story-preservation-workbook.html; do
+            grep -Fq "<loc>https://leaveonelighton.org/welcome-shelf/$page</loc>" sitemap.xml
+          done
           ! grep -Fq '<loc>https://leaveonelighton.org/when-does-a-second-chance-become-real.html</loc>' sitemap.xml
           echo 'SITEMAP COVERAGE OK'
 
