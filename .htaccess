@@ -1,3 +1,4 @@
-# Canonical book URL redirects
+# Canonical URL redirects
 RedirectMatch 301 ^/book\.html$ https://leaveonelighton.org/books.html
 RedirectMatch 301 ^/books/?$ https://leaveonelighton.org/books.html
+RedirectMatch 301 ^/when-does-a-second-chance-become-real\.html$ https://leaveonelighton.org/research/when-does-a-second-chance-become-real.html
