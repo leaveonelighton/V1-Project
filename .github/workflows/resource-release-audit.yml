@@ -45,7 +45,7 @@ jobs:
           fi
           echo 'VISITOR LANGUAGE OK'
 
-      - name: Keep staging pages noindex until release approval
+      - name: Confirm release pages are indexable
         shell: bash
         run: |
           set -euo pipefail
@@ -61,9 +61,12 @@ jobs:
             books/the-light-in-the-window-reader-materials.html
           )
           for page in "${PAGES[@]}"; do
-            grep -q 'noindex,nofollow' "$page"
+            if grep -nEi 'noindex|nofollow' "$page"; then
+              echo "Release indexing directive remains in $page." >&2
+              exit 1
+            fi
           done
-          echo 'STAGING NOINDEX OK'
+          echo 'RELEASE INDEXING OK'
 
       - name: Confirm global evidence guide action symmetry
         shell: bash
