@@ -1,0 +1,49 @@
+name: Discoverability QA
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/discoverability-qa.yml'
+      - '.htaccess'
+      - 'sitemap.xml'
+      - 'give-grace.html'
+      - 'when-does-a-second-chance-become-real.html'
+      - 'research/when-does-a-second-chance-become-real.html'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  discoverability-qa:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Confirm canonical public pages
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f give-grace.html
+          test -f research/when-does-a-second-chance-become-real.html
+          test ! -f when-does-a-second-chance-become-real.html
+          grep -Fq '<link rel="canonical" href="https://leaveonelighton.org/give-grace.html">' give-grace.html
+          grep -Fq '<link rel="canonical" href="https://leaveonelighton.org/research/when-does-a-second-chance-become-real.html">' research/when-does-a-second-chance-become-real.html
+          echo 'CANONICAL PUBLIC PAGES OK'
+
+      - name: Confirm sitemap coverage
+        shell: bash
+        run: |
+          set -euo pipefail
+          grep -Fq '<loc>https://leaveonelighton.org/give-grace.html</loc>' sitemap.xml
+          grep -Fq '<loc>https://leaveonelighton.org/research/when-does-a-second-chance-become-real.html</loc>' sitemap.xml
+          ! grep -Fq '<loc>https://leaveonelighton.org/when-does-a-second-chance-become-real.html</loc>' sitemap.xml
+          echo 'SITEMAP COVERAGE OK'
+
+      - name: Confirm legacy redirect
+        shell: bash
+        run: |
+          set -euo pipefail
+          grep -Fq 'RedirectMatch 301 ^/when-does-a-second-chance-become-real\.html$ https://leaveonelighton.org/research/when-does-a-second-chance-become-real.html' .htaccess
+          echo 'LEGACY REDIRECT OK'
