@@ -33,6 +33,11 @@ RedirectMatch 301 ^/when-does-a-second-chance-become-real\.html$ https://leaveon
   Header always set X-Frame-Options "SAMEORIGIN"
   Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
 
+  # Initial HSTS ramp-up: HTTPS-only, apex host only, short lifetime while
+  # production behavior is observed. Do not add includeSubDomains or preload
+  # until every relevant subdomain and certificate path is explicitly verified.
+  Header always set Strict-Transport-Security "max-age=86400" "expr=%{HTTPS} == 'on'"
+
   # Defense-in-depth against injected script and untrusted resource loads.
   # The only inline script-attribute exception is the exact legacy
   # window.print() handler used by seven printable Welcome Shelf tools.
