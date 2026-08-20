@@ -35,27 +35,43 @@ jobs:
           grep -q 'invites us to live it.' books.html
           echo 'TWO-BOOK MOVEMENT SHELF OK'
 
-      - name: Confirm current Amazon purchase paths
+      - name: Confirm verified Amazon book mappings
         shell: bash
         run: |
           set -euo pipefail
-          grep -Fq 'https://amzn.to/4gq4H2s' books.html
-          grep -Fq 'https://amzn.to/4gq4H2s' books/leave-one-light-on.html
-          grep -Fq 'https://amzn.to/4gq4H2s' recommendations/index.html
-          grep -Fq 'B0HCCL1GZR' data/resource-recommendations.json
-          grep -Fq 'B0FFV7V2GW' books.html
-          grep -Fq 'B0FFV7V2GW' recommendations/index.html
-          grep -Fq 'B0FFV7V2GW' data/resource-recommendations.json
-          grep -Fq '"affiliate_url": "https://amzn.to/4gq4H2s"' data/resource-recommendations.json
-          grep -Fq 'tag=mybookwebs03c-20' data/resource-recommendations.json
-          if grep -R -nF 'B0H7QP4HSY' books.html recommendations/index.html data/resource-recommendations.json; then
-            echo 'Retired The Light in the Window Amazon ASIN remains.' >&2
+
+          light_short='https://amzn.to/45Wp9TT'
+          leave_short='https://amzn.to/3Sji4te'
+          light_search='https://www.amazon.com/s?k=the+light+in+the+window+book+by+theodore+johnson&crid=BZ7NLBE8NQTH&sprefix=the+light+in+the+window+book+%2Caps%2C183&linkCode=ll2&tag=mybookwebs03c-20&linkId=517aee9da4edc4b6c45f6ed4a5809eb7&language=en_US&ref_=as_li_ss_tl'
+          leave_search='https://www.amazon.com/s?k=leave+one+light+on+book+by+Theodore+Johnson&crid=1T47HE7OTQQFM&sprefix=leave+one+light+on+book+by+theodore+johnson%2Caps%2C172&linkCode=ll2&tag=mybookwebs03c-20&linkId=40fbc60c16bcbf59e777df38fcf362a5&language=en_US&ref_=as_li_ss_tl'
+
+          grep -Fq "$light_short" books.html
+          grep -Fq "$leave_short" books.html
+          grep -Fq "$light_search" books.html
+          grep -Fq "$leave_search" books.html
+
+          grep -Fq "$leave_short" books/leave-one-light-on.html
+          grep -Fq "$leave_search" books/leave-one-light-on.html
+          grep -Fq 'https://www.amazon.com/dp/B0HCCL1GZR' books/leave-one-light-on.html
+
+          grep -Fq "$light_search" recommendations/index.html
+          grep -Fq "$leave_search" recommendations/index.html
+          grep -Fq 'data-resource-id="light-window-amazon"' recommendations/index.html
+          grep -Fq 'data-resource-id="leave-one-light-on-amazon"' recommendations/index.html
+
+          grep -Fq '"canonical_url": "https://www.amazon.com/dp/B0H7QP4HSY"' data/resource-recommendations.json
+          grep -Fq '"canonical_url": "https://www.amazon.com/dp/B0HCCL1GZR"' data/resource-recommendations.json
+          grep -Fq '"affiliate_short_url": "https://amzn.to/45Wp9TT"' data/resource-recommendations.json
+          grep -Fq '"affiliate_short_url": "https://amzn.to/3Sji4te"' data/resource-recommendations.json
+          grep -Fq 'tag=mybookwebs03c-20' books.html
+          grep -Fq 'As an Amazon Associate I earn from qualifying purchases.' affiliate-disclosure/index.html
+
+          if grep -R -Fq 'B0FFV7V2GW' -- books.html books recommendations data/resource-recommendations.json affiliate-disclosure/index.html; then
+            echo 'Forbidden non-book ASIN B0FFV7V2GW found in book purchase surfaces.' >&2
             exit 1
           fi
-          grep -q 'Affiliate link' books.html
-          grep -q 'As an Amazon Associate I earn from qualifying purchases.' books.html
-          grep -q 'Selected Amazon Associates links are active' affiliate-disclosure/index.html
-          echo 'BOOK PURCHASE PATHS OK'
+
+          echo 'VERIFIED AMAZON BOOK MAPPINGS OK'
 
       - name: Confirm intentional book detail files
         shell: bash
