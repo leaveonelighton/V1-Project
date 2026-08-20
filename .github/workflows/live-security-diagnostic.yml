@@ -1,0 +1,19 @@
+name: Live security diagnostic
+
+on:
+  push:
+    branches:
+      - live-security-diagnostic
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  live-security-diagnostic:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v7
+      - name: Probe live CSP and HTTP redirect behavior
+        run: python3 scripts/diagnose-live-security.py
