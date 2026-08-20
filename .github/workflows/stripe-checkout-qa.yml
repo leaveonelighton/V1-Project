@@ -1,0 +1,40 @@
+name: Stripe checkout QA
+
+on:
+  pull_request:
+    paths:
+      - 'keep-the-light-on.html'
+      - '.htaccess'
+      - '.github/workflows/stripe-checkout-qa.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  stripe-checkout:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Verify Stripe embed and CSP allowlist
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          grep -Fq 'https://js.stripe.com/v3/buy-button.js' keep-the-light-on.html
+          grep -Fq '<stripe-buy-button' keep-the-light-on.html
+          grep -Fq 'buy-button-id="buy_btn_1U1nrUQ3JW85iZF7F9jmp3gX"' keep-the-light-on.html
+          grep -Fq 'publishable-key="pk_live_' keep-the-light-on.html
+
+          grep -Fq "frame-src https://js.stripe.com;" .htaccess
+          grep -Fq "script-src 'self' https://js.stripe.com;" .htaccess
+          grep -Fq "script-src-attr 'none';" .htaccess
+
+          if grep -Fq "frame-src 'none'" .htaccess; then
+            echo 'Stripe checkout would be blocked by frame-src none.' >&2
+            exit 1
+          fi
+
+          echo 'STRIPE EMBED AND CSP ALLOWLIST OK'
