@@ -3,15 +3,12 @@ name: Discoverability QA
 on:
   pull_request:
     paths:
-      - '.github/workflows/discoverability-qa.yml'
+      - '*.html'
+      - '**/*.html'
       - '.htaccess'
       - 'sitemap.xml'
-      - 'give-grace.html'
-      - 'when-does-a-second-chance-become-real.html'
-      - 'research/when-does-a-second-chance-become-real.html'
-      - 'research/dyslexia-reading-difficulties.html'
-      - 'resources/learning-differences.html'
-      - 'welcome-shelf/*.html'
+      - 'scripts/check-discoverability.py'
+      - '.github/workflows/discoverability-qa.yml'
   workflow_dispatch:
 
 permissions:
@@ -24,63 +21,8 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
 
-      - name: Confirm canonical public pages
-        shell: bash
-        run: |
-          set -euo pipefail
-          test -f give-grace.html
-          test -f research/when-does-a-second-chance-become-real.html
-          test -f research/dyslexia-reading-difficulties.html
-          test -f resources/learning-differences.html
-          test ! -f when-does-a-second-chance-become-real.html
-          grep -Fq '<link rel="canonical" href="https://leaveonelighton.org/give-grace.html">' give-grace.html
-          grep -Fq '<link rel="canonical" href="https://leaveonelighton.org/research/when-does-a-second-chance-become-real.html">' research/when-does-a-second-chance-become-real.html
-          grep -Fq '<link rel="canonical" href="https://leaveonelighton.org/research/dyslexia-reading-difficulties.html">' research/dyslexia-reading-difficulties.html
-          grep -Fq '<link rel="canonical" href="https://leaveonelighton.org/resources/learning-differences.html">' resources/learning-differences.html
-          echo 'CANONICAL PUBLIC PAGES OK'
-
-      - name: Confirm Welcome Shelf public web tools
-        shell: bash
-        run: |
-          set -euo pipefail
-          pages=(
-            community-light-starter-kit.html
-            foster-care-start-here.html
-            one-light-at-work.html
-            one-meaningful-step.html
-            reading-learning-questions.html
-            resource-navigation-notes.html
-            story-preservation-workbook.html
-          )
-          for page in "${pages[@]}"; do
-            test -f "welcome-shelf/$page"
-            ! grep -Fiq 'noindex' "welcome-shelf/$page"
-            grep -Fq "href=\"$page\"" welcome-shelf/index.html
-            grep -Fq "<https://leaveonelighton.org/welcome-shelf/$page>; rel=" .htaccess
-          done
-          grep -Fq 'Header set Link' .htaccess
-          echo 'WELCOME SHELF CANONICAL SIGNALS OK'
-
-      - name: Confirm sitemap coverage
-        shell: bash
-        run: |
-          set -euo pipefail
-          grep -Fq '<loc>https://leaveonelighton.org/give-grace.html</loc>' sitemap.xml
-          grep -Fq '<loc>https://leaveonelighton.org/research/when-does-a-second-chance-become-real.html</loc>' sitemap.xml
-          grep -Fq '<loc>https://leaveonelighton.org/research/dyslexia-reading-difficulties.html</loc>' sitemap.xml
-          grep -Fq '<loc>https://leaveonelighton.org/resources/learning-differences.html</loc>' sitemap.xml
-          for page in \
-            community-light-starter-kit.html \
-            foster-care-start-here.html \
-            one-light-at-work.html \
-            one-meaningful-step.html \
-            reading-learning-questions.html \
-            resource-navigation-notes.html \
-            story-preservation-workbook.html; do
-            grep -Fq "<loc>https://leaveonelighton.org/welcome-shelf/$page</loc>" sitemap.xml
-          done
-          ! grep -Fq '<loc>https://leaveonelighton.org/when-does-a-second-chance-become-real.html</loc>' sitemap.xml
-          echo 'SITEMAP COVERAGE OK'
+      - name: Audit public canonicals and sitemap
+        run: python3 scripts/check-discoverability.py
 
       - name: Confirm legacy redirect
         shell: bash
