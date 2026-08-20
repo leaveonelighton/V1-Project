@@ -199,9 +199,9 @@ def check_csp(headers: Message, url: str, errors: list[str]) -> None:
         "base-uri 'self'",
         "object-src 'none'",
         "frame-ancestors 'self'",
-        "frame-src 'none'",
+        "frame-src https://js.stripe.com",
         "form-action 'self'",
-        "script-src 'self'",
+        "script-src 'self' https://js.stripe.com",
         "script-src-attr 'none'",
         "connect-src 'self'",
         "https://fonts.googleapis.com",
@@ -255,6 +255,22 @@ def check_server_hardening(errors: list[str]) -> None:
         add_error(errors, "max-age=0" in html_cache, f"HTML is missing max-age=0 policy: {html_cache!r}")
         check_csp(page.headers, page_url, errors)
 
+    stripe_url = f"{BASE}/keep-the-light-on.html"
+    stripe_page = fetch(stripe_url)
+    add_error(errors, stripe_page.status == 200, f"Expected 200 for {stripe_url}; got {stripe_page.status}")
+    if stripe_page.status == 200:
+        stripe_html = stripe_page.body.decode("utf-8", errors="replace")
+        add_error(
+            errors,
+            'https://js.stripe.com/v3/buy-button.js' in stripe_html,
+            f"Stripe buy-button script missing from {stripe_url}",
+        )
+        add_error(
+            errors,
+            '<stripe-buy-button' in stripe_html,
+            f"Stripe buy-button component missing from {stripe_url}",
+        )
+
     css_url = f"{BASE}/css/v3.css"
     css = fetch(css_url, extra_headers={"Accept-Encoding": "gzip"})
     add_error(errors, css.status == 200, f"Expected 200 for {css_url}; got {css.status}")
@@ -277,7 +293,7 @@ def check_server_hardening(errors: list[str]) -> None:
             f"Image cache lifetime too short: {image_cache!r}",
         )
 
-    print("Live server hardening: security headers, CSP, HTML revalidation, gzip CSS, and asset caching checked.")
+    print("Live server hardening: security headers, CSP, Stripe embed, HTML revalidation, gzip CSS, and asset caching checked.")
 
 
 def main() -> int:
