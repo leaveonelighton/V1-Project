@@ -9,6 +9,8 @@ on:
       - 'give-grace.html'
       - 'when-does-a-second-chance-become-real.html'
       - 'research/when-does-a-second-chance-become-real.html'
+      - 'research/dyslexia-reading-difficulties.html'
+      - 'resources/learning-differences.html'
   workflow_dispatch:
 
 permissions:
@@ -27,9 +29,13 @@ jobs:
           set -euo pipefail
           test -f give-grace.html
           test -f research/when-does-a-second-chance-become-real.html
+          test -f research/dyslexia-reading-difficulties.html
+          test -f resources/learning-differences.html
           test ! -f when-does-a-second-chance-become-real.html
           grep -Fq '<link rel="canonical" href="https://leaveonelighton.org/give-grace.html">' give-grace.html
           grep -Fq '<link rel="canonical" href="https://leaveonelighton.org/research/when-does-a-second-chance-become-real.html">' research/when-does-a-second-chance-become-real.html
+          grep -Fq '<link rel="canonical" href="https://leaveonelighton.org/research/dyslexia-reading-difficulties.html">' research/dyslexia-reading-difficulties.html
+          grep -Fq '<link rel="canonical" href="https://leaveonelighton.org/resources/learning-differences.html">' resources/learning-differences.html
           echo 'CANONICAL PUBLIC PAGES OK'
 
       - name: Confirm sitemap coverage
@@ -38,6 +44,8 @@ jobs:
           set -euo pipefail
           grep -Fq '<loc>https://leaveonelighton.org/give-grace.html</loc>' sitemap.xml
           grep -Fq '<loc>https://leaveonelighton.org/research/when-does-a-second-chance-become-real.html</loc>' sitemap.xml
+          grep -Fq '<loc>https://leaveonelighton.org/research/dyslexia-reading-difficulties.html</loc>' sitemap.xml
+          grep -Fq '<loc>https://leaveonelighton.org/resources/learning-differences.html</loc>' sitemap.xml
           ! grep -Fq '<loc>https://leaveonelighton.org/when-does-a-second-chance-become-real.html</loc>' sitemap.xml
           echo 'SITEMAP COVERAGE OK'
 
