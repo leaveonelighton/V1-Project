@@ -6,24 +6,24 @@ RedirectMatch 301 ^/when-does-a-second-chance-become-real\.html$ https://leaveon
 # Canonical HTTP Link headers for Welcome Shelf web tools
 <IfModule mod_headers.c>
   <Files "community-light-starter-kit.html">
-    Header set Link "<https://leaveonelighton.org/welcome-shelf/community-light-starter-kit.html>; rel=\"canonical\""
+    Header set Link '<https://leaveonelighton.org/welcome-shelf/community-light-starter-kit.html>; rel="canonical"'
   </Files>
   <Files "foster-care-start-here.html">
-    Header set Link "<https://leaveonelighton.org/welcome-shelf/foster-care-start-here.html>; rel=\"canonical\""
+    Header set Link '<https://leaveonelighton.org/welcome-shelf/foster-care-start-here.html>; rel="canonical"'
   </Files>
   <Files "one-light-at-work.html">
-    Header set Link "<https://leaveonelighton.org/welcome-shelf/one-light-at-work.html>; rel=\"canonical\""
+    Header set Link '<https://leaveonelighton.org/welcome-shelf/one-light-at-work.html>; rel="canonical"'
   </Files>
   <Files "one-meaningful-step.html">
-    Header set Link "<https://leaveonelighton.org/welcome-shelf/one-meaningful-step.html>; rel=\"canonical\""
+    Header set Link '<https://leaveonelighton.org/welcome-shelf/one-meaningful-step.html>; rel="canonical"'
   </Files>
   <Files "reading-learning-questions.html">
-    Header set Link "<https://leaveonelighton.org/welcome-shelf/reading-learning-questions.html>; rel=\"canonical\""
+    Header set Link '<https://leaveonelighton.org/welcome-shelf/reading-learning-questions.html>; rel="canonical"'
   </Files>
   <Files "resource-navigation-notes.html">
-    Header set Link "<https://leaveonelighton.org/welcome-shelf/resource-navigation-notes.html>; rel=\"canonical\""
+    Header set Link '<https://leaveonelighton.org/welcome-shelf/resource-navigation-notes.html>; rel="canonical"'
   </Files>
   <Files "story-preservation-workbook.html">
-    Header set Link "<https://leaveonelighton.org/welcome-shelf/story-preservation-workbook.html>; rel=\"canonical\""
+    Header set Link '<https://leaveonelighton.org/welcome-shelf/story-preservation-workbook.html>; rel="canonical"'
   </Files>
 </IfModule>
