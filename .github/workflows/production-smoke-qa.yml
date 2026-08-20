@@ -1,0 +1,35 @@
+name: Production smoke QA
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    paths:
+      - ".github/workflows/production-smoke-qa.yml"
+      - "scripts/check-production-smoke.py"
+  schedule:
+    - cron: "17 12 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: production-smoke-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  production-smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Allow production deployment to settle
+        if: github.event_name == 'push'
+        run: sleep 45
+
+      - name: Smoke-test live production
+        run: python3 scripts/check-production-smoke.py
