@@ -1,6 +1,6 @@
 # Resource System Overhaul
 
-Status: **release-candidate branch only - not approved for production**
+Status: **release-candidate branch only - release preparation approved; not approved for production**
 
 Branch: `resource-system-overhaul-v1`
 
@@ -146,9 +146,9 @@ For each printable resource:
 
 Automated guards include:
 
-- Resource system QA for source reconciliation and print anti-patterns.
+- Resource system QA for source reconciliation, release-page indexing, and print anti-patterns.
 - Book reader source inspection for book-specific separation.
-- Resource release audit for visitor-facing review language, staging `noindex`, retired PDF links, and key destination existence.
+- Resource release audit for visitor-facing review language, release-page indexing, retired PDF links, and key destination existence.
 
 ## Final staging review
 
@@ -164,7 +164,7 @@ No production toggle is implied by a successful staging review.
 
 ## Release switch
 
-All release-candidate pages remain `noindex,nofollow` while they are on staging. Removing those page-level `noindex` directives is a deliberate release action and must not happen early.
+Release preparation has removed page-level `noindex,nofollow` directives from the approved release pages. The release guards now fail if `noindex` or `nofollow` is reintroduced there. This indexing preparation does **not** authorize a merge or production publication.
 
 ## Release warning
 
