@@ -1,2 +1,3 @@
-# Legacy URL redirects
+# Canonical book URL redirects
 RedirectMatch 301 ^/book\.html$ https://leaveonelighton.org/books.html
+RedirectMatch 301 ^/books/?$ https://leaveonelighton.org/books.html
