@@ -31,34 +31,6 @@
       "owner": "Resources Steward"
     },
     {
-      "id": "owners-manual-amazon",
-      "category": "Health",
-      "name": "The Owner’s Manual for the Human Body",
-      "why_recommended": "Ted’s personal, faith-informed reflection on strength, health, and stewardship; it is not medical advice.",
-      "who_may_find_helpful": "Adults interested in one author’s practical reflections on caring for the body.",
-      "canonical_url": "https://www.amazon.com/dp/B0H9J6NLB2",
-      "affiliate_program": "amazon",
-      "affiliate_eligible": true,
-      "editorial_reviewed": "2026-08-01",
-      "next_review": "2027-08-01",
-      "status": "approved",
-      "owner": "Resources Steward"
-    },
-    {
-      "id": "owners-manual-publisher",
-      "category": "Health",
-      "name": "The Owner’s Manual for the Human Body — publisher page",
-      "why_recommended": "A direct publisher page for Ted’s health and stewardship book.",
-      "who_may_find_helpful": "Readers who prefer to learn about the book from its publisher.",
-      "canonical_url": "https://www.inkfluenceai.com/books/tzen7dwmdj",
-      "affiliate_program": "inkfluence",
-      "affiliate_eligible": false,
-      "editorial_reviewed": "2026-08-01",
-      "next_review": "2027-08-01",
-      "status": "approved",
-      "owner": "Resources Steward"
-    },
-    {
       "id": "amazon-kdp",
       "category": "Writing & Publishing",
       "name": "Amazon Kindle Direct Publishing",
