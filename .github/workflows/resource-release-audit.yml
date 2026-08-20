@@ -5,6 +5,7 @@ on:
     paths:
       - 'welcome-shelf/**'
       - 'books/the-light-in-the-window-reader-materials.html'
+      - 'books/the-light-in-the-window.html'
       - 'research/foster-care-101.html'
       - 'research/dyslexia-reading-difficulties.html'
       - 'css/evidence-guide-polish.css'
@@ -77,6 +78,19 @@ jobs:
           grep -q 'cp research/foster-care-101.html' scripts/resource-staging-update.sh
           echo 'EVIDENCE GUIDE ACTION SYMMETRY OK'
 
+      - name: Keep movement book page separate from personal commerce
+        shell: bash
+        run: |
+          set -euo pipefail
+          PAGE=books/the-light-in-the-window.html
+          test -f "$PAGE"
+          grep -q 'https://thelightinthewindowbook.com/' "$PAGE"
+          if grep -nEi 'amazon\.com|gumroad\.com|inkfluenceai\.com|affiliate-label|Amazon Associate|qualifying purchases' "$PAGE"; then
+            echo 'Personal book-commerce link or affiliate language remains on the movement book page.' >&2
+            exit 1
+          fi
+          echo 'BOOK / MOVEMENT FINANCIAL SEPARATION OK'
+
       - name: Reject retired PDF links from general Welcome Shelf
         shell: bash
         run: |
@@ -100,6 +114,7 @@ jobs:
             welcome-shelf/one-meaningful-step.html \
             welcome-shelf/story-preservation-workbook.html \
             books/the-light-in-the-window-reader-materials.html \
+            books/the-light-in-the-window.html \
             research/foster-care-101.html \
             research/dyslexia-reading-difficulties.html \
             welcome-shelf/discussion-guide.pdf \
