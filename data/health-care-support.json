@@ -1,0 +1,76 @@
+{
+  "version": 1,
+  "review_policy": "Review at least annually and after any material change or broken-link report.",
+  "resources": [
+    {
+      "category": "Memory & Neurological Support",
+      "name": "Alzheimers.gov",
+      "mission": "A U.S. government portal for Alzheimer's disease and related dementias, including symptoms, diagnosis, treatment, caregiving, research, and clinical-trial information.",
+      "alignment": "It gives visitors a federal, evidence-based starting point without asking Leave One Light On to act as a medical authority.",
+      "benefits": "People living with dementia, family members, caregivers, health professionals, and anyone seeking trustworthy federal information.",
+      "url": "https://www.alzheimers.gov/",
+      "link_label": "Visit Alzheimers.gov",
+      "search_keywords": "Alzheimer Alzheimer's dementia memory caregiving caregiver diagnosis treatment clinical trials federal government NIA",
+      "organization_type": "U.S. government resource",
+      "reviewed": "2026-08-27",
+      "next_review": "2027-08-27",
+      "owner": "Resources Steward"
+    },
+    {
+      "category": "Memory & Neurological Support",
+      "name": "National Institute on Aging — Alzheimer's & Dementia",
+      "mission": "Provides evidence-based information about Alzheimer's disease and other dementias, including diagnosis, treatment, caregiving, and related research.",
+      "alignment": "NIA is a primary federal health-information source and supports the movement's truth-before-momentum standard.",
+      "benefits": "People seeking authoritative health information, caregivers, families, and professionals.",
+      "url": "https://www.nia.nih.gov/health/alzheimers-and-dementia",
+      "link_label": "Explore NIA Alzheimer's & Dementia",
+      "search_keywords": "Alzheimer Alzheimer's dementia memory aging NIH NIA caregiver diagnosis treatment research",
+      "organization_type": "National Institutes of Health",
+      "reviewed": "2026-08-27",
+      "next_review": "2027-08-27",
+      "owner": "Resources Steward"
+    },
+    {
+      "category": "Memory & Neurological Support",
+      "name": "Alzheimer's Association",
+      "mission": "Provides Alzheimer's and dementia information, caregiver support, local resources, research information, and a free 24/7 helpline.",
+      "alignment": "It offers a practical national support path for families while Leave One Light On remains a storyteller and connector rather than a clinical provider.",
+      "benefits": "People living with Alzheimer's or another dementia, caregivers, families, and people seeking local support or information.",
+      "url": "https://www.alz.org/",
+      "link_label": "Visit the Alzheimer's Association",
+      "search_keywords": "Alzheimer Alzheimer's dementia memory caregiver caregiving support helpline local resources 800 272 3900",
+      "organization_type": "Independent nonprofit organization",
+      "reviewed": "2026-08-27",
+      "next_review": "2027-08-27",
+      "owner": "Resources Steward"
+    },
+    {
+      "category": "Memory & Neurological Support",
+      "name": "The ALS Association",
+      "mission": "Provides programs, care navigation, education, support groups, caregiver resources, clinic connections, advocacy, and research information for people affected by ALS.",
+      "alignment": "It gives families facing ALS a direct path to disease-specific support and specialized care resources.",
+      "benefits": "People living with ALS, caregivers, family members, veterans, and people seeking local ALS support or specialized clinics.",
+      "url": "https://www.als.org/support",
+      "link_label": "Find ALS Resources & Support",
+      "search_keywords": "ALS amyotrophic lateral sclerosis Lou Gehrig disease caregiver support clinics care navigation research",
+      "organization_type": "Independent nonprofit organization",
+      "reviewed": "2026-08-27",
+      "next_review": "2027-08-27",
+      "owner": "Resources Steward"
+    },
+    {
+      "category": "Memory & Neurological Support",
+      "name": "NINDS — Amyotrophic Lateral Sclerosis (ALS)",
+      "mission": "Provides federal research information and resources about ALS through the National Institute of Neurological Disorders and Stroke.",
+      "alignment": "It adds an authoritative NIH source alongside practical nonprofit support for people who want to understand the disease and current research.",
+      "benefits": "People seeking federal ALS research information, families, caregivers, clinicians, and people considering research participation.",
+      "url": "https://www.ninds.nih.gov/current-research/focus-disorders/focus-amyotrophic-lateral-sclerosis",
+      "link_label": "Explore NINDS ALS Information",
+      "search_keywords": "ALS amyotrophic lateral sclerosis NIH NINDS Lou Gehrig disease research clinical trials neurological",
+      "organization_type": "National Institutes of Health",
+      "reviewed": "2026-08-27",
+      "next_review": "2027-08-27",
+      "owner": "Resources Steward"
+    }
+  ]
+}
