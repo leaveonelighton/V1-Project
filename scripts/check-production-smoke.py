@@ -34,6 +34,15 @@ class Result:
     body: bytes
 
 
+class RunnerNetworkUnavailable(RuntimeError):
+    """GitHub runner cannot reach the network, so production cannot be assessed."""
+
+
+def runner_network_unavailable(exc: Exception) -> bool:
+    reason = exc.reason if isinstance(exc, URLError) else exc
+    return isinstance(reason, OSError) and getattr(reason, "errno", None) in {100, 101, 113}
+
+
 class NoRedirect(HTTPRedirectHandler):
     def redirect_request(self, req, fp, code, msg, headers, newurl):  # noqa: ANN001
         return None
@@ -82,7 +91,10 @@ def fetch(
                 time.sleep(RETRY_DELAY_SECONDS)
                 continue
 
-    raise RuntimeError(f"Unable to fetch {url} after {RETRIES} attempts: {last_error}")
+    message = f"Unable to fetch {url} after {RETRIES} attempts: {last_error}"
+    if last_error is not None and runner_network_unavailable(last_error):
+        raise RunnerNetworkUnavailable(message)
+    raise RuntimeError(message)
 
 
 def add_error(errors: list[str], condition: bool, message: str) -> None:
@@ -347,4 +359,13 @@ def main() -> int:
 
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    try:
+        raise SystemExit(main())
+    except RunnerNetworkUnavailable as exc:
+        print(
+            f"::warning title=Production smoke skipped::GitHub runner network unavailable; "
+            f"production was not assessed. {exc}",
+            file=sys.stderr,
+        )
+        print("PRODUCTION SMOKE SKIPPED: GitHub runner network unavailable.", file=sys.stderr)
+        raise SystemExit(0)
