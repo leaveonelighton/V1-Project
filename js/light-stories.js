@@ -63,6 +63,23 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   const form = root.querySelector('[data-light-submit]');
   if (form) {
+    const intakeStatus = root.querySelector('[data-intake-status]');
+    // The server switch and database readiness decide whether intake opens.
+    // Keep the form hidden on unavailable or unconfigured environments.
+    (async () => {
+      try {
+        const response = await fetch('/api/light-board/feed.php', { cache: 'no-store' });
+        const availability = await response.json();
+        if (!response.ok || !availability.ok) throw new Error();
+        form.hidden = !availability.accepting;
+        intakeStatus.textContent = availability.accepting
+          ? 'Every story waits for human review before publication.'
+          : 'Community story submissions are in preparation. Please return soon. You can still read a Light or send a private Contact message.';
+      } catch (e) {
+        form.hidden = true;
+        intakeStatus.textContent = 'Story submissions are temporarily unavailable. Please return later; nothing has been sent.';
+      }
+    })();
     form.querySelector('[name=started_at]').value = String(Math.floor(Date.now() / 1000));
     const error = root.querySelector('[data-submit-error]');
     const button = form.querySelector('button[type=submit]');

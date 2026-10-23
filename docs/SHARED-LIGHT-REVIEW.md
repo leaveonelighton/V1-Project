@@ -1,6 +1,6 @@
 # Received Light. Shared Light. — review implementation
 
-Status: **Review — isolated review branch; not approved for merge or deployment.**
+Status: **Owner approved publication October 23, 2026. Publish the redesigned presentation with intake disabled until the server activation gates pass.**
 
 Prepared October 23, 2026 from main tree `8ed4ffb731a0073e423aa93b120438fd507aa1d1`.
 
@@ -75,6 +75,7 @@ No production configuration, financial settings, social accounts, mailing lists,
 - `light-board/methodology.html`
 - `light-board/my-story.html`
 - `light-board/share.html`
+- `light-board/share-basic.php`
 - `light-board/story.php`
 - `maintenance/light-story-retention.php`
 - `one-light-each-month.html`
@@ -90,3 +91,7 @@ No production configuration, financial settings, social accounts, mailing lists,
 - PASS: translated additive migration parses in SQLite. This does not replace MySQL staging tests.
 - NOT RUN: PHP lint and executable PHP lifecycle suite (runtime unavailable).
 - NOT RUN: staging HTTP/auth/CSRF/retention/share-preview and responsive browser checks.
+
+## Publication decision — October 23, 2026
+
+Owner explicitly approved publication after the review commit. All six GitHub checks passed on `f2f05cf1586716f3c6969c0049feb2dc3f078722`, including executable PHP lifecycle tests. The new queue tables, directory protection, retention task, and staging verification have not been configured on Hostinger. The redesigned presentation may publish now with the whole-feature switch off. Share a Light must display an in-preparation message and keep its form hidden until server readiness is confirmed. A no-JavaScript fallback uses the same readiness check. Anonymous intake must not be described as operational before activation. Remaining server gates and legacy Living Pulse reconciliation still apply before enabling.

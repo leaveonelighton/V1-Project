@@ -87,7 +87,9 @@
 <div class="light-narrow">
 <p>A few sentences are enough. Leave out names, exact places, contact details, and anything that could identify someone else. Please do not include identifying details about children or private case information.</p>
 <p class="light-help">For a message you want to keep private, use <a href="/communicate/">Contact</a> instead. This story form is not monitored for urgent help.</p>
-<form class="light-form" action="/api/light-board/submit.php" method="post" data-light-submit>
+<p class="light-status" role="status" aria-live="polite" data-intake-status>Checking whether story submissions are open…</p>
+<p><a href="/light-board/">Read a Light</a> · <a href="/communicate/">Send a private message</a></p>
+<form class="light-form" hidden action="/api/light-board/submit.php" method="post" data-light-submit>
 <input type="hidden" name="started_at" value="">
 <div class="light-trap" aria-hidden="true">
 <label for="light-website">Leave this empty</label>
@@ -133,7 +135,7 @@
 <a class="light-button" href="/light-board/my-story.html">Check my story</a>
 </section>
 <noscript>
-<p>JavaScript is off. You can still send the form; the next page will show your private code.</p>
+<p>JavaScript is off. <a href="/light-board/share-basic.php">Open the simple story form</a> to check availability and submit without JavaScript.</p>
 </noscript>
 </div>
 </section>

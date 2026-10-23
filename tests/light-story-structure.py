@@ -30,6 +30,8 @@ for path in pages:
 share=(ROOT/'light-board/share.html').read_text()
 assert all(f'value="{p}"' in share for p in ['received','witnessed','offered'])
 assert not re.search(r'name="(?:email|nickname|location|phone)"',share),'no identifying fields collected'
+assert '<form class="light-form" hidden' in share, 'intake must stay hidden until server readiness is confirmed'
+assert 'data-intake-status' in share and '/light-board/share-basic.php' in share
 assert 'name="website_consent" value="yes" required' in share
 assert 'name="reuse_consent" value="yes"' in share and 'name="reuse_consent" value="yes" checked' not in share
 status=(ROOT/'light-board/my-story.html').read_text()
