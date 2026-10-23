@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Check my story | Leave One Light On</title>
+<meta name="description" content="Use your private story code to check review status or withdraw your Light Board submission.">
+<link rel="canonical" href="https://leaveonelighton.org/light-board/my-story.html">
+<meta property="og:title" content="Check my story | Leave One Light On">
+<meta property="og:description" content="Use your private story code to check review status or withdraw your Light Board submission.">
+<meta property="og:url" content="https://leaveonelighton.org/light-board/my-story.html">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://leaveonelighton.org/images/leave-one-light-on-social.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Leave One Light On — a movement of hope and practical compassion">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Check my story | Leave One Light On">
+<meta name="twitter:description" content="Use your private story code to check review status or withdraw your Light Board submission.">
+<meta name="twitter:image" content="https://leaveonelighton.org/images/leave-one-light-on-social.jpg">
+<meta name="twitter:image:alt" content="Leave One Light On — a movement of hope and practical compassion">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/golden-state.css">
+<link rel="stylesheet" href="/css/v3.css">
+<script defer src="/js/golden-state.js">
+</script>
+<script defer src="/js/light-stories.js">
+</script>
+<link rel="stylesheet" href="/css/reading-friendly.css">
+<link rel="stylesheet" href="/css/light-stories.css">
+<meta name="robots" content="noindex,nofollow,noarchive">
+</head>
+<body>
+<a class="skip-link" href="#main-content">Skip to main content</a>
+<header class="site-header">
+<a class="brand" href="/index.html" aria-label="Leave One Light On home">
+<span class="brand-name">LEAVE ONE LIGHT ON</span>
+<span class="brand-tagline">A movement of hope and practical compassion</span>
+</a>
+<details class="mobile-menu">
+<summary>Menu</summary>
+<nav aria-label="Mobile navigation">
+<a href="/index.html">Home</a>
+<a href="/why-we-exist.html">Why We Exist</a>
+<a href="/get-involved.html">Get Involved</a>
+<a href="/resources.html">Resources</a>
+<a href="/trusted-organizations/">Trusted Organizations</a>
+<a href="/recommendations/">Recommendations</a>
+<a href="/welcome-shelf/">Welcome Shelf</a>
+<a href="/research.html">Research & Learning</a>
+<a href="/books.html">Books</a>
+<a href="/contact.html">Contact</a>
+<a href="/looking-for-hope.html" class="utility-link">Need Help?</a>
+<a href="/one-light-each-month.html" class="utility-link">One Light Each Month</a>
+<a href="/light-board/" class="utility-link" aria-current="page">The Light Board</a>
+<a href="/keep-the-light-on.html" class="utility-link">Keep the Light On</a>
+</nav>
+</details>
+<nav class="desktop-nav" aria-label="Main navigation">
+<a href="/index.html">Home</a>
+<a href="/why-we-exist.html">Why We Exist</a>
+<a href="/get-involved.html">Get Involved</a>
+<a href="/resources.html">Resources</a>
+<a href="/research.html">Research & Learning</a>
+<a href="/books.html">Books</a>
+<a href="/contact.html">Contact</a>
+</nav>
+<nav class="utility-nav" aria-label="Visitor support">
+<a href="/looking-for-hope.html" class="utility-link">Need Help?</a>
+<a href="/one-light-each-month.html" class="utility-link">One Light Each Month</a>
+<a href="/light-board/" class="utility-link" aria-current="page">The Light Board</a>
+<a href="/keep-the-light-on.html" class="utility-link">Keep the Light On</a>
+</nav>
+</header>
+<main id="main-content" class="light-experience">
+<section class="light-hero">
+<div class="light-narrow">
+<p class="light-kicker">Your private story code</p>
+<h1>Check my story.</h1>
+<p>Use the code you saved when you submitted. No account or email required.</p>
+</div>
+</section>
+<section class="light-section">
+<div class="light-narrow">
+<p>
+<a href="/light-board/share.html">Share another Light</a> · <a href="/light-board/">Read a Light</a>
+</p>
+<p>Keep this code private. It is the key to checking or withdrawing your story. A lost anonymous code cannot be recovered.</p>
+<form action="/api/light-board/status.php" method="post" data-light-status>
+<label for="light-receipt">Private story code</label>
+<input type="text" id="light-receipt" name="receipt" required maxlength="80" autocomplete="off" autocapitalize="characters" spellcheck="false">
+<input type="hidden" name="action" value="status">
+<div class="light-actions">
+<button type="submit" class="light-button">Check my story</button>
+</div>
+</form>
+<p class="light-error" role="alert" data-status-error>
+</p>
+<section class="light-status" data-story-status hidden aria-live="polite">
+</section>
+<button type="button" class="light-button secondary" data-withdraw-story hidden>Withdraw my story</button>
+<section class="light-invitation" data-confirm-withdraw hidden>
+<h2>Withdraw this story?</h2>
+<p>This removes it from LOLO’s public board and prevents future publication of this submission. Copies already shared elsewhere may remain.</p>
+<div class="light-actions">
+<button type="button" class="light-button" data-final-withdraw>Yes, withdraw this story</button>
+<button type="button" class="light-button secondary" data-cancel-withdraw>Keep my story</button>
+</div>
+</section>
+<noscript>
+<p>You can check your status using the form. The next page also provides a withdrawal option.</p>
+</noscript>
+</div>
+</section>
+</main>
+<footer class="site-footer">
+<div class="footer-grid">
+<div>
+<h2>LEAVE ONE LIGHT ON</h2>
+<p>We invite. We encourage. We point toward trusted resources.</p>
+</div>
+<div>
+<h3>Find an invitation</h3>
+<a href="/get-involved.html">Get Involved</a>
+<a href="/resources.html">Resources</a>
+<a href="/research.html">Research & Learning</a>
+<a href="/progress/">57-to-100 Progress</a>
+</div>
+<div>
+<h3>Return with a story</h3>
+<a href="/light-board/">The Light Board</a>
+<a href="/one-light-each-month.html">One Light Each Month</a>
+<a href="/keep-the-light-on.html">Keep the Light On</a>
+<a href="/looking-for-hope.html">Need Help?</a>
+</div>
+</div>
+<p class="footer-note">Leave One Light On is an independent educational movement. It is not a foster-care licensing agency, adoption agency, placement organization, crisis center, government agency, or provider of legal, medical, or mental-health services.</p>
+<p class="footer-policy">
+<a href="/affiliate-disclosure/">Affiliate Disclosure</a>
+</p>
+<div class="footer-bottom">
+<span>© 2026 Leave One Light On</span>
+<span>No act of compassion is ever too small.</span>
+</div>
+</footer>
+</body>
+</html>

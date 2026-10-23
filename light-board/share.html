@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Share a Light | Leave One Light On</title>
+<meta name="description" content="Tell an anonymous story of kindness received, witnessed, or offered. Every submission waits for human review.">
+<link rel="canonical" href="https://leaveonelighton.org/light-board/share.html">
+<meta property="og:title" content="Share a Light | Leave One Light On">
+<meta property="og:description" content="Tell an anonymous story of kindness received, witnessed, or offered. Every submission waits for human review.">
+<meta property="og:url" content="https://leaveonelighton.org/light-board/share.html">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://leaveonelighton.org/images/leave-one-light-on-social.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Leave One Light On — a movement of hope and practical compassion">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Share a Light | Leave One Light On">
+<meta name="twitter:description" content="Tell an anonymous story of kindness received, witnessed, or offered. Every submission waits for human review.">
+<meta name="twitter:image" content="https://leaveonelighton.org/images/leave-one-light-on-social.jpg">
+<meta name="twitter:image:alt" content="Leave One Light On — a movement of hope and practical compassion">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/golden-state.css">
+<link rel="stylesheet" href="/css/v3.css">
+<script defer src="/js/golden-state.js">
+</script>
+<script defer src="/js/light-stories.js">
+</script>
+<link rel="stylesheet" href="/css/reading-friendly.css">
+<link rel="stylesheet" href="/css/light-stories.css">
+<meta name="robots" content="noindex,nofollow,noarchive">
+</head>
+<body>
+<a class="skip-link" href="#main-content">Skip to main content</a>
+<header class="site-header">
+<a class="brand" href="/index.html" aria-label="Leave One Light On home">
+<span class="brand-name">LEAVE ONE LIGHT ON</span>
+<span class="brand-tagline">A movement of hope and practical compassion</span>
+</a>
+<details class="mobile-menu">
+<summary>Menu</summary>
+<nav aria-label="Mobile navigation">
+<a href="/index.html">Home</a>
+<a href="/why-we-exist.html">Why We Exist</a>
+<a href="/get-involved.html">Get Involved</a>
+<a href="/resources.html">Resources</a>
+<a href="/trusted-organizations/">Trusted Organizations</a>
+<a href="/recommendations/">Recommendations</a>
+<a href="/welcome-shelf/">Welcome Shelf</a>
+<a href="/research.html">Research & Learning</a>
+<a href="/books.html">Books</a>
+<a href="/contact.html">Contact</a>
+<a href="/looking-for-hope.html" class="utility-link">Need Help?</a>
+<a href="/one-light-each-month.html" class="utility-link">One Light Each Month</a>
+<a href="/light-board/" class="utility-link" aria-current="page">The Light Board</a>
+<a href="/keep-the-light-on.html" class="utility-link">Keep the Light On</a>
+</nav>
+</details>
+<nav class="desktop-nav" aria-label="Main navigation">
+<a href="/index.html">Home</a>
+<a href="/why-we-exist.html">Why We Exist</a>
+<a href="/get-involved.html">Get Involved</a>
+<a href="/resources.html">Resources</a>
+<a href="/research.html">Research & Learning</a>
+<a href="/books.html">Books</a>
+<a href="/contact.html">Contact</a>
+</nav>
+<nav class="utility-nav" aria-label="Visitor support">
+<a href="/looking-for-hope.html" class="utility-link">Need Help?</a>
+<a href="/one-light-each-month.html" class="utility-link">One Light Each Month</a>
+<a href="/light-board/" class="utility-link" aria-current="page">The Light Board</a>
+<a href="/keep-the-light-on.html" class="utility-link">Keep the Light On</a>
+</nav>
+</header>
+<main id="main-content" class="light-experience">
+<section class="light-hero">
+<div class="light-narrow">
+<p class="light-kicker">Share a Light</p>
+<h1>Your story can help someone notice.</h1>
+<p>No account. No name or email required. Every story waits for review.</p>
+</div>
+</section>
+<section class="light-section">
+<div class="light-narrow">
+<p>A few sentences are enough. Leave out names, exact places, contact details, and anything that could identify someone else. Please do not include identifying details about children or private case information.</p>
+<p class="light-help">For a message you want to keep private, use <a href="/communicate/">Contact</a> instead. This story form is not monitored for urgent help.</p>
+<form class="light-form" action="/api/light-board/submit.php" method="post" data-light-submit>
+<input type="hidden" name="started_at" value="">
+<div class="light-trap" aria-hidden="true">
+<label for="light-website">Leave this empty</label>
+<input id="light-website" name="website" type="text" tabindex="-1" autocomplete="off">
+</div>
+<label for="light-perspective">Which kind of light?</label>
+<select name="perspective" id="light-perspective" required>
+<option value="">Choose one</option>
+<option value="received">Someone helped me</option>
+<option value="witnessed">I witnessed kindness</option>
+<option value="offered">I offered kindness</option>
+</select>
+<label for="light-story">What happened?</label>
+<textarea id="light-story" name="story" rows="7" minlength="10" maxlength="2500" required aria-describedby="story-length">
+</textarea>
+<p id="story-length" class="light-help">
+<span data-story-count>0</span> / 2,500 characters. You can write much less.</p>
+<label for="light-reflection">What stayed with you? <span class="light-help">Optional</span>
+</label>
+<textarea id="light-reflection" name="reflection" rows="3" maxlength="500">
+</textarea>
+<label class="light-checkbox">
+<input type="checkbox" name="website_consent" value="yes" required>
+<span>I am sharing an honest account that I have the right to share. LOLO may publish it anonymously on its website and make light edits for privacy, spelling, length, and clarity without changing its meaning. Public story links can be shared by visitors.</span>
+</label>
+<label class="light-checkbox">
+<input type="checkbox" name="reuse_consent" value="yes">
+<span>LOLO may also feature an anonymous excerpt in its monthly note or social posts. Optional.</span>
+</label>
+<p>
+<a href="/light-board/methodology.html">Read the review and privacy details</a>.</p>
+<p class="light-error" role="alert" data-submit-error>
+</p>
+<button class="light-button" type="submit">Send for review</button>
+<p class="light-help">Your story will not appear immediately. Publication is not guaranteed. You will receive a private code to check its status or withdraw it.</p>
+</form>
+<section class="light-status" data-submit-success hidden tabindex="-1" aria-live="polite">
+<h2>Your story is waiting for review.</h2>
+<p>It is not public. Save your private code:</p>
+<code class="light-receipt" data-private-receipt>
+</code>
+<p>Keep this code private. We cannot recover it if lost.</p>
+<a class="light-button" href="/light-board/my-story.html">Check my story</a>
+</section>
+<noscript>
+<p>JavaScript is off. You can still send the form; the next page will show your private code.</p>
+</noscript>
+</div>
+</section>
+</main>
+<footer class="site-footer">
+<div class="footer-grid">
+<div>
+<h2>LEAVE ONE LIGHT ON</h2>
+<p>We invite. We encourage. We point toward trusted resources.</p>
+</div>
+<div>
+<h3>Find an invitation</h3>
+<a href="/get-involved.html">Get Involved</a>
+<a href="/resources.html">Resources</a>
+<a href="/research.html">Research & Learning</a>
+<a href="/progress/">57-to-100 Progress</a>
+</div>
+<div>
+<h3>Return with a story</h3>
+<a href="/light-board/">The Light Board</a>
+<a href="/one-light-each-month.html">One Light Each Month</a>
+<a href="/keep-the-light-on.html">Keep the Light On</a>
+<a href="/looking-for-hope.html">Need Help?</a>
+</div>
+</div>
+<p class="footer-note">Leave One Light On is an independent educational movement. It is not a foster-care licensing agency, adoption agency, placement organization, crisis center, government agency, or provider of legal, medical, or mental-health services.</p>
+<p class="footer-policy">
+<a href="/affiliate-disclosure/">Affiliate Disclosure</a>
+</p>
+<div class="footer-bottom">
+<span>© 2026 Leave One Light On</span>
+<span>No act of compassion is ever too small.</span>
+</div>
+</footer>
+</body>
+</html>

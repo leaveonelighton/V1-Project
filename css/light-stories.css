@@ -1,0 +1,41 @@
+.light-experience{--light-green:#183d35;--light-paper:#fffdf8;--light-cream:#f7f1e6;--light-gold:#c59a47;font-family:Lato,Arial,sans-serif;font-size:20px;line-height:1.7}
+.light-experience *{box-sizing:border-box}
+.light-experience h1,.light-experience h2,.light-experience h3{font-family:Lato,Arial,sans-serif;line-height:1.2}
+.light-experience h1{font-size:clamp(2.2rem,5vw,3.6rem);max-width:850px}
+.light-experience h2{font-size:clamp(1.65rem,3vw,2.4rem)}
+.light-experience h3{font-size:1.35rem}
+.light-experience .light-hero{background:var(--light-green);color:var(--light-paper);padding:62px 24px;border-bottom:4px solid var(--light-gold)}
+.light-experience .light-hero h1{color:inherit;margin:0 0 22px}
+.light-experience .light-kicker{font-size:15px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;margin:0 0 14px}
+.light-hero .light-kicker{color:#e2c784}
+.light-experience .light-wrap{width:min(1100px,100%);margin:0 auto}
+.light-experience .light-narrow{width:min(780px,100%);margin:0 auto}
+.light-experience .light-section{padding:52px 24px;background:var(--light-paper)}
+.light-experience .light-section.alt{background:var(--light-cream)}
+.light-experience .light-actions{display:flex;flex-wrap:wrap;gap:14px;margin:24px 0}
+.light-experience .light-button{display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:12px 22px;border:2px solid var(--light-green);border-radius:4px;background:var(--light-green);color:var(--light-paper);font:inherit;font-weight:700;text-decoration:none;cursor:pointer}
+.light-experience .light-button.secondary{background:transparent;color:var(--light-green)}
+.light-experience .light-hero .light-button{background:#e2c784;color:#15283b;border-color:#e2c784}
+.light-experience .light-hero .light-button.secondary{background:transparent;color:var(--light-paper);border-color:var(--light-paper)}
+.light-experience button:disabled{opacity:.65;cursor:default}
+.light-experience a{text-underline-offset:4px}
+.light-experience :focus-visible{outline:3px solid var(--light-gold);outline-offset:4px}
+.light-experience .light-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:26px}
+.light-experience .light-story{padding:28px;background:var(--light-paper);border-top:4px solid var(--light-gold);box-shadow:0 3px 16px #15283b0c;overflow-wrap:anywhere}
+.light-experience .light-story p{white-space:pre-wrap}
+.light-experience .light-meta,.light-experience .light-help{font-size:17px;color:#445564;line-height:1.6}
+.light-experience .light-hero .light-help{color:#f7f1e6}
+.light-experience .light-invitation{padding:28px;background:var(--light-cream);border-left:4px solid var(--light-gold);margin:24px 0}
+.light-experience .light-form{max-width:780px;margin:0 auto}
+.light-experience label,.light-experience legend{display:block;font-weight:700;margin:22px 0 8px}
+.light-experience input[type=text],.light-experience textarea,.light-experience select{display:block;width:100%;font:inherit;font-size:20px;line-height:1.5;padding:12px;border:1px solid #687970;border-radius:4px;background:#fff;color:#15283b}
+.light-experience textarea{resize:vertical;min-height:170px}
+.light-experience .light-checkbox{display:flex;gap:12px;font-weight:400;align-items:flex-start}
+.light-experience input[type=checkbox]{min-width:22px;min-height:22px;margin-top:7px}
+.light-experience .light-error{color:#962820;font-weight:700}
+.light-experience .light-receipt{overflow-wrap:anywhere;background:#f7f1e6;padding:15px;display:block;font-size:21px;user-select:all}
+.light-experience .light-text{white-space:pre-wrap;overflow-wrap:anywhere}
+.light-experience [hidden]{display:none!important}
+.light-experience .light-trap{position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden}
+.light-experience .light-status{border-left:4px solid var(--light-gold);padding:16px 22px;margin-top:24px}
+@media(max-width:700px){.light-experience .light-grid{grid-template-columns:1fr}.light-experience .light-section{padding:38px 20px}.light-experience .light-hero{padding:42px 20px}.light-experience .light-actions{flex-direction:column}.light-experience .light-button{width:100%}.light-experience .light-story{padding:24px}.light-experience .light-invitation{padding:22px}}

@@ -11,6 +11,9 @@
  *   (that path is ignored by Git).
  */
 return [
+    // New Light Board workflow stays disabled until migration, staging tests,
+    // directory protection, and retention scheduling have been verified.
+    'light_board_enabled' => false,
     'db_host' => 'localhost',
     'db_name' => 'leave_one_light_on_messages',
     'db_user' => 'replace_me',
