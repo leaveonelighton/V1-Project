@@ -1,0 +1,33 @@
+name: Light stories QA
+on:
+  pull_request:
+    paths:
+      - 'api/light-board/**'
+      - 'admin/light-board/**'
+      - 'light-board/**'
+      - 'one-light-each-month.html'
+      - 'css/light-stories.css'
+      - 'js/light-stories.js'
+      - 'maintenance/light-story-retention.php'
+      - 'docs/light-board-schema.sql'
+      - 'tests/light-story-flow.php'
+      - 'tests/light-story-structure.py'
+      - '.github/workflows/light-stories-qa.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  review-flow:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - name: Lint PHP
+        run: find api/light-board admin/light-board light-board tests -name '*.php' -print0 | xargs -0 -n1 php -l
+      - name: Lint maintenance PHP
+        run: php -l maintenance/light-story-retention.php
+      - name: Check browser script
+        run: node --check js/light-stories.js
+      - name: Test submission and moderation lifecycle
+        run: php tests/light-story-flow.php
+      - name: Check privacy and page structure
+        run: python3 tests/light-story-structure.py
