@@ -8,10 +8,11 @@ header('Referrer-Policy: no-referrer');
 $row = false;
 $id = is_string($_GET['id'] ?? null) ? $_GET['id'] : '';
 try {
-    if (lb_enabled() && preg_match('/^[a-f0-9]{24}$/', $id)) {
-        $q = lol_db()->prepare("SELECT public_id, perspective, public_text, public_reflection, published_at FROM light_stories WHERE public_id = ? AND state = 'approved' AND website_consent = 1");
+    if ((lb_enabled() || lb_gorman_enabled()) && preg_match('/^[a-f0-9]{24}$/', $id)) {
+        $q = lol_db()->prepare("SELECT public_id, perspective, public_text, public_reflection, public_attribution, published_at FROM light_stories WHERE public_id = ? AND state = 'approved' AND website_consent = 1");
         $q->execute([$id]);
         $row = $q->fetch();
+        if ($row && !($row['perspective'] === 'gorman' ? lb_gorman_enabled() : lb_enabled())) $row = false;
     }
 } catch (Throwable $e) {
     http_response_code(503);
@@ -26,9 +27,10 @@ if (!$row) {
 $item = lb_public_item($row);
 $url = 'https://leaveonelighton.org' . $item['url'];
 $excerpt = function_exists('mb_substr') ? mb_substr($item['text'], 0, 160, 'UTF-8') : substr($item['text'], 0, 160);
-$body = '<section class="light-hero"><div class="light-narrow"><p class="light-kicker">Received Light. Shared Light.</p><h1>A Light On Story</h1><p>' . lol_html_escape($item['label']) . ' · Anonymous community account</p></div></section>'
+$body = '<section class="light-hero"><div class="light-narrow"><p class="light-kicker">Received Light. Shared Light.</p><h1>A Light On Story</h1><p>' . lol_html_escape($item['label']) . ' · ' . lol_html_escape($item['attribution'] ?? 'Anonymous community account') . '</p></div></section>'
     . '<section class="light-section"><article class="light-narrow"><p class="light-text">' . lol_html_escape($item['text']) . '</p>';
 if ($item['reflection'] !== '') $body .= '<h2>What stayed with me</h2><p class="light-text">' . lol_html_escape($item['reflection']) . '</p>';
+if ($row['perspective'] === 'gorman') $body .= '<p><a href="https://thelightinthewindowbook.com/the-57/">The Other 56 — their stories, their choice</a></p>';
 $body .= '<p class="light-help">Reviewed for suitability and privacy. This community account has not been independently verified.</p>'
     . '<div class="light-actions"><button type="button" class="light-button" data-share-story>Share this Light</button><a href="/light-board/share.html" class="light-button secondary">Share your own Light</a></div>'
     . '<p role="status" aria-live="polite" data-share-status></p><p class="light-help">Story link: <a href="' . lol_html_escape($url) . '">' . lol_html_escape($url) . '</a></p>'

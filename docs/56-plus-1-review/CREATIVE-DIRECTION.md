@@ -1,3 +1,5 @@
+> ARCHIVED CREATIVE DIRECTION: preserved for continuity. The owner’s later The Other 56 website direction is in docs/gorman-legacy-review/OWNER-REVIEW.md. This document does not authorize current campaign publication or merchandise activation.
+
 # WHY 56 + 1 MATTERS — complementary story direction
 
 Owner-approved for development November 6, 2026. Preserve SOMETIMES 57 as the existing approved signature direction; this is a companion concept, not a replacement brand or separate system. Sales of both remain on hold pending trademark clearance and production checks.

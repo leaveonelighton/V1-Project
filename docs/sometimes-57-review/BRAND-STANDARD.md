@@ -1,3 +1,5 @@
+> ARCHIVED CREATIVE DIRECTION: preserved for continuity. The owner’s later The Other 56 website direction is in docs/gorman-legacy-review/OWNER-REVIEW.md. This document does not authorize current campaign publication or merchandise activation.
+
 # SOMETIMES 57 — permanent LOLO signature collection
 
 Owner-approved direction: November 6, 2026. A lasting expression of Leave One Light On, rooted in the Gorman legacy. It is not a new organization or a seasonal promotion.

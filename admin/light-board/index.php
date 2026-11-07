@@ -36,6 +36,10 @@ if ($id > 0) {
        . '<p><strong>Automatic review flags:</strong> ' . lol_html_escape($row['review_flags'] ?: 'None. Human review is still required.') . '</p>'
        . '<h3>Private original</h3><p style="white-space:pre-wrap">' . lol_html_escape($original ?: 'Original removed under retention policy.') . '</p>'
        . '<p style="white-space:pre-wrap">' . lol_html_escape($reflection) . '</p>';
+    if ($row['perspective'] === 'gorman') {
+        $contributor = json_decode(lol_decrypt_contact($row['contributor_ciphertext'] ?? '') ?? '{}', true);
+        echo '<h3>Gorman contributor preferences — private</h3><p>Attribution: ' . lol_html_escape($row['attribution_mode']) . '</p><p>Optional name/pseudonym: ' . lol_html_escape($contributor['name'] ?? '') . '</p><p>Optional private email: ' . lol_html_escape($contributor['contact'] ?? '') . '</p><p>Website publication consent: ' . ((int)$row['website_consent'] === 1 ? 'Yes' : 'NO — private review only; do not publish') . '</p><p>Do not identify or contact other former foster children. Remove third-party identifying details; seek clarification before substantive edits.</p>';
+    }
     if ($row['state'] !== 'withdrawn' && $row['state'] !== 'declined') {
         echo '<form method="post"><input type="hidden" name="csrf_token" value="' . lol_html_escape(lol_csrf_token()) . '">'
            . '<input type="hidden" name="id" value="' . $id . '"><input type="hidden" name="revision" value="' . (int)$row['revision'] . '">';
@@ -46,7 +50,7 @@ if ($id > 0) {
                . '<label for="public-reflection">Public reflection (optional)</label><textarea id="public-reflection" name="public_reflection" rows="4" maxlength="500">' . lol_html_escape($row['public_reflection'] ?: $reflection) . '</textarea>'
                . '<label for="review-note">Private note to the author</label><textarea id="review-note" name="review_note" rows="3" maxlength="1000">' . lol_html_escape($row['review_note'] ?? '') . '</textarea>'
                . '<label><input type="checkbox" name="review_confirmed" value="yes"> I reviewed this for privacy, dignity, suitability, and faithful meaning. I removed identifying details and made only light edits.</label>'
-               . '<div class="button-row"><button class="button" name="action" value="approve">Approve anonymous publication</button><button class="button" name="action" value="clarify">Request clarification</button><button class="button" name="action" value="decline">Decline publication</button></div>';
+               . '<div class="button-row"><button class="button" name="action" value="approve">Approve consented publication</button><button class="button" name="action" value="clarify">Request clarification</button><button class="button" name="action" value="decline">Decline publication</button></div>';
         }
         echo '</form>';
     }
