@@ -27,3 +27,35 @@ The privacy-policy addendum remains proposed. Backup retention cannot be confirm
 Restore an authorized working connection to the existing staging site and hosting administration. Confirm this PR’s code and staging-only schema/config are installed without merging main or copying real submissions. Run the hosted checks there using synthetic accounts, preserving public intake OFF. Review the privacy addendum against actual retention and backup settings. Final owner approval is still required before merging or publishing.
 
 Status: DRAFT REVIEW ONLY. No production-readiness claim.
+
+
+## Hosting recovery continuation — November 7, 2026 (America/Chicago)
+
+Starting application commit: 51e315a248e8350537e6eed7388047f1dc463c09. PR remains draft and unmerged.
+
+The owner's local Chrome connection now works. Hostinger administration was inspected directly. The existing hosting is Business Web Hosting, server1578, website IP 156.67.75.154, with PHP 8.3 selected. Production dashboard still reports main commit 4ae9882884095f32e6a7ef8b473abd819e90d53a; no production redeploy was run.
+
+Findings:
+- phase1.leaveonelighton.org returned ERR_NAME_NOT_RESOLVED in local Chrome. Hostinger initially had no subdomain entry and no phase1 DNS record.
+- The expected public_html/phase1 directory was absent. It is absent in the inspected November 2 backup, but exists in the September 19 backup. These observations do not establish who removed it or the date/cause of removal.
+- The earlier remote 503 did not identify the origin cause. The directly verified current access failures were missing DNS/subdomain mapping and missing staging files, rather than a demonstrated PHP/application crash.
+- Two databases are listed: the LOLO messages database and an unassigned database of unknown purpose. No isolated PR56 test database was identified; neither database was modified.
+
+Actions:
+- Recreated the original public_html/phase1 directory with a recovery-only .htaccess containing Options -Indexes and Require all denied.
+- Confirmed the main-domain /phase1/ path returns 403 Forbidden.
+- Started a selective recovery of the September 19 backup's phase1 contents only. The backed-up root .htaccess was explicitly excluded so the recovery guard remains. No production root files or databases were selected for restore.
+- Re-established the original phase1 subdomain mapping to /home/u856117160/domains/leaveonelighton.org/public_html/phase1.
+- Restored phase1 DNS routing using the verified hosting IP. Hostinger displays an ALIAS to phase1.leaveonelighton.org.cdn.hstgr.net with TTL 300.
+- Verified https://phase1.leaveonelighton.org/ now resolves over HTTPS and displays the intentional 403 recovery guard.
+- Recovery was still running at the last observation (50%). Completion is NOT claimed.
+- Prepared, but did NOT submit, Hostinger's database creation form with database/user suffix lolo_stage56. Password remains empty. Owner must enter the new staging-only password and submit the form; no new credential was created by the agent.
+
+Remaining:
+1. Confirm selective backup recovery completes and the recovery .htaccess remains effective, including child routes, before making staging usable.
+2. Complete the owner-entered staging-only database credential setup; never reuse production message credentials or data.
+3. Verify/reconcile recovered private configuration without printing secrets. Recovered files are old staging content, NOT PR56. Install the PR56 application code at 51e315a without touching main or production.
+4. Keep public intake OFF and staging protected; configure isolated test keys/config, then run the previously blocked hosted security, consent, privacy, withdrawal and mobile checks.
+5. Investigate how staging mapping/DNS/files disappeared if appropriate logs remain. Do not assert a historical cause from these observations.
+
+No WordPress content, banking or merchandise was modified. No PR merge, website publication or submission activation occurred.
