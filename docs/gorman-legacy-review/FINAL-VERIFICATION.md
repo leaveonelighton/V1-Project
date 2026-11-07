@@ -94,3 +94,23 @@ Verified after installation:
 - https://leaveonelighton.org/private-config/ displays 403 Forbidden.
 
 Next, after credentials are entered: add a stage-only CLI config bridge if needed, verify isolated DB connection/encryption and installed hashes, configure protected owner-only staging access (including rejection of the apex-host /phase1 path), and run the outstanding hosted checks. Do not remove the recovery guard, reuse production credentials, or enable either public intake flag before the protected test setup is ready. No functional HTTP lifecycle test has passed yet. No WordPress, production, banking or merchandise changes were made by this editor installation.
+
+### Hosted CLI verification result — November 7, 2026
+
+PASS: 94 checks completed on Hostinger PHP 8.3.36 and the real isolated MySQL database. Exact result: HOSTED-VERIFICATION-2026-11-07.json.
+
+A temporary CLI-only adaptation reused the existing tests/light-story-flow.php lifecycle assertions, added strict staging database/user checks, exact SHA-256 comparisons for the 26 installed files, PHP parsing, schema/grant checks, random-nonce encryption round trip and actual rate-limit refusal. Public feature switches stayed OFF throughout. The test explicitly required an empty stage stories table before starting and cleaned its synthetic rows afterward (synthetic_cleanup_ok=true). It did not copy production data.
+
+Passed behavior includes: publication consent refusal; client auto-publication rejection; pending/clarification exclusion; privacy/review confirmation; optimistic locking; general Light Board regression and pagination; named/anonymous/private-only Gorman handling; encrypted optional contact; author-chosen attribution; no private-contact projection; Gorman/general-feed separation; withdrawal clearing public text and attribution and refusing republication; nonce variation; and hosted rate limiting.
+
+Two failed preparation runs were resolved before the passing run:
+1. Exact-file checks caught a text-editor replacement mistake in an existing file. The agent's first method inserted text rather than selecting the complete existing document. Corrected all 13 existing-file replacements using whole-document selection/paste with an editor copy comparison. The passing hosted run subsequently verified all 26 installed file hashes and all installed PHP parses.
+2. The placeholder guard in the agent-prepared staging config could reject completed credentials when repeated placeholder strings were replaced. Removed only that readiness guard, preserving the owner's password declarations and the staging-only database/user and OFF switches. No password was displayed or copied into this report.
+
+Added config/private-messages.local.php in staging only as a CLI bridge to the same protected staging config outside the phase1 document root. No production private configuration was changed.
+
+The temporary scheduler entry runs maintenance/pr56-hosted-verification.php. Its result-file sentinel now prevents repeat tests or database work. Deletion has not been confirmed: Hostinger presents a Delete Cron Job dialog with an irreversible-data warning; owner confirmation is requested before removing that temporary schedule. Existing private reports remain protected.
+
+Prepared Hostinger Password Protect Directories for Directory /phase1 and username stage56, with password empty. Owner must enter the same staging moderator password and click Protect to establish private browser access; do not protect the production root (/). The recovery deny guard remains in force until protected access and apex-host exclusion are verified.
+
+Still NOT verified: HTTP authentication and CSRF enforcement, HTTP spam/timing behavior, complete HTTP status/withdrawal and public-output behavior, interactive mobile/desktop rendering/navigation, daily retention execution and private-data backup retention. CLI service checks do not replace those browser/HTTP gates. Both public intake switches remain false. PR remains draft; no merge, WordPress publication or submission activation.
