@@ -1,0 +1,73 @@
+{
+  "date_utc": "2026-11-07",
+  "baseline_application_commit": "51e315a248e8350537e6eed7388047f1dc463c09",
+  "verified_code_and_qa_commit": "aa0ca2a3dc970f494bbd88d4f180404ceb4b02e8",
+  "staging": "https://phase1.leaveonelighton.org",
+  "production_changes": false,
+  "public_intake_enabled": false,
+  "pr_draft": true,
+  "results": [
+    {
+      "check": "JavaScript status diagnosis and fix",
+      "result": "PASS",
+      "evidence": "Temporary console/network metadata showed POST /light-board/[object%20HTMLInputElement], HTTP 404 text/html. Hostinger phase1 access log confirms the malformed POST. The hidden action input shadowed form.action. Fixed by reading getAttribute('action'); versioned the script; diagnostic logging removed."
+    },
+    {
+      "check": "Actual receipt status",
+      "result": "PASS",
+      "evidence": "Actual my-story.html shows invalid-code error, pending, clarification note, approved-for-publication, and withdrawn states. Approved label no longer falsely claims named stories are anonymous."
+    },
+    {
+      "check": "Receipt withdrawal",
+      "result": "PASS",
+      "evidence": "Named approved synthetic entry withdrawn on desktop; anonymous and private-only entries withdrawn through mobile UI. Cancel confirmation preserved state. Database inspection showed public_text and public_attribution cleared. Withdrawn moderation page had no approval form. Public route remained unavailable while gates were OFF."
+    },
+    {
+      "check": "Consent and moderator requests",
+      "result": "PASS",
+      "evidence": "Private-only synthetic Gorman record without website consent resisted approval with review checkbox checked. Named consented fixture could enter approved state behind OFF public gates. Valid CSRF moderation/clarification worked; missing-CSRF rejection previously passed."
+    },
+    {
+      "check": "Spam and rate limiting",
+      "result": "PASS_WITH_SCOPE",
+      "evidence": "Eight focused checks executed against the installed lb_check_spam function: valid timestamp accepted; honeypot, missing/zero/non-numeric/array timestamps, too-fast and future timestamps rejected. Actual browser status requests reached rate-limit refusal (18 additional requests after earlier same-hour activity). Public submit endpoint remains paused, so enabled-intake HTTP tests were intentionally not performed."
+    },
+    {
+      "check": "Responsive and interaction",
+      "result": "PASS_WITH_SCOPE",
+      "evidence": "Observed 321 and 391 CSS-pixel viewports: receipt page/menu and withdrawal controls usable without horizontal overflow. Existing draft previews hosted privately: submission consent unchecked and disabled; Other 56/submission/homepage previews fit 321px, Other 56 desktop inspected at 1280px. These are private review previews, not a WordPress theme publication test."
+    },
+    {
+      "check": "Retention scheduling and execution",
+      "result": "PASS",
+      "schedule": "59 18 * * *",
+      "command": "/usr/bin/php /home/u856117160/domains/leaveonelighton.org/public_html/phase1/maintenance/pr56-staging-retention.php",
+      "evidence": "New ongoing stage-only wrapper refuses any database/user other than u856117160_lolo_stage56 and refuses enabled intake. Invokes the existing retention task with --apply. Hostinger cron output confirms execution; protected report and fixture inspection confirm expected expiration. This is not the deleted temporary 94-check schedule."
+    },
+    {
+      "check": "Private staging and database isolation",
+      "result": "PASS",
+      "evidence": "Basic Auth and Require valid-user preserved; exact-host rewrite and dotfile denial remain configured. Strict fixture/retention guards confirmed actual SELECT DATABASE() is u856117160_lolo_stage56 and both switches false. Earlier isolated grants check remains evidence; apex path rejection previously passed."
+    },
+    {
+      "check": "Backup handling and retention",
+      "result": "BLOCKED",
+      "evidence": "hPanel Daily backups active; latest snapshot 2026-11-07 10:26 local, next scheduled 2026-11-08. Latest database snapshot lists only pre-existing databases, not today's new staging database. Restore date picker includes 2026-09-19 through 2026-11-07. Did not download/restore any private backup or expose contents. Exact account backup/access-log deletion periods and inclusion of staging DB plus matching config require confirmation."
+    },
+    {
+      "check": "Cleanup and CI",
+      "result": "PASS",
+      "evidence": "All synthetic light_stories rows removed: final count zero. Fixture helper moved to Trash with immediate deletion unchecked. Diagnostic JS removed. Six GitHub QA workflows passed for aa0ca2a. Original temporary service-test cron remains deleted; only guarded ongoing stage retention schedule was added."
+    }
+  ],
+  "retention_execution": {
+    "started_at": "2026-11-07T18:59:01+00:00",
+    "ok": true,
+    "old_pending_or_clarification_deleted": 2,
+    "old_declined_or_withdrawn_deleted": 2,
+    "published_private_originals_cleared": 1,
+    "expired_rate_records_deleted": 0
+  },
+  "owner_action": "After the next Hostinger backup, confirm u856117160_lolo_stage56 and its matching staging configuration are included. Obtain Hostinger confirmation of actual automatic backup deletion and access-log retention periods before release. No new hosting or production changes are needed.",
+  "limits": "WordPress page 286, approved wording, published stories and production settings were not changed. No merge or public submission activation. Prior 94 hosted checks were not rerun; targeted new checks cover these changes."
+}
