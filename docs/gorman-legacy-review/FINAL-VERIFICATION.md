@@ -59,3 +59,13 @@ Remaining:
 5. Investigate how staging mapping/DNS/files disappeared if appropriate logs remain. Do not assert a historical cause from these observations.
 
 No WordPress content, banking or merchandise was modified. No PR merge, website publication or submission activation occurred.
+
+### Isolated database follow-up — November 7, 2026
+
+- Owner successfully created database and user u856117160_lolo_stage56. No production credential was changed.
+- Entered phpMyAdmin using that new account through hPanel. The navigation exposes only information_schema and u856117160_lolo_stage56, not the production message database.
+- Confirmed the new database was empty, then executed the unchanged docs/private-messages-schema.sql and docs/light-board-schema.sql from application commit 51e315a. All six CREATE TABLE operations returned successful empty-result notifications. The additive Gorman ALTER migration was NOT also run.
+- No real submissions or production rows were copied.
+- Prepared an intermediate PR56-stage-code.zip from the exact tracked application files at 51e315a (251 application files plus a SHA-256 source manifest). Excluded the root .htaccess to preserve the recovery guard, .github, docs and .gitignore. No secrets included.
+- The attempt to upload that ZIP into the existing guarded phase1 directory timed out; the browser session was reset. The ZIP's arrival is NOT confirmed and extraction was NOT performed. Inspect the directory before retrying to avoid duplicates. The extension file-URL upload permission is the current browser upload blocker; owner was given the documented Chrome setting.
+- No staging config/password has been entered into the application. Do NOT remove the recovery access guard or assume PR56 is installed. The recovered files remain old staging contents until installation and hash verification succeed.
