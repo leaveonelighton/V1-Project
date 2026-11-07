@@ -1,0 +1,27 @@
+{
+  "status": "OWNER REVIEW ONLY \u2014 no WordPress changes saved; no publication or intake activation",
+  "site": "thelightinthewindowbook.com",
+  "targets": [
+    {
+      "id": 286,
+      "slug": "the-57",
+      "keep_title": "The 57 Lives Changed",
+      "expected_modified": "2026-10-16T21:32:34",
+      "original_sha256": "5dc2369c5437210c87193f936f36bf1c859799e3d031923d4f0bda279818c399",
+      "proposed": "page-286.proposed.html"
+    },
+    {
+      "id": 356,
+      "expected_modified": "2026-11-06T23:21:37",
+      "original_sha256": "15d6d6c7766d4a146a0d13a3e66fdcce6e1120ea4e846f45125c1a68a4dd65c1",
+      "proposed": "homepage-356.proposed.html"
+    }
+  ],
+  "navigation_proposal": {
+    "after": "The Gorman Legacy",
+    "label": "The Other 56",
+    "url": "/the-57/",
+    "mobile": "same link in responsive navigation; preserve existing entries"
+  },
+  "activation_link_after_approval_only": "https://leaveonelighton.org/light-board/gorman-story.php"
+}

@@ -3,7 +3,7 @@ declare(strict_types=1);
 require_once dirname(__DIR__) . '/messages/_bootstrap.php';
 
 const LB_CONSENT_VERSION = '2026-10-23';
-const LB_PERSPECTIVES = ['received' => 'Kindness received', 'witnessed' => 'Kindness witnessed', 'offered' => 'Kindness offered'];
+const LB_PERSPECTIVES = ['received' => 'Kindness received', 'witnessed' => 'Kindness witnessed', 'offered' => 'Kindness offered', 'gorman' => 'Gorman first-person account'];
 
 function lb_enabled(): bool
 {
@@ -13,6 +13,24 @@ function lb_enabled(): bool
     } catch (Throwable $e) {
         return false;
     }
+}
+
+// Separate owner-approved gate; preparing this code never opens intake.
+function lb_gorman_enabled(): bool
+{
+    try { return (lol_config()['gorman_stories_enabled'] ?? false) === true; }
+    catch (Throwable $e) { return false; }
+}
+
+function lb_contributor(array $input): array
+{
+    $mode = lb_field($input, 'attribution_mode', 20);
+    if (!in_array($mode, ['anonymous', 'named'], true)) throw new RuntimeException('Choose anonymity or public attribution.');
+    $name = lb_field($input, 'contributor_name', 100);
+    $contact = lb_field($input, 'private_contact', 254);
+    if ($contact !== '' && !filter_var($contact, FILTER_VALIDATE_EMAIL)) throw new RuntimeException('Check your optional private email address.');
+    if ($mode === 'named' && ($name === '' || lb_flags($name))) throw new RuntimeException('For public attribution, enter a name or pseudonym without links or contact details.');
+    return [$mode, $name, $contact];
 }
 
 function lb_field(array $input, string $key, int $max): string
@@ -42,10 +60,11 @@ function lb_validate(array $input): array
     if (strlen($story) < 10) {
         throw new RuntimeException('Please add a little more about what happened.');
     }
-    if (($input['website_consent'] ?? '') !== 'yes') {
+    if ($perspective === 'gorman') lb_contributor($input);
+    if ($perspective !== 'gorman' && ($input['website_consent'] ?? '') !== 'yes') {
         throw new RuntimeException('Please confirm anonymous website publication, or use private Contact instead.');
     }
-    return [$perspective, $story, $reflection, ($input['reuse_consent'] ?? '') === 'yes'];
+    return [$perspective, $story, $reflection, $perspective !== 'gorman' && ($input['reuse_consent'] ?? '') === 'yes'];
 }
 
 function lb_flags(string $text): array
@@ -57,6 +76,15 @@ function lb_flags(string $text): array
     return $flags;
 }
 
+function lb_check_spam(array $input): void
+{
+    if (trim(lb_field($input, 'website', 250)) !== '') throw new RuntimeException('Unable to submit this story.');
+    $started = lb_field($input, 'started_at', 20);
+    if (!ctype_digit($started) || (int)$started <= 0 || time() - (int)$started < 2) {
+        throw new RuntimeException('Take a moment to review your story before sending.');
+    }
+}
+
 function lb_event(PDO $pdo, int $id, string $action): void
 {
     $pdo->prepare('INSERT INTO light_story_events (story_id, event_type, created_at) VALUES (?, ?, ?)')
@@ -66,13 +94,15 @@ function lb_event(PDO $pdo, int $id, string $action): void
 function lb_submit(PDO $pdo, array $input): array
 {
     [$perspective, $story, $reflection, $reuse] = lb_validate($input);
+    $contributor = $perspective === 'gorman' ? lb_contributor($input) : ['anonymous', '', ''];
+    $consent = ($input['website_consent'] ?? '') === 'yes';
     $receipt = lol_new_private_code();
     $publicId = bin2hex(random_bytes(12));
     $now = gmdate('Y-m-d H:i:s');
     $pdo->beginTransaction();
     try {
-        $pdo->prepare('INSERT INTO light_stories (public_id, receipt_hash, perspective, story_ciphertext, reflection_ciphertext, website_consent, reuse_consent, consent_version, state, review_flags, revision, created_at, updated_at) VALUES (?, ?, ?, ?, ?, 1, ?, ?, ?, ?, 1, ?, ?)')
-            ->execute([$publicId, lol_code_hash($receipt), $perspective, lol_encrypt_contact($story), lol_encrypt_contact($reflection), (int)$reuse, LB_CONSENT_VERSION, 'pending', implode(', ', lb_flags($story . ' ' . $reflection)), $now, $now]);
+        $pdo->prepare('INSERT INTO light_stories (public_id, receipt_hash, perspective, story_ciphertext, reflection_ciphertext, website_consent, reuse_consent, consent_version, state, review_flags, revision, created_at, updated_at, attribution_mode, contributor_ciphertext) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1, ?, ?, ?, ?)')
+            ->execute([$publicId, lol_code_hash($receipt), $perspective, lol_encrypt_contact($story), lol_encrypt_contact($reflection), (int)$consent, (int)$reuse, $perspective === 'gorman' ? '2026-11-06-gorman' : LB_CONSENT_VERSION, 'pending', implode(', ', lb_flags($story . ' ' . $reflection)), $now, $now, $contributor[0], lol_encrypt_contact(json_encode(['name' => $contributor[1], 'contact' => $contributor[2]], JSON_THROW_ON_ERROR))]);
         $id = (int)$pdo->lastInsertId();
         lb_event($pdo, $id, 'submitted');
         $pdo->commit();
@@ -105,7 +135,7 @@ function lb_withdraw(PDO $pdo, array $row): void
 {
     $pdo->beginTransaction();
     try {
-        $q = $pdo->prepare('UPDATE light_stories SET state = ?, public_text = NULL, public_reflection = NULL, updated_at = ?, revision = revision + 1 WHERE id = ? AND revision = ?');
+        $q = $pdo->prepare('UPDATE light_stories SET state = ?, public_text = NULL, public_reflection = NULL, public_attribution = NULL, updated_at = ?, revision = revision + 1 WHERE id = ? AND revision = ?');
         $q->execute(['withdrawn', gmdate('Y-m-d H:i:s'), $row['id'], $row['revision']]);
         if ($q->rowCount() !== 1) throw new RuntimeException('This story changed. Check its status again.');
         lb_event($pdo, (int)$row['id'], 'withdrawn_by_author');
@@ -130,10 +160,16 @@ function lb_moderate(PDO $pdo, array $row, string $action, array $input): void
     // even if the encrypted original has already aged out under retention.
     $text = $action === 'unpublish' ? $row['public_text'] : null;
     $reflection = $action === 'unpublish' ? $row['public_reflection'] : null;
+    $byline = $action === 'unpublish' ? ($row['public_attribution'] ?? null) : null;
     $note = lb_field($input, 'review_note', 1000);
     if ($action === 'approve') {
         if (($input['review_confirmed'] ?? '') !== 'yes' || (int)$row['website_consent'] !== 1) {
             throw new RuntimeException('Confirm the privacy and meaning review before approval.');
+        }
+        if ($row['perspective'] === 'gorman' && ($row['attribution_mode'] ?? 'anonymous') === 'named') {
+            $details = json_decode(lol_decrypt_contact($row['contributor_ciphertext'] ?? '') ?? '{}', true);
+            $byline = $details['name'] ?? ($row['public_attribution'] ?? '');
+            if ($byline === '' || lb_flags($byline)) throw new RuntimeException('Public attribution needs author clarification.');
         }
         $text = lb_field($input, 'public_text', 2500);
         $reflection = lb_field($input, 'public_reflection', 500);
@@ -146,8 +182,8 @@ function lb_moderate(PDO $pdo, array $row, string $action, array $input): void
     $now = gmdate('Y-m-d H:i:s');
     $pdo->beginTransaction();
     try {
-        $q = $pdo->prepare('UPDATE light_stories SET state = ?, public_text = ?, public_reflection = ?, review_note = ?, published_at = ?, updated_at = ?, revision = revision + 1 WHERE id = ? AND revision = ?');
-        $q->execute([$state, $text, $reflection, $note, $action === 'approve' ? $now : null, $now, $row['id'], $row['revision']]);
+        $q = $pdo->prepare('UPDATE light_stories SET state = ?, public_text = ?, public_reflection = ?, public_attribution = ?, review_note = ?, published_at = ?, updated_at = ?, revision = revision + 1 WHERE id = ? AND revision = ?');
+        $q->execute([$state, $text, $reflection, $byline, $note, $action === 'approve' ? $now : null, $now, $row['id'], $row['revision']]);
         if ($q->rowCount() !== 1) throw new RuntimeException('This story changed during review. Reload before trying again.');
         lb_event($pdo, (int)$row['id'], $action);
         $pdo->commit();
@@ -159,18 +195,20 @@ function lb_moderate(PDO $pdo, array $row, string $action, array $input): void
 
 function lb_public_item(array $row): array
 {
-    return ['id' => $row['public_id'], 'perspective' => $row['perspective'],
+    $item = ['id' => $row['public_id'], 'perspective' => $row['perspective'],
         'label' => LB_PERSPECTIVES[$row['perspective']], 'text' => $row['public_text'],
         'reflection' => $row['public_reflection'] ?? '',
         'published_at' => str_replace(' ', 'T', $row['published_at']) . 'Z',
         'url' => '/light-board/story.php?id=' . $row['public_id']];
+    if ($row['perspective'] === 'gorman') $item['attribution'] = $row['public_attribution'] ?: 'Anonymous';
+    return $item;
 }
 
 function lb_feed(PDO $pdo, string $perspective = '', string $cursor = '', int $limit = 12): array
 {
-    if ($perspective !== '' && !array_key_exists($perspective, LB_PERSPECTIVES)) throw new RuntimeException('Unknown story filter.');
+    if ($perspective === 'gorman' || ($perspective !== '' && !array_key_exists($perspective, LB_PERSPECTIVES))) throw new RuntimeException('Unknown story filter.');
     $limit = max(1, min(24, $limit));
-    $where = "state = 'approved' AND website_consent = 1";
+    $where = "state = 'approved' AND website_consent = 1 AND perspective <> 'gorman'";
     $params = [];
     if ($perspective !== '') { $where .= ' AND perspective = ?'; $params[] = $perspective; }
     if ($cursor !== '') {

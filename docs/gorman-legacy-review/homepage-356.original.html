@@ -1,0 +1,403 @@
+<!-- wp:html -->
+<style>
+.litw-home{width:100vw;max-width:none;position:relative;left:50%;transform:translateX(-50%);overflow:hidden;--navy:#15283b;--navy2:#20394f;--cream:#f7f1e6;--paper:#fffdf8;--gold:#c59a47;--gold2:#e2c784;--red:#8f342f;--ink:#1b2732;--muted:#596572;color:var(--ink);background:var(--paper);font-family:Lato,Arial,sans-serif;line-height:1.7;margin:0}
+.litw-home *{box-sizing:border-box}
+.litw-home section{margin:0!important;padding:88px 24px}
+.litw-wrap{width:min(1160px,100%);margin:0 auto}
+.litw-narrow{width:min(820px,100%);margin:0 auto}
+.litw-home h1,.litw-home h2{font-family:Georgia,"Times New Roman",serif;color:var(--navy);font-weight:600;line-height:1.08;margin:0 0 24px}
+.litw-home h1{font-size:clamp(3rem,6vw,5.7rem);letter-spacing:-.035em}
+.litw-home h2{font-size:clamp(2.25rem,4.5vw,4rem);letter-spacing:-.025em}
+.litw-home p{margin:0 0 18px}
+.litw-eyebrow,.tiny{color:var(--red);font-size:.78rem;font-weight:800;letter-spacing:.16em;line-height:1.5;text-transform:uppercase;margin-bottom:22px!important}
+.litw-hero{background:linear-gradient(135deg,var(--cream) 0%,#fffaf0 60%,#ead9b9 100%);border-bottom:6px solid var(--gold)}
+.litw-hero-grid{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(260px,.65fr);gap:70px;align-items:center}
+.litw-hero h1 .sometimes{display:block;color:var(--navy2)}
+.litw-hero h1 .number{color:var(--red)}
+.litw-hero-copy{font-size:1.18rem;max-width:650px;color:#344657}
+.litw-cover-wrap{text-align:center}
+.litw-cover{width:min(360px,100%);height:auto;display:block;margin:auto;border-radius:4px;box-shadow:0 24px 55px rgba(21,40,59,.28);transform:none}
+.litw-button-row{display:flex;flex-wrap:wrap;gap:14px;margin-top:30px}
+.litw-button,.litw-text-link{display:inline-flex!important;align-items:center;justify-content:center;text-decoration:none!important;font-weight:800;letter-spacing:.08em;font-size:.82rem;line-height:1.2}
+.litw-button{min-height:52px;padding:16px 24px;border:2px solid var(--navy);border-radius:3px}
+.litw-button-primary{background:var(--navy)!important;color:#fff!important;border-color:var(--navy)!important}
+.litw-button-primary:hover{background:var(--red)!important;border-color:var(--red)!important}
+.litw-home .litw-hero .litw-button{display:inline-flex!important;width:235px;min-width:235px;height:84px;padding:16px 20px!important}
+.litw-home .litw-hero .litw-button br{display:none}
+.litw-button-outline{background:transparent!important;color:var(--navy)!important}
+.litw-button-outline:hover{background:var(--navy)!important;color:#fff!important}
+.litw-text-link{color:var(--navy)!important;border-bottom:2px solid var(--gold);padding:5px 0}
+.litw-before{background:var(--navy);color:#e9edf0;text-align:center}
+.litw-before h2{color:#fff}
+.litw-before h2 em{color:var(--gold2);font-weight:400}
+.litw-before .litw-eyebrow{color:var(--gold2)}
+.litw-before-copy{font-size:1.16rem;color:#d5dde3}
+.litw-transition-line{width:1px;height:72px;background:var(--gold);margin:38px auto 24px}
+.made-room{font-family:Georgia,"Times New Roman",serif;color:#fff;font-size:1.65rem;font-style:italic}
+.litw-gormans{background:var(--paper)}
+.litw-gormans-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:70px;align-items:center}
+.litw-photo{border-radius:5px;box-shadow:18px 18px 0 var(--gold2)}
+.litw-gormans-copy,.litw-book-copy,.litw-light-copy,.litw-plus-copy{font-size:1.08rem}
+.litw-one{background:var(--cream);text-align:center;border-top:1px solid #e3d6bf;border-bottom:1px solid #e3d6bf}
+.litw-one-number{font-family:Georgia,"Times New Roman",serif;color:var(--red);font-size:clamp(5rem,12vw,9rem);font-weight:700;line-height:.9;margin:30px 0 8px}
+.litw-one h2{margin-bottom:18px}
+.litw-one-copy{font-size:1.14rem;color:#3c4a56}
+.litw-fiftyseven{margin-top:65px;padding-top:55px;border-top:1px solid #d5c29e}
+.litw-book{background:var(--navy);color:#e8edf1}
+.litw-book-grid{display:grid;grid-template-columns:minmax(240px,.7fr) minmax(0,1.3fr);gap:76px;align-items:center}
+.litw-book h2{color:#fff}
+.litw-book .litw-eyebrow{color:var(--gold2)}
+.litw-book-subtitle{color:var(--gold2);font-family:Georgia,"Times New Roman",serif;font-size:1.35rem;font-style:italic;margin:-10px 0 28px}
+.litw-book-cover{width:min(350px,100%);height:auto;display:block;margin:auto;box-shadow:0 25px 60px rgba(0,0,0,.38)}
+.litw-book .litw-button-primary,.litw-light .litw-button-primary{background:var(--gold)!important;border-color:var(--gold)!important;color:var(--navy)!important}
+.litw-book .litw-button-primary:hover,.litw-light .litw-button-primary:hover{background:#fff!important;border-color:#fff!important}
+.litw-plus{background:#fff;text-align:center}
+.litw-light{background:linear-gradient(135deg,#7c2d2a 0%,var(--red) 52%,#64211f 100%);color:#fff;text-align:center}
+.litw-light h2{color:#fff}
+.litw-light .litw-eyebrow{color:var(--gold2)}
+.litw-light-copy{color:#fff4ee}
+.litw-final{background:var(--cream);text-align:center;padding:75px 24px!important;border-top:6px solid var(--gold)}
+.litw-final .attention{color:var(--red);font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+.litw-final h2{margin:10px 0 12px}
+.litw-final .question{font-family:Georgia,"Times New Roman",serif;font-size:1.55rem;font-style:italic;color:var(--navy2)}
+@media(max-width:800px){
+ .litw-home section{padding:64px 20px}
+ .litw-hero-grid,.litw-gormans-grid,.litw-book-grid{grid-template-columns:1fr;gap:46px}
+ .litw-cover{width:min(290px,82vw)}
+ .litw-photo{box-shadow:10px 10px 0 var(--gold2)}
+ .litw-book-grid>div:first-child{order:2}
+ .litw-button-row{flex-direction:column;align-items:stretch}
+ .litw-button{text-align:center;width:100%}
+}
+
+.litw-home .holiday-welcome{background:#183d35;color:#fffdf8;border-bottom:3px solid var(--gold);padding:54px 24px}
+.litw-home .holiday-welcome-grid{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(220px,.65fr);gap:58px;align-items:center}
+.litw-home .holiday-kicker{font-size:14px;font-weight:800;letter-spacing:.11em;text-transform:uppercase;color:#e2c784;margin:0 0 16px}
+.litw-home .holiday-welcome .holiday-kicker{font-size:14px}
+.litw-home .holiday-welcome h2{font-family:Lato,Arial,sans-serif;font-size:clamp(2rem,3.6vw,3.3rem);line-height:1.12;color:#fffdf8;letter-spacing:-.02em;margin:0 0 20px}
+.litw-home .holiday-welcome p{font-size:20px;line-height:1.65;max-width:700px}
+.litw-home .holiday-window{display:block;width:100%;height:260px;object-fit:cover;border:1px solid #c59a47;border-radius:4px}
+.litw-home .holiday-jump{display:inline-flex;align-items:center;min-height:50px;border-bottom:2px solid #e2c784;color:#fffdf8;font-size:18px;font-weight:700;text-decoration:none}
+.litw-home .holiday-stories{background:#f7f1e6;padding:64px 24px}
+.litw-home .holiday-section-title{font-family:Lato,Arial,sans-serif;font-size:clamp(1.8rem,3vw,2.6rem);line-height:1.2}
+.litw-home .holiday-cards{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:28px;margin-top:32px}
+.litw-home .holiday-card{background:#fffdf8;padding:36px;border-top:4px solid #c59a47;border-radius:4px;box-shadow:0 8px 24px #15283b0a}
+.litw-home .holiday-card h3{font-family:Lato,Arial,sans-serif;font-size:34px;line-height:1.2;color:#15283b;margin:0 0 18px;font-weight:800}
+.litw-home .holiday-card p{font-size:20px;line-height:1.65}
+.litw-home .holiday-card .holiday-kicker{font-size:14px;color:#70521c}
+.litw-home .holiday-card .holiday-story-name{font-size:24px;font-weight:800;margin-bottom:16px}
+.litw-home .holiday-story-link{display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:14px 22px;background:#15283b;color:white;text-decoration:none;font-size:18px;font-weight:800;border-radius:3px}
+.litw-home .holiday-story-link:hover{background:#8f342f}
+.litw-home .holiday-card-mini{background:#183d35;color:#fffdf8}
+.litw-home .holiday-card-mini h3{color:#fffdf8}
+.litw-home .holiday-card-mini .holiday-kicker{color:#e2c784}
+.litw-home .holiday-card-mini .holiday-story-link{background:#e2c784;color:#15283b}
+.litw-home .holiday-invitation{font-weight:800;color:#183d35}
+.litw-home .holiday-more{margin-top:28px;font-size:18px}
+.litw-home .holiday-more a{color:#15283b;text-underline-offset:5px}
+.litw-home .holiday-merch{background:#fffdf8;padding:54px 24px;border-bottom:1px solid #e5d9c2}
+.litw-home .holiday-merch-grid{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,.65fr);gap:50px;align-items:center}
+.litw-home .holiday-merch h2{font-family:Lato,Arial,sans-serif;font-size:32px;line-height:1.2}
+.litw-home .holiday-merch p{font-size:20px;line-height:1.65}
+.litw-home .holiday-merch .holiday-kicker{color:#70521c;font-size:14px}
+.litw-home .holiday-merch-note{border-left:3px solid #c59a47;padding:12px 0 12px 24px}
+.litw-home .holiday-merch-note p{margin:0}
+.litw-home .holiday-status{display:inline-block;background:#eef2ed;color:#183d35;border-radius:3px;padding:6px 12px;font-weight:800;font-size:16px;margin-bottom:12px}
+.litw-home .holiday-caption{display:flex;align-items:center;gap:16px;font-size:16px!important;line-height:1.5;margin:24px 0 0}
+.litw-home .holiday-caption .holiday-candle{flex-shrink:0;margin:0}
+.litw-home .holiday-candle{display:inline-block;width:24px;height:35px;border-radius:3px;background:#ead9b9;position:relative;margin:15px 16px 0 0;vertical-align:middle;border-bottom:4px solid #c59a47}
+.litw-home .holiday-candle:before{content:"";position:absolute;width:12px;height:19px;left:6px;top:-21px;border-radius:80% 15% 60% 40%;transform:rotate(-10deg);background:#f4ce79;box-shadow:0 0 24px 10px #f4ce7933}
+.litw-home .holiday-jump:focus-visible,.litw-home .holiday-story-link:focus-visible,.litw-home .holiday-more a:focus-visible{outline:3px solid #c59a47;outline-offset:5px}
+@media(max-width:800px){
+ .litw-home .holiday-welcome-grid,.litw-home .holiday-cards,.litw-home .holiday-merch-grid{grid-template-columns:1fr;gap:28px}
+ .litw-home .holiday-welcome,.litw-home .holiday-stories,.litw-home .holiday-merch{padding:42px 20px}
+ .litw-home .holiday-window{height:200px}
+ .litw-home .holiday-card{padding:26px 22px}
+ .litw-home .holiday-card h3{font-size:29px}
+ .litw-home .holiday-story-link{width:100%}
+}
+
+</style>
+<div class="litw-home">
+
+<section class="holiday-welcome" aria-labelledby="holiday-welcome-title">
+ <div class="litw-wrap holiday-welcome-grid">
+  <div>
+   <p class="holiday-kicker">Thanksgiving &amp; Christmas · Leave One Light On</p>
+   <h2 id="holiday-welcome-title">Received Light.<br>Shared Light.</h2>
+   <p>As the holidays draw near, we remember the people who made room for us—and look for one small way to make room for someone else.</p>
+   <a class="holiday-jump" href="/blog/">Explore the stories&nbsp; →</a>
+  </div>
+  <div><img class="holiday-window" src="https://thelightinthewindowbook.com/wp-content/uploads/2026/06/lighthouse-6a3acccf56dd0.png" alt="A cottage window glowing warmly at dusk"><p class="holiday-caption"><span class="holiday-candle" aria-hidden="true"></span><span>Leave One Light On.<br>Let Someone See It.</span></p></div>
+ </div>
+</section>
+
+  <!-- =====================================================
+       HERO
+       ===================================================== -->
+  <section class="litw-hero" id="top">
+    <div class="litw-wrap litw-hero-grid">
+
+      <div>
+        <p class="litw-eyebrow">
+          A TRUE STORY OF A FAMILY WHO OPENED THEIR HOME TO HOPE AND SECOND CHANCES
+        </p>
+
+        <h1>
+          A home can change a life.
+          <span class="sometimes">Sometimes <span class="number">57.</span></span>
+        </h1>
+
+        <div class="litw-hero-copy">
+          <p>
+            Peg and Jerry Gorman opened their home to one young person who needed a family.
+          </p>
+          <p>
+            His name was Ted.
+          </p>
+          <p>
+            He was the first of fifty-seven foster children they would eventually welcome.
+          </p>
+        </div>
+
+        <div class="litw-button-row">
+          <a class="litw-button litw-button-primary"
+             href="https://www.amazon.com/dp/B0H7QP4HSY"
+             target="_blank"
+             rel="noopener">
+            READ THE BOOK
+          </a>
+
+          <a class="litw-button litw-button-outline" href="/#before-light">
+            DISCOVER THE STORY →
+          </a>
+        </div>
+      </div>
+
+      <div class="litw-cover-wrap">
+        <a href="https://www.amazon.com/dp/B0H7QP4HSY" target="_blank" rel="noopener noreferrer" aria-label="View The Light in the Window by Theodore Johnson on Amazon">
+          <img
+            class="litw-cover"
+            src="https://thelightinthewindowbook.com/wp-content/uploads/2026/06/cover-2.png"
+            alt="The Light in the Window by Theodore Johnson">
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+<!-- =====================================================
+       BEFORE THE LIGHT
+       ===================================================== -->
+  <section class="litw-before" id="before-light">
+    <div class="litw-narrow">
+
+      <p class="litw-eyebrow">BEFORE THE LIGHT</p>
+
+      <h2>
+        By thirteen, Ted didn't need sympathy.
+        <em>He needed a family.</em>
+      </h2>
+
+      <div class="litw-before-copy">
+        <p>
+          His world had already changed.
+        </p>
+
+        <p>
+          What he needed wasn't another person feeling sorry about what had happened.
+          He needed somewhere to live, grow, make mistakes—and belong.
+        </p>
+      </div>
+
+      <div class="litw-transition-line"></div>
+
+      <div class="made-room">Then a family made room.</div>
+
+    </div>
+  </section>
+
+
+  <!-- =====================================================
+       PEG & JERRY
+       ===================================================== -->
+  <section class="litw-gormans" id="gormans">
+    <div class="litw-wrap litw-gormans-grid">
+      <div>
+        <img class="litw-photo" style="width:100%;height:auto;max-width:100%;display:block;"
+          src="https://thelightinthewindowbook.com/wp-content/uploads/2026/07/jerry-gorman-1-rotated-1-scaled.jpg"
+          alt="Jerry Gorman and Theodore Ted Johnson together">
+      </div>
+      <div>
+        <p class="litw-eyebrow">PEG &amp; JERRY GORMAN</p>
+        <h2>They made room.</h2>
+        <div class="litw-gormans-copy">
+          <p>Peg and Jerry Gorman opened their home and kept showing up.</p>
+          <p>Cedar Hill was built from ordinary acts of care: meals, homework, rules, laughter, expectations, forgiveness, and another tomorrow.</p>
+        </div>
+        <div class="litw-button-row">
+          <a class="litw-text-link" href="/the-gorman-legacy/">MEET THE GORMANS →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<section class="litw-one" id="57">
+    <div class="litw-narrow">
+
+      <div class="tiny">BUT TED'S STORY WAS ONLY THE BEGINNING.</div>
+
+      <div class="litw-one-number">1</div>
+
+      <h2>It started with one.</h2>
+
+      <div class="litw-one-copy">
+        One young person who needed a family.<br>
+        One family willing to make room.<br>
+        One open door.
+      </div>
+
+      <div class="litw-fiftyseven">
+
+        <div class="litw-one-number">57</div>
+
+        <h2>Ted was the first.</h2>
+
+        <div class="litw-one-copy">
+          Peg and Jerry Gorman eventually welcomed
+          <strong>fifty-seven foster children</strong> into their family.
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- =====================================================
+       THE BOOK
+       ===================================================== -->
+  <section class="litw-book" id="book">
+    <div class="litw-wrap litw-book-grid">
+
+      <div>
+        <img
+          class="litw-book-cover"
+          src="https://thelightinthewindowbook.com/wp-content/uploads/2026/06/cover-2.png"
+          alt="The Light in the Window by Theodore Johnson">
+      </div>
+
+      <div>
+        <p class="litw-eyebrow">THE TRUE STORY</p>
+
+        <h2>The Light in the Window</h2>
+
+        <div class="litw-book-subtitle">
+          A Journey of Faith, Hope, and Redemption
+        </div>
+
+        <div class="litw-book-copy">
+          <p>
+            The story of Cedar Hill, Peg and Jerry Gorman, Ted,
+            and the young people who followed.
+          </p>
+
+          <p>
+            A story about family beyond biology, healing without perfection,
+            second chances—and what ordinary compassion can make possible.
+          </p>
+
+          <p>
+            Cedar Hill mattered not because it was perfect,
+            but because it represented possibility:
+            a place where someone cared, where people listened,
+            and where hope still had room to grow.
+          </p>
+        </div>
+
+        <div class="litw-button-row">
+          <a class="litw-button litw-button-primary"
+             href="https://www.amazon.com/dp/B0H7QP4HSY"
+             target="_blank"
+             rel="noopener">
+            READ THE BOOK
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- =====================================================
+       THE 57+
+       ===================================================== -->
+  <section class="litw-plus" id="57-plus">
+    <div class="litw-narrow">
+      <p class="litw-eyebrow">FIFTY-SEVEN INDIVIDUAL LIVES</p>
+      <h2>The number gets attention. Their stories belong to them.</h2>
+      <div class="litw-plus-copy">
+        <p>Ted can share his own experience. Every other person connected to Cedar Hill owns a story that only they may choose to tell.</p>
+      </div>
+      <div class="litw-button-row">
+        <a class="litw-text-link" href="/the-57/">READ ABOUT THE FIFTY-SEVEN →</a>
+      </div>
+    </div>
+  </section>
+
+<section class="litw-light" id="leave-one-light-on">
+    <div class="litw-narrow">
+<div>
+        <p class="litw-eyebrow">THE STORY BECOMES AN INVITATION</p>
+
+        <h2>Leave One Light On.</h2>
+
+        <div class="litw-light-copy">
+          <p>
+            <em>The Light in the Window</em> tells what happened
+            when one family made room.
+          </p>
+
+          <p>
+            <strong>Leave One Light On asks what might happen if we did too.</strong>
+          </p>
+
+          <p>
+            Not fifty-seven. Not the whole world.
+            Start with one.
+          </p>
+        </div>
+
+        <div class="litw-button-row">
+          <a class="litw-button litw-button-primary"
+             href="https://leaveonelighton.org/"
+             target="_blank"
+             rel="noopener">
+            EXPLORE LEAVE ONE LIGHT ON →
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- =====================================================
+       FINAL
+       ===================================================== -->
+  <section class="litw-final">
+
+    <p class="attention">
+      57 gets your attention.
+    </p>
+
+    <h2>One is where it starts.</h2>
+
+    <p class="question">
+      Who is your one?
+    </p>
+
+  </section>
+
+</div>
+<!-- /wp:html -->

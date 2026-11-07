@@ -1,0 +1,386 @@
+{
+  "source_commit": "51e315a248e8350537e6eed7388047f1dc463c09",
+  "started_at": "2026-11-07T18:15:01+00:00",
+  "php_version": "8.3.36",
+  "checks": [
+    {
+      "check": "Hosted PHP runtime is 8.3 or newer",
+      "passed": true
+    },
+    {
+      "check": "Required extension: pdo_mysql",
+      "passed": true
+    },
+    {
+      "check": "Required extension: openssl",
+      "passed": true
+    },
+    {
+      "check": "Required extension: tokenizer",
+      "passed": true
+    },
+    {
+      "check": "Exact PR56 file: api/light-board/_service.php",
+      "passed": true
+    },
+    {
+      "check": "PHP parse: api/light-board/_service.php",
+      "passed": true
+    },
+    {
+      "check": "Exact PR56 file: api/light-board/feed.php",
+      "passed": true
+    },
+    {
+      "check": "PHP parse: api/light-board/feed.php",
+      "passed": true
+    },
+    {
+      "check": "Exact PR56 file: api/light-board/status.php",
+      "passed": true
+    },
+    {
+      "check": "PHP parse: api/light-board/status.php",
+      "passed": true
+    },
+    {
+      "check": "Exact PR56 file: api/light-board/submit.php",
+      "passed": true
+    },
+    {
+      "check": "PHP parse: api/light-board/submit.php",
+      "passed": true
+    },
+    {
+      "check": "Exact PR56 file: api/messages/_bootstrap.php",
+      "passed": true
+    },
+    {
+      "check": "PHP parse: api/messages/_bootstrap.php",
+      "passed": true
+    },
+    {
+      "check": "Exact PR56 file: api/messages/check.php",
+      "passed": true
+    },
+    {
+      "check": "PHP parse: api/messages/check.php",
+      "passed": true
+    },
+    {
+      "check": "Exact PR56 file: api/messages/create.php",
+      "passed": true
+    },
+    {
+      "check": "PHP parse: api/messages/create.php",
+      "passed": true
+    },
+    {
+      "check": "Exact PR56 file: api/messages/follow-up.php",
+      "passed": true
+    },
+    {
+      "check": "PHP parse: api/messages/follow-up.php",
+      "passed": true
+    },
+    {
+      "check": "Exact PR56 file: admin/light-board/index.php",
+      "passed": true
+    },
+    {
+      "check": "PHP parse: admin/light-board/index.php",
+      "passed": true
+    },
+    {
+      "check": "Exact PR56 file: admin/messages/_admin.php",
+      "passed": true
+    },
+    {
+      "check": "PHP parse: admin/messages/_admin.php",
+      "passed": true
+    },
+    {
+      "check": "Exact PR56 file: light-board/gorman-story.php",
+      "passed": true
+    },
+    {
+      "check": "PHP parse: light-board/gorman-story.php",
+      "passed": true
+    },
+    {
+      "check": "Exact PR56 file: light-board/story.php",
+      "passed": true
+    },
+    {
+      "check": "PHP parse: light-board/story.php",
+      "passed": true
+    },
+    {
+      "check": "Exact PR56 file: light-board/share-basic.php",
+      "passed": true
+    },
+    {
+      "check": "PHP parse: light-board/share-basic.php",
+      "passed": true
+    },
+    {
+      "check": "Exact PR56 file: light-board/my-story.html",
+      "passed": true
+    },
+    {
+      "check": "Exact PR56 file: light-board/share.html",
+      "passed": true
+    },
+    {
+      "check": "Exact PR56 file: light-board/index.html",
+      "passed": true
+    },
+    {
+      "check": "Exact PR56 file: light-board/methodology.html",
+      "passed": true
+    },
+    {
+      "check": "Exact PR56 file: css/golden-state.css",
+      "passed": true
+    },
+    {
+      "check": "Exact PR56 file: css/v3.css",
+      "passed": true
+    },
+    {
+      "check": "Exact PR56 file: css/communication.css",
+      "passed": true
+    },
+    {
+      "check": "Exact PR56 file: css/admin-messages.css",
+      "passed": true
+    },
+    {
+      "check": "Exact PR56 file: css/light-stories.css",
+      "passed": true
+    },
+    {
+      "check": "Exact PR56 file: js/light-stories.js",
+      "passed": true
+    },
+    {
+      "check": "Exact PR56 file: js/communication.js",
+      "passed": true
+    },
+    {
+      "check": "Exact PR56 file: js/v5-nav.js",
+      "passed": true
+    },
+    {
+      "check": "Exact PR56 file: maintenance/light-story-retention.php",
+      "passed": true
+    },
+    {
+      "check": "PHP parse: maintenance/light-story-retention.php",
+      "passed": true
+    },
+    {
+      "check": "Configuration targets isolated staging database and user only",
+      "passed": true
+    },
+    {
+      "check": "Both public intake switches remain OFF",
+      "passed": true
+    },
+    {
+      "check": "Staging encryption and rate-limit keys are configured",
+      "passed": true
+    },
+    {
+      "check": "Real hosted MySQL connection uses staging database",
+      "passed": true
+    },
+    {
+      "check": "No production or global database grant",
+      "passed": true
+    },
+    {
+      "check": "No production or global database grant",
+      "passed": true
+    },
+    {
+      "check": "Gorman schema columns installed on hosted MySQL",
+      "passed": true
+    },
+    {
+      "check": "Staging stories table is empty before synthetic verification",
+      "passed": true
+    },
+    {
+      "check": "website consent must be explicit",
+      "passed": true
+    },
+    {
+      "check": "unknown perspective rejected",
+      "passed": true
+    },
+    {
+      "check": "overlong story rejected instead of silently truncated",
+      "passed": true
+    },
+    {
+      "check": "client cannot choose published state",
+      "passed": true
+    },
+    {
+      "check": "secondary reuse permission defaults off",
+      "passed": true
+    },
+    {
+      "check": "private original encrypted with correct round trip",
+      "passed": true
+    },
+    {
+      "check": "raw receipt not stored",
+      "passed": true
+    },
+    {
+      "check": "pending never appears in public feed",
+      "passed": true
+    },
+    {
+      "check": "review confirmation required",
+      "passed": true
+    },
+    {
+      "check": "possible contact details cannot be approved",
+      "passed": true
+    },
+    {
+      "check": "clarification never appears publicly",
+      "passed": true
+    },
+    {
+      "check": "receipt holder can read clarification note",
+      "passed": true
+    },
+    {
+      "check": "human approval publishes reviewed wording",
+      "passed": true
+    },
+    {
+      "check": "public projection excludes private fields",
+      "passed": true
+    },
+    {
+      "check": "published story cannot be edited without returning to review",
+      "passed": true
+    },
+    {
+      "check": "unpublish removes public story",
+      "passed": true
+    },
+    {
+      "check": "stale review loses optimistic lock",
+      "passed": true
+    },
+    {
+      "check": "author withdrawal clears public wording",
+      "passed": true
+    },
+    {
+      "check": "withdrawn entry cannot be republished",
+      "passed": true
+    },
+    {
+      "check": "invalid receipt rejected",
+      "passed": true
+    },
+    {
+      "check": "filter and pagination cover all matching published stories",
+      "passed": true
+    },
+    {
+      "check": "pagination has no duplicates",
+      "passed": true
+    },
+    {
+      "check": "perspective filters do not cross categories",
+      "passed": true
+    },
+    {
+      "check": "review and withdrawal actions audited",
+      "passed": true
+    },
+    {
+      "check": "Gorman intake defaults off",
+      "passed": true
+    },
+    {
+      "check": "private review permitted without publication consent",
+      "passed": true
+    },
+    {
+      "check": "private-only Gorman story cannot be published",
+      "passed": true
+    },
+    {
+      "check": "optional contact encrypted",
+      "passed": true
+    },
+    {
+      "check": "private contact round trip",
+      "passed": true
+    },
+    {
+      "check": "named attribution needs author-provided name",
+      "passed": true
+    },
+    {
+      "check": "malformed optional contact rejected",
+      "passed": true
+    },
+    {
+      "check": "Gorman client cannot auto-publish",
+      "passed": true
+    },
+    {
+      "check": "only author-chosen attribution published",
+      "passed": true
+    },
+    {
+      "check": "public projection excludes private contributor data",
+      "passed": true
+    },
+    {
+      "check": "Gorman accounts excluded from general Light Board feed",
+      "passed": true
+    },
+    {
+      "check": "general feed cannot expose Gorman lane",
+      "passed": true
+    },
+    {
+      "check": "withdrawal clears public story and attribution",
+      "passed": true
+    },
+    {
+      "check": "withdrawn Gorman story stays withdrawn",
+      "passed": true
+    },
+    {
+      "check": "private supplied name stays private for anonymous attribution",
+      "passed": true
+    },
+    {
+      "check": "Encryption round trip uses different random nonces",
+      "passed": true
+    },
+    {
+      "check": "Hosted rate limit refuses the third request after two allowed requests",
+      "passed": true
+    },
+    {
+      "check": "Public intake remains OFF after lifecycle tests",
+      "passed": true
+    }
+  ],
+  "ok": true,
+  "synthetic_cleanup_ok": true,
+  "completed_at": "2026-11-07T18:15:01+00:00"
+}

@@ -110,7 +110,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const message = root.querySelector('[data-status-error]');
     const withdraw = root.querySelector('[data-withdraw-story]');
     const confirm = root.querySelector('[data-confirm-withdraw]');
-    const labels = { pending: 'Waiting for review', needs_changes: 'Clarification needed', approved: 'Published anonymously', declined: 'Not selected for publication', withdrawn: 'Withdrawn' };
+    const labels = { pending: 'Waiting for review', needs_changes: 'Clarification needed', approved: 'Approved for publication', declined: 'Not selected for publication', withdrawn: 'Withdrawn' };
     statusForm.addEventListener('input', () => { result.hidden = true; confirm.hidden = true; });
     const lookup = async action => {
       message.textContent = '';
@@ -118,7 +118,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const buttons = root.querySelectorAll('button');
       buttons.forEach(b => { b.disabled = true; });
       try {
-        const data = await request(statusForm.action, statusForm);
+        // A control named "action" shadows form.action; read the URL attribute.
+        const data = await request(statusForm.getAttribute('action'), statusForm);
         result.replaceChildren(node('h2', labels[data.state] || 'Under review'));
         if (data.review_note) result.append(node('p', data.review_note, 'light-text'));
         if (data.state === 'needs_changes') result.append(node('p', 'You can withdraw this entry and submit revised wording. Your original entry will stay private.'));

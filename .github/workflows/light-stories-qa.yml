@@ -10,8 +10,12 @@ on:
       - 'js/light-stories.js'
       - 'maintenance/light-story-retention.php'
       - 'docs/light-board-schema.sql'
+      - 'docs/gorman-legacy-review/**'
+      - 'config/private-messages.example.php'
       - 'tests/light-story-flow.php'
+      - 'tests/light-story-spam.php'
       - 'tests/light-story-structure.py'
+      - 'tests/gorman-review-structure.py'
       - '.github/workflows/light-stories-qa.yml'
   workflow_dispatch:
 permissions:
@@ -29,5 +33,9 @@ jobs:
         run: node --check js/light-stories.js
       - name: Test submission and moderation lifecycle
         run: php tests/light-story-flow.php
+      - name: Test honeypot and timestamp validation
+        run: php tests/light-story-spam.php
       - name: Check privacy and page structure
         run: python3 tests/light-story-structure.py
+      - name: Check Gorman page preservation and closed intake
+        run: python3 tests/gorman-review-structure.py
