@@ -110,7 +110,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const message = root.querySelector('[data-status-error]');
     const withdraw = root.querySelector('[data-withdraw-story]');
     const confirm = root.querySelector('[data-confirm-withdraw]');
-    const labels = { pending: 'Waiting for review', needs_changes: 'Clarification needed', approved: 'Published anonymously', declined: 'Not selected for publication', withdrawn: 'Withdrawn' };
+    const labels = { pending: 'Waiting for review', needs_changes: 'Clarification needed', approved: 'Approved for publication', declined: 'Not selected for publication', withdrawn: 'Withdrawn' };
     statusForm.addEventListener('input', () => { result.hidden = true; confirm.hidden = true; });
     const lookup = async action => {
       message.textContent = '';
