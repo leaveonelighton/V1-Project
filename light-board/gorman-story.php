@@ -17,7 +17,7 @@ $form = <<<'HTML'
 <input type="hidden" name="perspective" value="gorman">
 <input type="hidden" name="started_at" value="__STARTED__">
 <div hidden aria-hidden="true"><label for="website">Leave this field empty</label><input id="website" name="website" tabindex="-1" autocomplete="off"></div>
-<p><label for="contributor-name">Name or pseudonym (optional unless you choose public attribution)</label><input id="contributor-name" name="contributor_name" maxlength="100" autocomplete="off"></p>
+<p><label for="contributor-name">Name or pseudonym (optional unless you choose public attribution)</label><input type="text" id="contributor-name" name="contributor_name" maxlength="100" autocomplete="off"></p>
 <p><label for="private-contact">Private email (optional; never published)</label><input id="private-contact" type="email" name="private_contact" maxlength="254" autocomplete="email"></p>
 <p><label for="attribution">If you consent to publication, how should you be credited?</label><select id="attribution" name="attribution_mode" required><option value="anonymous">Anonymous</option><option value="named">Use the name or pseudonym I entered</option></select></p>
 <p><label for="gorman-story">Your own experience (10–2,500 characters)</label><textarea id="gorman-story" name="story" minlength="10" maxlength="2500" rows="12" required aria-describedby="story-care"></textarea></p>
