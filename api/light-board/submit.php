@@ -2,7 +2,7 @@
 declare(strict_types=1);
 require __DIR__ . '/_service.php';
 if (($_SERVER['REQUEST_METHOD'] ?? '') !== 'POST') lol_json(['ok' => false, 'error' => 'POST required.'], 405);
-if (!lb_enabled()) lol_json(['ok' => false, 'error' => 'Story submissions are not open yet. Please return soon.'], 503);
+if (!(($_POST['perspective'] ?? '') === 'gorman' ? lb_gorman_enabled() : lb_enabled())) lol_json(['ok' => false, 'error' => 'Story submissions are not open yet. Please return soon.'], 503);
 try {
     $pdo = lol_db();
     lol_enforce_rate_limit($pdo, 'light_submit', 6, 3600);

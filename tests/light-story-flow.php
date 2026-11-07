@@ -62,3 +62,30 @@ check(array_intersect(array_column($first['items'], 'id'), array_column($second[
 check(count(lb_feed($pdo, 'offered')['items']) === 1, 'perspective filters do not cross categories');
 check((int)$pdo->query('SELECT COUNT(*) FROM light_story_events')->fetchColumn() > 0, 'review and withdrawal actions audited');
 echo "Light-story service integration tests passed.\n";
+
+// Synthetic Gorman lane: same queue, encryption, moderation and withdrawal.
+check(!lb_gorman_enabled(), 'Gorman intake defaults off');
+$gorman = ['perspective' => 'gorman', 'story' => 'Synthetic test account only. This is not a real personal story.', 'attribution_mode' => 'named', 'contributor_name' => 'Test Pseudonym', 'private_contact' => 'synthetic@example.invalid'];
+$r = lb_submit($pdo, $gorman); $g = lb_lookup($pdo, $r['receipt']);
+check((int)$g['website_consent'] === 0, 'private review permitted without publication consent');
+rejected(fn() => lb_moderate($pdo, $g, 'approve', $public), 'private-only Gorman story cannot be published');
+check(!str_contains(json_encode($g), 'synthetic@example.invalid'), 'optional contact encrypted');
+$details = json_decode(lol_decrypt_contact($g['contributor_ciphertext']), true);
+check($details['contact'] === 'synthetic@example.invalid', 'private contact round trip');
+rejected(fn() => lb_submit($pdo, array_replace($gorman, ['contributor_name' => ''])), 'named attribution needs author-provided name');
+rejected(fn() => lb_submit($pdo, array_replace($gorman, ['private_contact' => 'not email'])), 'malformed optional contact rejected');
+$r = lb_submit($pdo, $gorman + ['website_consent' => 'yes', 'state' => 'approved']); $g = lb_lookup($pdo, $r['receipt']);
+check($g['state'] === 'pending', 'Gorman client cannot auto-publish');
+lb_moderate($pdo, $g, 'approve', $public + ['public_attribution' => 'Injected name']);
+$g = lb_lookup($pdo, $r['receipt']); $item = lb_public_item($g);
+check($item['attribution'] === 'Test Pseudonym', 'only author-chosen attribution published');
+check(!str_contains(json_encode($item), 'synthetic@example.invalid') && !isset($item['contributor_ciphertext']), 'public projection excludes private contributor data');
+check(!in_array($g['public_id'], array_column(lb_feed($pdo)['items'], 'id')), 'Gorman accounts excluded from general Light Board feed');
+rejected(fn() => lb_feed($pdo, 'gorman'), 'general feed cannot expose Gorman lane');
+lb_withdraw($pdo, $g); $g = lb_lookup($pdo, $r['receipt']);
+check($g['public_attribution'] === null && $g['public_text'] === null, 'withdrawal clears public story and attribution');
+rejected(fn() => lb_moderate($pdo, $g, 'approve', $public), 'withdrawn Gorman story stays withdrawn');
+$r = lb_submit($pdo, array_replace($gorman, ['attribution_mode' => 'anonymous', 'website_consent' => 'yes'])); $g = lb_lookup($pdo, $r['receipt']);
+lb_moderate($pdo, $g, 'approve', $public); $g = lb_lookup($pdo, $r['receipt']);
+check(lb_public_item($g)['attribution'] === 'Anonymous', 'private supplied name stays private for anonymous attribution');
+echo "Gorman consent, encryption, attribution, segregation and withdrawal tests passed.\n";
