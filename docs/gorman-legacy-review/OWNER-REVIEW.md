@@ -14,7 +14,7 @@ Prepared November 6, 2026 (UTC verification November 7). Draft only.
 
 - Book homepage 356: retain its layout, photographs, book links and seasonal storytelling. Replace the principal “Sometimes 57” line with **Fifty-seven lives. One open door.** Keep **A home can change a life.** Add a direct hero link to `/the-57/`; refine the existing lower link/section to **The Other 56. Their stories. Their choice.**
 - Page 286: add **THE OTHER 56**, with **“I was the first. But I wasn’t the last.”** clearly attributed to Ted. Identify “first official foster child” as his firsthand account. Attribute the total of 57 to the owner-identified 2003 obituary; no new archival verification or claim of independent verification was made in this assignment.
-- Preserve the historical closing **It started with room for one more. It didn’t end there.** Use **It started with room for one more. It doesn’t have to end there.** for today’s invitation.
+- Preserve the historical closing **It started with room for one more. It didn’t end there.** Use **And it doesn’t have to end here.** for today’s forward invitation.
 - Add links from page 286 to the four existing published resources, the existing book section and a practical LOLO action.
 - Proposed navigation addition: **The Other 56** → `/the-57/`, after The Gorman Legacy in the same desktop/mobile navigation. This is specified in the review manifest, not saved to WordPress navigation.
 - LOLO homepage and existing `gormans.html`: small copy/link revisions send visitors to the established book-site destination; no duplicate history page or homepage redesign. Existing anchor IDs remain usable.
