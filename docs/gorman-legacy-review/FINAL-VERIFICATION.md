@@ -69,3 +69,28 @@ No WordPress content, banking or merchandise was modified. No PR merge, website 
 - Prepared an intermediate PR56-stage-code.zip from the exact tracked application files at 51e315a (251 application files plus a SHA-256 source manifest). Excluded the root .htaccess to preserve the recovery guard, .github, docs and .gitignore. No secrets included.
 - The attempt to upload that ZIP into the existing guarded phase1 directory timed out; the browser session was reset. The ZIP's arrival is NOT confirmed and extraction was NOT performed. Inspect the directory before retrying to avoid duplicates. The timeout does not establish its cause. Owner was given the documented Chrome file-URL permission setting to check; upload remains blocked pending recovery.
 - No staging config/password has been entered into the application. Do NOT remove the recovery access guard or assume PR56 is installed. The recovered files remain old staging contents until installation and hash verification succeed.
+
+### Editor installation recovery — November 7, 2026
+
+The owner supplied a screenshot confirming Chrome's Allow access to file URLs is ON. One further upload attempt still timed out and detached the old file-manager tab. No further upload attempts were made. A fresh hPanel file-manager session worked, and the phase1 folder listing confirmed PR56-stage-code.zip was absent.
+
+Used the existing Hostinger text editor to save these 26 runtime/UI files from application commit 51e315a, preserving the root recovery .htaccess:
+- api/light-board/_service.php, feed.php, status.php, submit.php
+- api/messages/_bootstrap.php, check.php, create.php, follow-up.php
+- admin/light-board/index.php and admin/messages/_admin.php
+- light-board/gorman-story.php, story.php, share-basic.php, my-story.html, share.html, index.html, methodology.html
+- css/golden-state.css, v3.css, communication.css, admin-messages.css, light-stories.css
+- js/light-stories.js, communication.js, v5-nav.js
+- maintenance/light-story-retention.php
+
+This is the scoped story-runtime installation, not a claim that every file in the recovered site matches PR56. Full hosted file-hash/lint verification remains pending.
+
+Created a separate stage-only configuration at public_html/private-config/leave-one-light-on-messages.php, outside the phase1 document root, as the first config location already supported by the unchanged bootstrap. Added public_html/private-config/.htaccess with Options -Indexes and Require all denied. This does not replace the existing production configuration in the domain's sibling private-config directory. The new staging config targets ONLY u856117160_lolo_stage56 with fresh stage-only encryption/HMAC secrets, keeps both intake flags false, and throws while either credential placeholder remains. Secret values are not recorded here or committed.
+
+Owner must replace the database-password placeholder with the existing staging DB password and choose/enter a different staging moderator password, then Save. New moderator credential entry must be performed by the owner. The editor is being left at that file.
+
+Verified after installation:
+- https://phase1.leaveonelighton.org/light-board/gorman-story.php displays 403 Forbidden under the recovery guard.
+- https://leaveonelighton.org/private-config/ displays 403 Forbidden.
+
+Next, after credentials are entered: add a stage-only CLI config bridge if needed, verify isolated DB connection/encryption and installed hashes, configure protected owner-only staging access (including rejection of the apex-host /phase1 path), and run the outstanding hosted checks. Do not remove the recovery guard, reuse production credentials, or enable either public intake flag before the protected test setup is ready. No functional HTTP lifecycle test has passed yet. No WordPress, production, banking or merchandise changes were made by this editor installation.
