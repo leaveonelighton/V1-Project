@@ -48,7 +48,7 @@ Actions:
 - Re-established the original phase1 subdomain mapping to /home/u856117160/domains/leaveonelighton.org/public_html/phase1.
 - Restored phase1 DNS routing using the verified hosting IP. Hostinger displays an ALIAS to phase1.leaveonelighton.org.cdn.hstgr.net with TTL 300.
 - Verified https://phase1.leaveonelighton.org/ now resolves over HTTPS and displays the intentional 403 recovery guard.
-- Recovery was still running at the last observation (50%). Completion is NOT claimed.
+- Hostinger now reports Completed / Files restored from backup. After completion, both the staging homepage and /admin/messages/ were checked over HTTPS and display the intentional 403 Forbidden recovery guard. This confirms guarded recovery, not a usable PR56 test application.
 - Prepared, but did NOT submit, Hostinger's database creation form with database/user suffix lolo_stage56. Password remains empty. Owner must enter the new staging-only password and submit the form; no new credential was created by the agent.
 
 Remaining:
