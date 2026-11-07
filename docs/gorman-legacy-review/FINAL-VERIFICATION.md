@@ -123,3 +123,23 @@ Owner successfully created Hostinger directory protection for /phase1, username 
 Owner explicitly authorized deleting the temporary test schedule. Confirmed Hostinger's irreversible deletion dialog for the single pr56-hosted-verification.php cron only. A fresh Cron Jobs page snapshot shows only the creation form and no existing jobs: deletion confirmed. Protected report files and the CLI-only verifier remain; no production scheduler was removed.
 
 Attempted private stage browser navigation to /light-board/gorman-story.php. Chrome reported net::ERR_INVALID_AUTH_CREDENTIALS. This demonstrates the authentication boundary blocked the automated request, not a passing authenticated application check. Owner must sign in through Chrome's website authentication prompt with stage56 and the password they saved. No credential was extracted or placed in a URL; no authentication bypass was attempted. HTTP/CSRF, responsive interaction, retention scheduling and backup-retention verification remain incomplete. Both intake flags remain OFF. PR #56 rechecked open, draft and unmerged.
+
+
+### Authenticated browser verification — November 7, 2026
+
+Owner completed Chrome sign-in. Authenticated access now works at the existing phase1 host. No further access grant is required for this session.
+
+Passed live checks:
+- Gorman story route loads its paused-state message and contains zero submission forms. General share-basic route also states intake is in preparation. Moderator queue loads under the saved stage56 authentication, confirms the feed/intake are paused, and contains no pending or published stories in the inspected queues.
+- https://leaveonelighton.org/phase1/light-board/gorman-story.php returns the intended 403 Forbidden, preventing the apex-path configuration fallback.
+- A native synthetic POST with an invalid receipt returns the expected code-not-found message without any private story data.
+- A synthetic moderator POST missing csrf_token is rejected with the expired-form alert before any story action. This verifies missing-token rejection, not the complete valid-token moderation lifecycle.
+- A synthetic POST to submit.php is refused with the explicit submissions-not-open JSON message. No intake switch was enabled and no story was created.
+- A temporary private test page made the same-origin JSON status request and displayed status 400, application/json; charset=utf-8, and a body successfully parsed as {ok:false,error:code-not-found message}. No credential was extracted or put into the page.
+- At an observed approximately 391 CSS-pixel viewport, the Gorman paused page has scrollWidth 391, no form, and readable wrapping; the moderator queue also had no horizontal overflow. The private-code page mobile menu opened and closed, and Light Board category filtering preserved the paused-feed notice. These are limited paused-state/mobile-interaction checks, not approval of the complete proposed WordPress/Gorman layouts. Temporary viewport override reset afterward.
+
+Remaining issue: the actual JavaScript private-code form twice showed the generic try-again-later message for that same invalid synthetic receipt, while native POST and the independent same-origin JSON response check worked. Cause is not established; do not claim the full browser status/withdrawal lifecycle passed. No application source was changed speculatively.
+
+Created only a temporary private pr56-http-check.html test page for these requests; moved it to Hostinger Trash (Skip trash unchecked) afterward and confirmed its original file button is absent. The previously deleted cron was not recreated. Invalid-code requests may leave ordinary short-lived abuse-prevention records; they contained no story/contact data.
+
+Still incomplete before release: resolve the JavaScript status-form discrepancy; verify a real synthetic receipt's complete HTTP status/withdrawal and attribution removal; remaining HTTP spam/timing and full moderation/consent lifecycle; proposed WordPress/page-286 layout rendering and complete desktop/mobile regression; retention task execution and hosting access-log/private-backup retention. The 94 hosted CLI checks remain valid service-level evidence. No production page, WordPress content, banking or merchandise was changed. PR remains draft; no merge, publication or story intake activation occurred.
