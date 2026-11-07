@@ -114,3 +114,12 @@ The temporary scheduler entry runs maintenance/pr56-hosted-verification.php. Its
 Prepared Hostinger Password Protect Directories for Directory /phase1 and username stage56, with password empty. Owner must enter the same staging moderator password and click Protect to establish private browser access; do not protect the production root (/). The recovery deny guard remains in force until protected access and apex-host exclusion are verified.
 
 Still NOT verified: HTTP authentication and CSRF enforcement, HTTP spam/timing behavior, complete HTTP status/withdrawal and public-output behavior, interactive mobile/desktop rendering/navigation, daily retention execution and private-data backup retention. CLI service checks do not replace those browser/HTTP gates. Both public intake switches remain false. PR remains draft; no merge, WordPress publication or submission activation.
+
+
+### Private access and temporary schedule cleanup — November 7, 2026
+
+Owner successfully created Hostinger directory protection for /phase1, username stage56. Inspected the generated stage .htaccess: AuthType Basic, AuthName Restricted Access, stage-only AuthUserFile and Require valid-user were present. Preserved Hostinger's marked authentication block, replaced the recovery-wide denial with a rewrite guard restricting requests to phase1.leaveonelighton.org, and denied dotfiles. The apex /phase1 path must still be checked live for rejection; the rule is installed but that response is not yet verified.
+
+Owner explicitly authorized deleting the temporary test schedule. Confirmed Hostinger's irreversible deletion dialog for the single pr56-hosted-verification.php cron only. A fresh Cron Jobs page snapshot shows only the creation form and no existing jobs: deletion confirmed. Protected report files and the CLI-only verifier remain; no production scheduler was removed.
+
+Attempted private stage browser navigation to /light-board/gorman-story.php. Chrome reported net::ERR_INVALID_AUTH_CREDENTIALS. This demonstrates the authentication boundary blocked the automated request, not a passing authenticated application check. Owner must sign in through Chrome's website authentication prompt with stage56 and the password they saved. No credential was extracted or placed in a URL; no authentication bypass was attempted. HTTP/CSRF, responsive interaction, retention scheduling and backup-retention verification remain incomplete. Both intake flags remain OFF. PR #56 rechecked open, draft and unmerged.
