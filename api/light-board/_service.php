@@ -76,6 +76,15 @@ function lb_flags(string $text): array
     return $flags;
 }
 
+function lb_check_spam(array $input): void
+{
+    if (trim(lb_field($input, 'website', 250)) !== '') throw new RuntimeException('Unable to submit this story.');
+    $started = lb_field($input, 'started_at', 20);
+    if (!ctype_digit($started) || (int)$started <= 0 || time() - (int)$started < 2) {
+        throw new RuntimeException('Take a moment to review your story before sending.');
+    }
+}
+
 function lb_event(PDO $pdo, int $id, string $action): void
 {
     $pdo->prepare('INSERT INTO light_story_events (story_id, event_type, created_at) VALUES (?, ?, ?)')
