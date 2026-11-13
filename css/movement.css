@@ -34,3 +34,22 @@ body .investment-hero .investment-lead{color:#fffdf8!important;font-size:1.18rem
 .movement-month h2,.movement-steps h2{max-width:24ch}
 @media(max-width:1000px){.movement-steps .movement-step-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:700px){.movement-steps .movement-step-grid{grid-template-columns:1fr;gap:1rem}.movement-steps .movement-step-grid article{padding:1.25rem}.movement-hero .hero-actions{align-items:stretch;flex-direction:column}.movement-hero .hero-primary,.movement-hero .hero-story-link{width:100%;text-align:center}.movement-hero .hero-story-link{padding:.75rem}.movement-hero .hero-welcome{font-size:1.06rem}.founding-bridge p,.movement-intro p,.movement-steps p,.movement-month p,.community-invite p,.movement-support p{font-size:1.1rem;line-height:1.7}}
+
+/* Home-only visual balance: preserve all content and functionality. */
+.movement-intro .narrow{width:min(100%,700px);margin-inline:auto}
+.movement-intro h2{max-width:18ch;margin-inline:auto;text-wrap:balance}
+.movement-intro p:not(.card-label){max-width:62ch;margin-inline:auto;line-height:1.75}
+.movement-intro .movement-legacy-line{margin-top:1.5rem}
+.movement-intro .movement-anchor{margin-top:1.15rem}
+.movement-steps>.wide{max-width:1080px;margin-inline:auto}
+.movement-steps .movement-step-grid{gap:1.15rem}
+.movement-steps .movement-step-grid article{min-width:0;display:flex;flex-direction:column}
+.movement-steps .movement-step-grid h3{overflow-wrap:break-word}
+.community-invite>.split{max-width:1080px;margin-inline:auto;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:clamp(2rem,5vw,4rem);align-items:center}
+.community-invite .privacy-invite{min-width:0}
+@media(max-width:700px){
+  .movement-intro .narrow{width:100%}
+  .movement-intro p:not(.card-label){max-width:38ch}
+  .movement-steps>.wide{width:100%}
+  .community-invite>.split{grid-template-columns:minmax(0,1fr);gap:1.5rem;align-items:start}
+}
